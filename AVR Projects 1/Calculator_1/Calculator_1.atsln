@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Calculator_1", "Calculator_1\Calculator_1.cproj", "{EEE25D15-EEAA-49C2-8E23-9C94071809B3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EEE25D15-EEAA-49C2-8E23-9C94071809B3}.Debug|AVR.ActiveCfg = Debug|AVR
+		{EEE25D15-EEAA-49C2-8E23-9C94071809B3}.Debug|AVR.Build.0 = Debug|AVR
+		{EEE25D15-EEAA-49C2-8E23-9C94071809B3}.Release|AVR.ActiveCfg = Release|AVR
+		{EEE25D15-EEAA-49C2-8E23-9C94071809B3}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

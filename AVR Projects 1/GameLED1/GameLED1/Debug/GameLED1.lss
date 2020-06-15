@@ -1,0 +1,558 @@
+
+GameLED1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000002ae  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .bss          00000004  00800060  00800060  00000322  2**0
+                  ALLOC
+  2 .stab         000006cc  00000000  00000000  00000324  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  3 .stabstr      00000097  00000000  00000000  000009f0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_aranges 00000020  00000000  00000000  00000a87  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_pubnames 00000080  00000000  00000000  00000aa7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000508  00000000  00000000  00000b27  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 0000016a  00000000  00000000  0000102f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000004c6  00000000  00000000  00001199  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000080  00000000  00000000  00001660  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    00000141  00000000  00000000  000016e0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    0000007c  00000000  00000000  00001821  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_pubtypes 00000038  00000000  00000000  0000189d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	1d c0       	rjmp	.+58     	; 0x3c <__ctors_end>
+   2:	37 c0       	rjmp	.+110    	; 0x72 <__bad_interrupt>
+   4:	36 c0       	rjmp	.+108    	; 0x72 <__bad_interrupt>
+   6:	35 c0       	rjmp	.+106    	; 0x72 <__bad_interrupt>
+   8:	34 c0       	rjmp	.+104    	; 0x72 <__bad_interrupt>
+   a:	33 c0       	rjmp	.+102    	; 0x72 <__bad_interrupt>
+   c:	32 c0       	rjmp	.+100    	; 0x72 <__bad_interrupt>
+   e:	31 c0       	rjmp	.+98     	; 0x72 <__bad_interrupt>
+  10:	30 c0       	rjmp	.+96     	; 0x72 <__bad_interrupt>
+  12:	2f c0       	rjmp	.+94     	; 0x72 <__bad_interrupt>
+  14:	2e c0       	rjmp	.+92     	; 0x72 <__bad_interrupt>
+  16:	2d c0       	rjmp	.+90     	; 0x72 <__bad_interrupt>
+  18:	2c c0       	rjmp	.+88     	; 0x72 <__bad_interrupt>
+  1a:	2b c0       	rjmp	.+86     	; 0x72 <__bad_interrupt>
+  1c:	2a c0       	rjmp	.+84     	; 0x72 <__bad_interrupt>
+  1e:	29 c0       	rjmp	.+82     	; 0x72 <__bad_interrupt>
+  20:	28 c0       	rjmp	.+80     	; 0x72 <__bad_interrupt>
+  22:	27 c0       	rjmp	.+78     	; 0x72 <__bad_interrupt>
+  24:	26 c0       	rjmp	.+76     	; 0x72 <__bad_interrupt>
+  26:	ba c0       	rjmp	.+372    	; 0x19c <DoIt+0x18>
+  28:	be c0       	rjmp	.+380    	; 0x1a6 <DoIt+0x22>
+  2a:	c2 c0       	rjmp	.+388    	; 0x1b0 <DoIt+0x2c>
+  2c:	c6 c0       	rjmp	.+396    	; 0x1ba <DoIt+0x36>
+  2e:	ca c0       	rjmp	.+404    	; 0x1c4 <DoIt+0x40>
+  30:	ce c0       	rjmp	.+412    	; 0x1ce <DoIt+0x4a>
+  32:	d3 c0       	rjmp	.+422    	; 0x1da <DoIt+0x56>
+  34:	e7 c0       	rjmp	.+462    	; 0x204 <DoIt+0x80>
+  36:	e8 c0       	rjmp	.+464    	; 0x208 <DoIt+0x84>
+  38:	e9 c0       	rjmp	.+466    	; 0x20c <DoIt+0x88>
+  3a:	ee c0       	rjmp	.+476    	; 0x218 <DoIt+0x94>
+
+0000003c <__ctors_end>:
+  3c:	11 24       	eor	r1, r1
+  3e:	1f be       	out	0x3f, r1	; 63
+  40:	cf e5       	ldi	r28, 0x5F	; 95
+  42:	d4 e0       	ldi	r29, 0x04	; 4
+  44:	de bf       	out	0x3e, r29	; 62
+  46:	cd bf       	out	0x3d, r28	; 61
+
+00000048 <__do_copy_data>:
+  48:	10 e0       	ldi	r17, 0x00	; 0
+  4a:	a0 e6       	ldi	r26, 0x60	; 96
+  4c:	b0 e0       	ldi	r27, 0x00	; 0
+  4e:	ee ea       	ldi	r30, 0xAE	; 174
+  50:	f2 e0       	ldi	r31, 0x02	; 2
+  52:	02 c0       	rjmp	.+4      	; 0x58 <__do_copy_data+0x10>
+  54:	05 90       	lpm	r0, Z+
+  56:	0d 92       	st	X+, r0
+  58:	a0 36       	cpi	r26, 0x60	; 96
+  5a:	b1 07       	cpc	r27, r17
+  5c:	d9 f7       	brne	.-10     	; 0x54 <__do_copy_data+0xc>
+
+0000005e <__do_clear_bss>:
+  5e:	10 e0       	ldi	r17, 0x00	; 0
+  60:	a0 e6       	ldi	r26, 0x60	; 96
+  62:	b0 e0       	ldi	r27, 0x00	; 0
+  64:	01 c0       	rjmp	.+2      	; 0x68 <.do_clear_bss_start>
+
+00000066 <.do_clear_bss_loop>:
+  66:	1d 92       	st	X+, r1
+
+00000068 <.do_clear_bss_start>:
+  68:	a4 36       	cpi	r26, 0x64	; 100
+  6a:	b1 07       	cpc	r27, r17
+  6c:	e1 f7       	brne	.-8      	; 0x66 <.do_clear_bss_loop>
+  6e:	14 d1       	rcall	.+552    	; 0x298 <main>
+  70:	1c c1       	rjmp	.+568    	; 0x2aa <_exit>
+
+00000072 <__bad_interrupt>:
+  72:	c6 cf       	rjmp	.-116    	; 0x0 <__vectors>
+
+00000074 <turnAllOn>:
+int counter = 0;
+
+void turnAllOn()
+{
+	
+}
+  74:	08 95       	ret
+
+00000076 <turnAllOff>:
+
+void turnAllOff()
+{
+	
+}
+  76:	08 95       	ret
+
+00000078 <blinkAll>:
+
+void blinkAll()
+{
+	//PORTC ^= 0xff;
+	PORTC |= 1 << PINC0;
+  78:	a8 9a       	sbi	0x15, 0	; 21
+	PORTC |= 1 << PINC1;
+  7a:	a9 9a       	sbi	0x15, 1	; 21
+	PORTC |= 1 << PINC2;
+  7c:	aa 9a       	sbi	0x15, 2	; 21
+	PORTC |= 1 << PINC3;
+  7e:	ab 9a       	sbi	0x15, 3	; 21
+	PORTC |= 1 << PINC4;
+  80:	ac 9a       	sbi	0x15, 4	; 21
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  82:	8f e4       	ldi	r24, 0x4F	; 79
+  84:	93 ec       	ldi	r25, 0xC3	; 195
+  86:	01 97       	sbiw	r24, 0x01	; 1
+  88:	f1 f7       	brne	.-4      	; 0x86 <blinkAll+0xe>
+  8a:	00 c0       	rjmp	.+0      	; 0x8c <blinkAll+0x14>
+  8c:	00 00       	nop
+	_delay_ms(200);
+	//PORTC ^= 0xff;
+	PORTC ^= 1 << PINC0;
+  8e:	95 b3       	in	r25, 0x15	; 21
+  90:	81 e0       	ldi	r24, 0x01	; 1
+  92:	89 27       	eor	r24, r25
+  94:	85 bb       	out	0x15, r24	; 21
+	PORTC ^= 1 << PINC1;
+  96:	95 b3       	in	r25, 0x15	; 21
+  98:	82 e0       	ldi	r24, 0x02	; 2
+  9a:	89 27       	eor	r24, r25
+  9c:	85 bb       	out	0x15, r24	; 21
+	PORTC ^= 1 << PINC2;
+  9e:	95 b3       	in	r25, 0x15	; 21
+  a0:	84 e0       	ldi	r24, 0x04	; 4
+  a2:	89 27       	eor	r24, r25
+  a4:	85 bb       	out	0x15, r24	; 21
+	PORTC ^= 1 << PINC3;
+  a6:	95 b3       	in	r25, 0x15	; 21
+  a8:	88 e0       	ldi	r24, 0x08	; 8
+  aa:	89 27       	eor	r24, r25
+  ac:	85 bb       	out	0x15, r24	; 21
+	PORTC ^= 1 << PINC4;
+  ae:	95 b3       	in	r25, 0x15	; 21
+  b0:	80 e1       	ldi	r24, 0x10	; 16
+  b2:	89 27       	eor	r24, r25
+  b4:	85 bb       	out	0x15, r24	; 21
+  b6:	8f e4       	ldi	r24, 0x4F	; 79
+  b8:	93 ec       	ldi	r25, 0xC3	; 195
+  ba:	01 97       	sbiw	r24, 0x01	; 1
+  bc:	f1 f7       	brne	.-4      	; 0xba <blinkAll+0x42>
+  be:	00 c0       	rjmp	.+0      	; 0xc0 <blinkAll+0x48>
+  c0:	00 00       	nop
+	_delay_ms(200);
+}
+  c2:	08 95       	ret
+
+000000c4 <train1>:
+
+void train1()
+{
+	//PORTC |= 0xff;
+	//_delay_ms(200);
+	PORTC ^= 1 << PINC0;
+  c4:	85 b3       	in	r24, 0x15	; 21
+  c6:	41 e0       	ldi	r20, 0x01	; 1
+  c8:	84 27       	eor	r24, r20
+  ca:	85 bb       	out	0x15, r24	; 21
+  cc:	8f e4       	ldi	r24, 0x4F	; 79
+  ce:	93 ec       	ldi	r25, 0xC3	; 195
+  d0:	01 97       	sbiw	r24, 0x01	; 1
+  d2:	f1 f7       	brne	.-4      	; 0xd0 <train1+0xc>
+  d4:	00 c0       	rjmp	.+0      	; 0xd6 <train1+0x12>
+  d6:	00 00       	nop
+	_delay_ms(200);
+	PORTC ^= 1 << PINC1;
+  d8:	85 b3       	in	r24, 0x15	; 21
+  da:	32 e0       	ldi	r19, 0x02	; 2
+  dc:	83 27       	eor	r24, r19
+  de:	85 bb       	out	0x15, r24	; 21
+  e0:	ef e4       	ldi	r30, 0x4F	; 79
+  e2:	f3 ec       	ldi	r31, 0xC3	; 195
+  e4:	31 97       	sbiw	r30, 0x01	; 1
+  e6:	f1 f7       	brne	.-4      	; 0xe4 <train1+0x20>
+  e8:	00 c0       	rjmp	.+0      	; 0xea <train1+0x26>
+  ea:	00 00       	nop
+	_delay_ms(200);
+	PORTC ^= 1 << PINC2;
+  ec:	85 b3       	in	r24, 0x15	; 21
+  ee:	24 e0       	ldi	r18, 0x04	; 4
+  f0:	82 27       	eor	r24, r18
+  f2:	85 bb       	out	0x15, r24	; 21
+  f4:	8f e4       	ldi	r24, 0x4F	; 79
+  f6:	93 ec       	ldi	r25, 0xC3	; 195
+  f8:	01 97       	sbiw	r24, 0x01	; 1
+  fa:	f1 f7       	brne	.-4      	; 0xf8 <train1+0x34>
+  fc:	00 c0       	rjmp	.+0      	; 0xfe <train1+0x3a>
+  fe:	00 00       	nop
+	_delay_ms(200);
+	PORTC ^= 1 << PINC3;
+ 100:	85 b3       	in	r24, 0x15	; 21
+ 102:	98 e0       	ldi	r25, 0x08	; 8
+ 104:	89 27       	eor	r24, r25
+ 106:	85 bb       	out	0x15, r24	; 21
+ 108:	ef e4       	ldi	r30, 0x4F	; 79
+ 10a:	f3 ec       	ldi	r31, 0xC3	; 195
+ 10c:	31 97       	sbiw	r30, 0x01	; 1
+ 10e:	f1 f7       	brne	.-4      	; 0x10c <train1+0x48>
+ 110:	00 c0       	rjmp	.+0      	; 0x112 <train1+0x4e>
+ 112:	00 00       	nop
+	_delay_ms(200);
+	PORTC ^= 1 << PINC4;
+ 114:	55 b3       	in	r21, 0x15	; 21
+ 116:	80 e1       	ldi	r24, 0x10	; 16
+ 118:	58 27       	eor	r21, r24
+ 11a:	55 bb       	out	0x15, r21	; 21
+ 11c:	ef e4       	ldi	r30, 0x4F	; 79
+ 11e:	f3 ec       	ldi	r31, 0xC3	; 195
+ 120:	31 97       	sbiw	r30, 0x01	; 1
+ 122:	f1 f7       	brne	.-4      	; 0x120 <train1+0x5c>
+ 124:	00 c0       	rjmp	.+0      	; 0x126 <train1+0x62>
+ 126:	00 00       	nop
+	_delay_ms(200);
+	
+	
+	PORTC ^= 1 << PINC0;
+ 128:	55 b3       	in	r21, 0x15	; 21
+ 12a:	45 27       	eor	r20, r21
+ 12c:	45 bb       	out	0x15, r20	; 21
+ 12e:	ef e4       	ldi	r30, 0x4F	; 79
+ 130:	f3 ec       	ldi	r31, 0xC3	; 195
+ 132:	31 97       	sbiw	r30, 0x01	; 1
+ 134:	f1 f7       	brne	.-4      	; 0x132 <train1+0x6e>
+ 136:	00 c0       	rjmp	.+0      	; 0x138 <train1+0x74>
+ 138:	00 00       	nop
+	_delay_ms(200);
+	PORTC ^= 1 << PINC1;
+ 13a:	45 b3       	in	r20, 0x15	; 21
+ 13c:	34 27       	eor	r19, r20
+ 13e:	35 bb       	out	0x15, r19	; 21
+ 140:	ef e4       	ldi	r30, 0x4F	; 79
+ 142:	f3 ec       	ldi	r31, 0xC3	; 195
+ 144:	31 97       	sbiw	r30, 0x01	; 1
+ 146:	f1 f7       	brne	.-4      	; 0x144 <train1+0x80>
+ 148:	00 c0       	rjmp	.+0      	; 0x14a <train1+0x86>
+ 14a:	00 00       	nop
+	_delay_ms(200);
+	PORTC ^= 1 << PINC2;
+ 14c:	35 b3       	in	r19, 0x15	; 21
+ 14e:	23 27       	eor	r18, r19
+ 150:	25 bb       	out	0x15, r18	; 21
+ 152:	ef e4       	ldi	r30, 0x4F	; 79
+ 154:	f3 ec       	ldi	r31, 0xC3	; 195
+ 156:	31 97       	sbiw	r30, 0x01	; 1
+ 158:	f1 f7       	brne	.-4      	; 0x156 <train1+0x92>
+ 15a:	00 c0       	rjmp	.+0      	; 0x15c <train1+0x98>
+ 15c:	00 00       	nop
+	_delay_ms(200);
+	PORTC ^= 1 << PINC3;
+ 15e:	25 b3       	in	r18, 0x15	; 21
+ 160:	92 27       	eor	r25, r18
+ 162:	95 bb       	out	0x15, r25	; 21
+ 164:	ef e4       	ldi	r30, 0x4F	; 79
+ 166:	f3 ec       	ldi	r31, 0xC3	; 195
+ 168:	31 97       	sbiw	r30, 0x01	; 1
+ 16a:	f1 f7       	brne	.-4      	; 0x168 <train1+0xa4>
+ 16c:	00 c0       	rjmp	.+0      	; 0x16e <train1+0xaa>
+ 16e:	00 00       	nop
+	_delay_ms(200);
+	PORTC ^= 1 << PINC4;
+ 170:	95 b3       	in	r25, 0x15	; 21
+ 172:	89 27       	eor	r24, r25
+ 174:	85 bb       	out	0x15, r24	; 21
+ 176:	8f e4       	ldi	r24, 0x4F	; 79
+ 178:	93 ec       	ldi	r25, 0xC3	; 195
+ 17a:	01 97       	sbiw	r24, 0x01	; 1
+ 17c:	f1 f7       	brne	.-4      	; 0x17a <train1+0xb6>
+ 17e:	00 c0       	rjmp	.+0      	; 0x180 <train1+0xbc>
+ 180:	00 00       	nop
+	_delay_ms(200);
+}
+ 182:	08 95       	ret
+
+00000184 <DoIt>:
+
+void DoIt()
+{
+	switch(counter)
+ 184:	e0 91 62 00 	lds	r30, 0x0062
+ 188:	f0 91 63 00 	lds	r31, 0x0063
+ 18c:	31 97       	sbiw	r30, 0x01	; 1
+ 18e:	eb 30       	cpi	r30, 0x0B	; 11
+ 190:	f1 05       	cpc	r31, r1
+ 192:	08 f0       	brcs	.+2      	; 0x196 <DoIt+0x12>
+ 194:	46 c0       	rjmp	.+140    	; 0x222 <DoIt+0x9e>
+ 196:	ed 5e       	subi	r30, 0xED	; 237
+ 198:	ff 4f       	sbci	r31, 0xFF	; 255
+ 19a:	09 94       	ijmp
+	{
+		case 1:
+			PORTC ^= 1 << PINC0;
+ 19c:	95 b3       	in	r25, 0x15	; 21
+ 19e:	81 e0       	ldi	r24, 0x01	; 1
+ 1a0:	89 27       	eor	r24, r25
+ 1a2:	85 bb       	out	0x15, r24	; 21
+			break;
+ 1a4:	3e c0       	rjmp	.+124    	; 0x222 <DoIt+0x9e>
+		case 2:
+			PORTC ^= 1 << PINC1;
+ 1a6:	95 b3       	in	r25, 0x15	; 21
+ 1a8:	82 e0       	ldi	r24, 0x02	; 2
+ 1aa:	89 27       	eor	r24, r25
+ 1ac:	85 bb       	out	0x15, r24	; 21
+			break;
+ 1ae:	39 c0       	rjmp	.+114    	; 0x222 <DoIt+0x9e>
+		case 3:
+			PORTC ^= 1 << PINC2;
+ 1b0:	95 b3       	in	r25, 0x15	; 21
+ 1b2:	84 e0       	ldi	r24, 0x04	; 4
+ 1b4:	89 27       	eor	r24, r25
+ 1b6:	85 bb       	out	0x15, r24	; 21
+			break;
+ 1b8:	34 c0       	rjmp	.+104    	; 0x222 <DoIt+0x9e>
+		case 4:
+			PORTC ^= 1 << PINC3;
+ 1ba:	95 b3       	in	r25, 0x15	; 21
+ 1bc:	88 e0       	ldi	r24, 0x08	; 8
+ 1be:	89 27       	eor	r24, r25
+ 1c0:	85 bb       	out	0x15, r24	; 21
+			break;
+ 1c2:	2f c0       	rjmp	.+94     	; 0x222 <DoIt+0x9e>
+		case 5:
+			PORTC ^= 1 << PINC4;	
+ 1c4:	95 b3       	in	r25, 0x15	; 21
+ 1c6:	80 e1       	ldi	r24, 0x10	; 16
+ 1c8:	89 27       	eor	r24, r25
+ 1ca:	85 bb       	out	0x15, r24	; 21
+			break;	
+ 1cc:	2a c0       	rjmp	.+84     	; 0x222 <DoIt+0x9e>
+		case 6:
+			//PORTC |= 0xff; Don't Do This Because Reset is in PORTC
+			PORTC |= 1 << PINC0;
+ 1ce:	a8 9a       	sbi	0x15, 0	; 21
+			PORTC |= 1 << PINC1;
+ 1d0:	a9 9a       	sbi	0x15, 1	; 21
+			PORTC |= 1 << PINC2;
+ 1d2:	aa 9a       	sbi	0x15, 2	; 21
+			PORTC |= 1 << PINC3;
+ 1d4:	ab 9a       	sbi	0x15, 3	; 21
+			PORTC |= 1 << PINC4;
+ 1d6:	ac 9a       	sbi	0x15, 4	; 21
+			break;
+ 1d8:	24 c0       	rjmp	.+72     	; 0x222 <DoIt+0x9e>
+		case 7:
+			//PORTC ^= 0xff;
+			PORTC ^= 1 << PINC0;
+ 1da:	95 b3       	in	r25, 0x15	; 21
+ 1dc:	81 e0       	ldi	r24, 0x01	; 1
+ 1de:	89 27       	eor	r24, r25
+ 1e0:	85 bb       	out	0x15, r24	; 21
+			PORTC ^= 1 << PINC1;
+ 1e2:	95 b3       	in	r25, 0x15	; 21
+ 1e4:	82 e0       	ldi	r24, 0x02	; 2
+ 1e6:	89 27       	eor	r24, r25
+ 1e8:	85 bb       	out	0x15, r24	; 21
+			PORTC ^= 1 << PINC2;
+ 1ea:	95 b3       	in	r25, 0x15	; 21
+ 1ec:	84 e0       	ldi	r24, 0x04	; 4
+ 1ee:	89 27       	eor	r24, r25
+ 1f0:	85 bb       	out	0x15, r24	; 21
+			PORTC ^= 1 << PINC3;
+ 1f2:	95 b3       	in	r25, 0x15	; 21
+ 1f4:	88 e0       	ldi	r24, 0x08	; 8
+ 1f6:	89 27       	eor	r24, r25
+ 1f8:	85 bb       	out	0x15, r24	; 21
+			PORTC ^= 1 << PINC4;
+ 1fa:	95 b3       	in	r25, 0x15	; 21
+ 1fc:	80 e1       	ldi	r24, 0x10	; 16
+ 1fe:	89 27       	eor	r24, r25
+ 200:	85 bb       	out	0x15, r24	; 21
+			break;
+ 202:	0f c0       	rjmp	.+30     	; 0x222 <DoIt+0x9e>
+		case 8:
+			blinkAll();
+ 204:	39 df       	rcall	.-398    	; 0x78 <blinkAll>
+			break;
+ 206:	0d c0       	rjmp	.+26     	; 0x222 <DoIt+0x9e>
+		case 9:
+			train1();
+ 208:	5d df       	rcall	.-326    	; 0xc4 <train1>
+			break;
+ 20a:	0b c0       	rjmp	.+22     	; 0x222 <DoIt+0x9e>
+		case 10:
+			for(int i=0;i<5;i++)
+			{
+				blinkAll();
+ 20c:	35 df       	rcall	.-406    	; 0x78 <blinkAll>
+ 20e:	34 df       	rcall	.-408    	; 0x78 <blinkAll>
+ 210:	33 df       	rcall	.-410    	; 0x78 <blinkAll>
+ 212:	32 df       	rcall	.-412    	; 0x78 <blinkAll>
+ 214:	31 df       	rcall	.-414    	; 0x78 <blinkAll>
+ 216:	05 c0       	rjmp	.+10     	; 0x222 <DoIt+0x9e>
+			}
+			break;
+		case 11:
+			for(int i=0;i<5;i++)
+			{
+				train1();
+ 218:	55 df       	rcall	.-342    	; 0xc4 <train1>
+ 21a:	54 df       	rcall	.-344    	; 0xc4 <train1>
+ 21c:	53 df       	rcall	.-346    	; 0xc4 <train1>
+ 21e:	52 df       	rcall	.-348    	; 0xc4 <train1>
+ 220:	51 df       	rcall	.-350    	; 0xc4 <train1>
+			}
+			break;
+	}
+
+	if ( counter >= 11 ) 
+ 222:	80 91 62 00 	lds	r24, 0x0062
+ 226:	90 91 63 00 	lds	r25, 0x0063
+ 22a:	8b 30       	cpi	r24, 0x0B	; 11
+ 22c:	91 05       	cpc	r25, r1
+ 22e:	24 f0       	brlt	.+8      	; 0x238 <DoIt+0xb4>
+	{
+		counter = 0;
+ 230:	10 92 63 00 	sts	0x0063, r1
+ 234:	10 92 62 00 	sts	0x0062, r1
+ 238:	08 95       	ret
+
+0000023a <ScanButton>:
+}
+
+void ScanButton()
+{
+	
+	if(bit_is_clear(PINC, 5))
+ 23a:	9d 99       	sbic	0x13, 5	; 19
+ 23c:	14 c0       	rjmp	.+40     	; 0x266 <ScanButton+0x2c>
+	{
+		if(pressed >= 1000)
+ 23e:	80 91 60 00 	lds	r24, 0x0060
+ 242:	90 91 61 00 	lds	r25, 0x0061
+ 246:	23 e0       	ldi	r18, 0x03	; 3
+ 248:	88 3e       	cpi	r24, 0xE8	; 232
+ 24a:	92 07       	cpc	r25, r18
+ 24c:	3c f0       	brlt	.+14     	; 0x25c <ScanButton+0x22>
+		{
+			pressed = 500;
+ 24e:	84 ef       	ldi	r24, 0xF4	; 244
+ 250:	91 e0       	ldi	r25, 0x01	; 1
+ 252:	90 93 61 00 	sts	0x0061, r25
+ 256:	80 93 60 00 	sts	0x0060, r24
+ 25a:	0d c0       	rjmp	.+26     	; 0x276 <ScanButton+0x3c>
+		}
+		else
+		{
+			pressed++;
+ 25c:	01 96       	adiw	r24, 0x01	; 1
+ 25e:	90 93 61 00 	sts	0x0061, r25
+ 262:	80 93 60 00 	sts	0x0060, r24
+		}							
+	}	
+		
+	if(pressed >= 400)
+ 266:	80 91 60 00 	lds	r24, 0x0060
+ 26a:	90 91 61 00 	lds	r25, 0x0061
+ 26e:	21 e0       	ldi	r18, 0x01	; 1
+ 270:	80 39       	cpi	r24, 0x90	; 144
+ 272:	92 07       	cpc	r25, r18
+ 274:	84 f0       	brlt	.+32     	; 0x296 <ScanButton+0x5c>
+	{
+		if(bit_is_clear(PINC,5))
+ 276:	9d 9b       	sbis	0x13, 5	; 19
+ 278:	0e c0       	rjmp	.+28     	; 0x296 <ScanButton+0x5c>
+			//Do Nothing
+		}
+		else
+		{
+			//PORTB ^= 1 << PINB0;
+			counter++;
+ 27a:	80 91 62 00 	lds	r24, 0x0062
+ 27e:	90 91 63 00 	lds	r25, 0x0063
+ 282:	01 96       	adiw	r24, 0x01	; 1
+ 284:	90 93 63 00 	sts	0x0063, r25
+ 288:	80 93 62 00 	sts	0x0062, r24
+			DoIt();
+ 28c:	7b df       	rcall	.-266    	; 0x184 <DoIt>
+			pressed = 0;					
+ 28e:	10 92 61 00 	sts	0x0061, r1
+ 292:	10 92 60 00 	sts	0x0060, r1
+ 296:	08 95       	ret
+
+00000298 <main>:
+	}
+}
+
+int main(void)
+{
+	DDRC |= 1 << PINC0;
+ 298:	a0 9a       	sbi	0x14, 0	; 20
+	DDRC |= 1 << PINC1;
+ 29a:	a1 9a       	sbi	0x14, 1	; 20
+	DDRC |= 1 << PINC2;
+ 29c:	a2 9a       	sbi	0x14, 2	; 20
+	DDRC |= 1 << PINC3;
+ 29e:	a3 9a       	sbi	0x14, 3	; 20
+	DDRC |= 1 << PINC4;
+ 2a0:	a4 9a       	sbi	0x14, 4	; 20
+	
+	
+	DDRC &= ~(1 << PINC5);
+ 2a2:	a5 98       	cbi	0x14, 5	; 20
+	
+	PORTC |= 1 << PINC5;
+ 2a4:	ad 9a       	sbi	0x15, 5	; 21
+	
+    while(1)
+    {
+        //TODO:: Please write your application code 
+		ScanButton();
+ 2a6:	c9 df       	rcall	.-110    	; 0x23a <ScanButton>
+ 2a8:	fe cf       	rjmp	.-4      	; 0x2a6 <main+0xe>
+
+000002aa <_exit>:
+ 2aa:	f8 94       	cli
+
+000002ac <__stop_program>:
+ 2ac:	ff cf       	rjmp	.-2      	; 0x2ac <__stop_program>

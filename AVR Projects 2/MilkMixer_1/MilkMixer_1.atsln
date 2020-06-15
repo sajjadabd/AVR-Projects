@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "MilkMixer_1", "MilkMixer_1\MilkMixer_1.cproj", "{65EB9063-C831-47A7-B354-D5BC0BB0D97F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{65EB9063-C831-47A7-B354-D5BC0BB0D97F}.Debug|AVR.ActiveCfg = Debug|AVR
+		{65EB9063-C831-47A7-B354-D5BC0BB0D97F}.Debug|AVR.Build.0 = Debug|AVR
+		{65EB9063-C831-47A7-B354-D5BC0BB0D97F}.Release|AVR.ActiveCfg = Release|AVR
+		{65EB9063-C831-47A7-B354-D5BC0BB0D97F}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

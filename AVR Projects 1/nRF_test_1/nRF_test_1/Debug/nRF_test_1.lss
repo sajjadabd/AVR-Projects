@@ -1,0 +1,543 @@
+
+nRF_test_1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000024a  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .bss          00000001  00800060  00800060  000002be  2**0
+                  ALLOC
+  2 .stab         000006cc  00000000  00000000  000002c0  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  3 .stabstr      00000097  00000000  00000000  0000098c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_aranges 00000060  00000000  00000000  00000a23  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_pubnames 0000015d  00000000  00000000  00000a83  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   0000044d  00000000  00000000  00000be0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000001f7  00000000  00000000  0000102d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   0000055f  00000000  00000000  00001224  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000130  00000000  00000000  00001784  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000001a6  00000000  00000000  000018b4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000241  00000000  00000000  00001a5a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_pubtypes 0000004e  00000000  00000000  00001c9b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   8:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  10:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  14:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  18:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  1c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  20:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  24:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  28:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  2c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  30:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  34:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  38:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  3c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  40:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  44:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  48:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  4c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  50:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_clear_bss>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	01 c0       	rjmp	.+2      	; 0x6a <.do_clear_bss_start>
+
+00000068 <.do_clear_bss_loop>:
+  68:	1d 92       	st	X+, r1
+
+0000006a <.do_clear_bss_start>:
+  6a:	a1 36       	cpi	r26, 0x61	; 97
+  6c:	b1 07       	cpc	r27, r17
+  6e:	e1 f7       	brne	.-8      	; 0x68 <.do_clear_bss_loop>
+  70:	0e 94 f2 00 	call	0x1e4	; 0x1e4 <main>
+  74:	0c 94 23 01 	jmp	0x246	; 0x246 <_exit>
+
+00000078 <__bad_interrupt>:
+  78:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000007c <mirf_init>:
+void mirf_init() 
+// Initializes pins ans interrupt to communicate with the MiRF module
+// Should be called in the early initializing phase at startup.
+{
+    // Define CSN and CE as Output and set them to default
+    DDRB |= ((1<<CSN)|(1<<CE));
+  7c:	87 b3       	in	r24, 0x17	; 23
+  7e:	83 60       	ori	r24, 0x03	; 3
+  80:	87 bb       	out	0x17, r24	; 23
+    mirf_CE_lo;
+  82:	c0 98       	cbi	0x18, 0	; 24
+    mirf_CSN_hi;
+  84:	c1 9a       	sbi	0x18, 1	; 24
+    PCMSK2 = (1<<PCINT22);
+    PCICR  = (1<<PCIE2);
+#endif // __AVR_ATmega168__    
+
+    // Initialize spi module
+    SPI_Init();
+  86:	0e 94 f3 00 	call	0x1e6	; 0x1e6 <SPI_Init>
+}
+  8a:	08 95       	ret
+
+0000008c <mirf_data_ready>:
+}
+
+extern uint8_t mirf_data_ready() 
+// Checks if data is available for reading
+{
+    if (PTX) return 0;
+  8c:	80 91 60 00 	lds	r24, 0x0060
+  90:	88 23       	and	r24, r24
+  92:	39 f4       	brne	.+14     	; 0xa2 <mirf_data_ready+0x16>
+    uint8_t status;
+    // Read MiRF status 
+    mirf_CSN_lo;                                // Pull down chip select
+  94:	c1 98       	cbi	0x18, 1	; 24
+    status = SPI_Write_Byte(NOP);               // Read status register
+  96:	8f ef       	ldi	r24, 0xFF	; 255
+  98:	0e 94 1e 01 	call	0x23c	; 0x23c <SPI_Write_Byte>
+    mirf_CSN_hi;                                // Pull up chip select
+  9c:	c1 9a       	sbi	0x18, 1	; 24
+    return status & (1<<RX_DR);
+  9e:	80 74       	andi	r24, 0x40	; 64
+  a0:	08 95       	ret
+}
+
+extern uint8_t mirf_data_ready() 
+// Checks if data is available for reading
+{
+    if (PTX) return 0;
+  a2:	80 e0       	ldi	r24, 0x00	; 0
+    // Read MiRF status 
+    mirf_CSN_lo;                                // Pull down chip select
+    status = SPI_Write_Byte(NOP);               // Read status register
+    mirf_CSN_hi;                                // Pull up chip select
+    return status & (1<<RX_DR);
+}
+  a4:	08 95       	ret
+
+000000a6 <mirf_config_register>:
+    mirf_config_register(STATUS,(1<<RX_DR));   // Reset status register
+}
+
+void mirf_config_register(uint8_t reg, uint8_t value)
+// Clocks only one byte into the given MiRF register
+{
+  a6:	1f 93       	push	r17
+  a8:	16 2f       	mov	r17, r22
+    mirf_CSN_lo;
+  aa:	c1 98       	cbi	0x18, 1	; 24
+    SPI_Write_Byte(W_REGISTER | (REGISTER_MASK & reg));
+  ac:	8f 71       	andi	r24, 0x1F	; 31
+  ae:	80 62       	ori	r24, 0x20	; 32
+  b0:	0e 94 1e 01 	call	0x23c	; 0x23c <SPI_Write_Byte>
+    SPI_Write_Byte(value);
+  b4:	81 2f       	mov	r24, r17
+  b6:	0e 94 1e 01 	call	0x23c	; 0x23c <SPI_Write_Byte>
+    mirf_CSN_hi;
+  ba:	c1 9a       	sbi	0x18, 1	; 24
+}
+  bc:	1f 91       	pop	r17
+  be:	08 95       	ret
+
+000000c0 <mirf_get_data>:
+    return status & (1<<RX_DR);
+}
+
+extern void mirf_get_data(uint8_t * data) 
+// Reads mirf_PAYLOAD bytes into data array
+{
+  c0:	cf 93       	push	r28
+  c2:	df 93       	push	r29
+  c4:	ec 01       	movw	r28, r24
+    mirf_CSN_lo;                               // Pull down chip select
+  c6:	c1 98       	cbi	0x18, 1	; 24
+    SPI_Write_Byte( R_RX_PAYLOAD );            // Send cmd to read rx payload
+  c8:	81 e6       	ldi	r24, 0x61	; 97
+  ca:	0e 94 1e 01 	call	0x23c	; 0x23c <SPI_Write_Byte>
+    SPI_ReadWrite_Block(data,data,mirf_PAYLOAD); // Read payload
+  ce:	ce 01       	movw	r24, r28
+  d0:	be 01       	movw	r22, r28
+  d2:	40 e1       	ldi	r20, 0x10	; 16
+  d4:	0e 94 00 01 	call	0x200	; 0x200 <SPI_ReadWrite_Block>
+    mirf_CSN_hi;                               // Pull up chip select
+  d8:	c1 9a       	sbi	0x18, 1	; 24
+    mirf_config_register(STATUS,(1<<RX_DR));   // Reset status register
+  da:	87 e0       	ldi	r24, 0x07	; 7
+  dc:	60 e4       	ldi	r22, 0x40	; 64
+  de:	0e 94 53 00 	call	0xa6	; 0xa6 <mirf_config_register>
+}
+  e2:	df 91       	pop	r29
+  e4:	cf 91       	pop	r28
+  e6:	08 95       	ret
+
+000000e8 <inter>:
+
+void inter()// Interrupt handler 
+{
+    uint8_t status;   
+    // If still in transmitting mode then finish transmission
+    if (PTX) {
+  e8:	80 91 60 00 	lds	r24, 0x0060
+  ec:	88 23       	and	r24, r24
+  ee:	89 f0       	breq	.+34     	; 0x112 <inter+0x2a>
+    
+        // Read MiRF status 
+        mirf_CSN_lo;                                // Pull down chip select
+  f0:	c1 98       	cbi	0x18, 1	; 24
+        status = SPI_Write_Byte(NOP);               // Read status register
+  f2:	8f ef       	ldi	r24, 0xFF	; 255
+  f4:	0e 94 1e 01 	call	0x23c	; 0x23c <SPI_Write_Byte>
+        mirf_CSN_hi;                                // Pull up chip select
+  f8:	c1 9a       	sbi	0x18, 1	; 24
+
+        mirf_CE_lo;                             // Deactivate transreceiver
+  fa:	c0 98       	cbi	0x18, 0	; 24
+        RX_POWERUP;                             // Power up in receiving mode
+  fc:	80 e0       	ldi	r24, 0x00	; 0
+  fe:	6b e4       	ldi	r22, 0x4B	; 75
+ 100:	0e 94 53 00 	call	0xa6	; 0xa6 <mirf_config_register>
+        mirf_CE_hi;                             // Listening for pakets
+ 104:	c0 9a       	sbi	0x18, 0	; 24
+        PTX = 0;                                // Set to receiving mode
+ 106:	10 92 60 00 	sts	0x0060, r1
+
+        // Reset status register for further interaction
+        mirf_config_register(STATUS,(1<<TX_DS)|(1<<MAX_RT)); // Reset status register
+ 10a:	87 e0       	ldi	r24, 0x07	; 7
+ 10c:	60 e3       	ldi	r22, 0x30	; 48
+ 10e:	0e 94 53 00 	call	0xa6	; 0xa6 <mirf_config_register>
+ 112:	08 95       	ret
+
+00000114 <mirf_config>:
+void mirf_config() 
+// Sets the important registers in the MiRF module and powers the module
+// in receiving mode
+{
+    // Set RF channel
+    mirf_config_register(RF_CH,mirf_CH);
+ 114:	85 e0       	ldi	r24, 0x05	; 5
+ 116:	62 e0       	ldi	r22, 0x02	; 2
+ 118:	0e 94 53 00 	call	0xa6	; 0xa6 <mirf_config_register>
+
+    // Set length of incoming payload 
+    mirf_config_register(RX_PW_P0, mirf_PAYLOAD);
+ 11c:	81 e1       	ldi	r24, 0x11	; 17
+ 11e:	60 e1       	ldi	r22, 0x10	; 16
+ 120:	0e 94 53 00 	call	0xa6	; 0xa6 <mirf_config_register>
+
+    // Start receiver 
+    PTX = 0;        // Start in receiving mode
+ 124:	10 92 60 00 	sts	0x0060, r1
+    RX_POWERUP;     // Power up in receiving mode
+ 128:	80 e0       	ldi	r24, 0x00	; 0
+ 12a:	6b e4       	ldi	r22, 0x4B	; 75
+ 12c:	0e 94 53 00 	call	0xa6	; 0xa6 <mirf_config_register>
+    mirf_CE_hi;     // Listening for pakets
+ 130:	c0 9a       	sbi	0x18, 0	; 24
+}
+ 132:	08 95       	ret
+
+00000134 <mirf_read_register>:
+    mirf_CSN_hi;
+}
+
+void mirf_read_register(uint8_t reg, uint8_t * value, uint8_t len)
+// Reads an array of bytes from the given start position in the MiRF registers.
+{
+ 134:	1f 93       	push	r17
+ 136:	cf 93       	push	r28
+ 138:	df 93       	push	r29
+ 13a:	eb 01       	movw	r28, r22
+ 13c:	14 2f       	mov	r17, r20
+    mirf_CSN_lo;
+ 13e:	c1 98       	cbi	0x18, 1	; 24
+    SPI_Write_Byte(R_REGISTER | (REGISTER_MASK & reg));
+ 140:	8f 71       	andi	r24, 0x1F	; 31
+ 142:	0e 94 1e 01 	call	0x23c	; 0x23c <SPI_Write_Byte>
+    SPI_ReadWrite_Block(value,value,len);
+ 146:	ce 01       	movw	r24, r28
+ 148:	be 01       	movw	r22, r28
+ 14a:	41 2f       	mov	r20, r17
+ 14c:	0e 94 00 01 	call	0x200	; 0x200 <SPI_ReadWrite_Block>
+    mirf_CSN_hi;
+ 150:	c1 9a       	sbi	0x18, 1	; 24
+}
+ 152:	df 91       	pop	r29
+ 154:	cf 91       	pop	r28
+ 156:	1f 91       	pop	r17
+ 158:	08 95       	ret
+
+0000015a <mirf_write_register>:
+
+void mirf_write_register(uint8_t reg, uint8_t * value, uint8_t len) 
+// Writes an array of bytes into inte the MiRF registers.
+{
+ 15a:	1f 93       	push	r17
+ 15c:	cf 93       	push	r28
+ 15e:	df 93       	push	r29
+ 160:	eb 01       	movw	r28, r22
+ 162:	14 2f       	mov	r17, r20
+    mirf_CSN_lo;
+ 164:	c1 98       	cbi	0x18, 1	; 24
+    SPI_Write_Byte(W_REGISTER | (REGISTER_MASK & reg));
+ 166:	8f 71       	andi	r24, 0x1F	; 31
+ 168:	80 62       	ori	r24, 0x20	; 32
+ 16a:	0e 94 1e 01 	call	0x23c	; 0x23c <SPI_Write_Byte>
+    SPI_Write_Block(value,len);
+ 16e:	ce 01       	movw	r24, r28
+ 170:	61 2f       	mov	r22, r17
+ 172:	0e 94 11 01 	call	0x222	; 0x222 <SPI_Write_Block>
+    mirf_CSN_hi;
+ 176:	c1 9a       	sbi	0x18, 1	; 24
+}
+ 178:	df 91       	pop	r29
+ 17a:	cf 91       	pop	r28
+ 17c:	1f 91       	pop	r17
+ 17e:	08 95       	ret
+
+00000180 <mirf_set_TADDR>:
+    mirf_CE_hi;
+}
+
+void mirf_set_TADDR(uint8_t * adr)
+// Sets the transmitting address
+{
+ 180:	bc 01       	movw	r22, r24
+    mirf_write_register(TX_ADDR, adr,5);
+ 182:	80 e1       	ldi	r24, 0x10	; 16
+ 184:	45 e0       	ldi	r20, 0x05	; 5
+ 186:	0e 94 ad 00 	call	0x15a	; 0x15a <mirf_write_register>
+}
+ 18a:	08 95       	ret
+
+0000018c <mirf_set_RADDR>:
+    mirf_CE_hi;     // Listening for pakets
+}
+
+void mirf_set_RADDR(uint8_t * adr) 
+// Sets the receiving address
+{
+ 18c:	bc 01       	movw	r22, r24
+    mirf_CE_lo;
+ 18e:	c0 98       	cbi	0x18, 0	; 24
+    mirf_write_register(RX_ADDR_P0,adr,5);
+ 190:	8a e0       	ldi	r24, 0x0A	; 10
+ 192:	45 e0       	ldi	r20, 0x05	; 5
+ 194:	0e 94 ad 00 	call	0x15a	; 0x15a <mirf_write_register>
+    mirf_CE_hi;
+ 198:	c0 9a       	sbi	0x18, 0	; 24
+}
+ 19a:	08 95       	ret
+
+0000019c <mirf_send>:
+
+
+void mirf_send(uint8_t * value, uint8_t len) 
+// Sends a data package to the default address. Be sure to send the correct
+// amount of bytes as configured as payload on the receiver.
+{
+ 19c:	1f 93       	push	r17
+ 19e:	cf 93       	push	r28
+ 1a0:	df 93       	push	r29
+ 1a2:	ec 01       	movw	r28, r24
+ 1a4:	16 2f       	mov	r17, r22
+    while (PTX) {}                  // Wait until last paket is send
+ 1a6:	80 91 60 00 	lds	r24, 0x0060
+ 1aa:	88 23       	and	r24, r24
+ 1ac:	e1 f7       	brne	.-8      	; 0x1a6 <mirf_send+0xa>
+
+    mirf_CE_lo;
+ 1ae:	c0 98       	cbi	0x18, 0	; 24
+
+    PTX = 1;                        // Set to transmitter mode
+ 1b0:	81 e0       	ldi	r24, 0x01	; 1
+ 1b2:	80 93 60 00 	sts	0x0060, r24
+    TX_POWERUP;                     // Power up
+ 1b6:	80 e0       	ldi	r24, 0x00	; 0
+ 1b8:	6a e4       	ldi	r22, 0x4A	; 74
+ 1ba:	0e 94 53 00 	call	0xa6	; 0xa6 <mirf_config_register>
+    
+    mirf_CSN_lo;                    // Pull down chip select
+ 1be:	c1 98       	cbi	0x18, 1	; 24
+    SPI_Write_Byte( FLUSH_TX );     // Write cmd to flush tx fifo
+ 1c0:	81 ee       	ldi	r24, 0xE1	; 225
+ 1c2:	0e 94 1e 01 	call	0x23c	; 0x23c <SPI_Write_Byte>
+    mirf_CSN_hi;                    // Pull up chip select
+ 1c6:	c1 9a       	sbi	0x18, 1	; 24
+    
+    mirf_CSN_lo;                    // Pull down chip select
+ 1c8:	c1 98       	cbi	0x18, 1	; 24
+    SPI_Write_Byte( W_TX_PAYLOAD ); // Write cmd to write payload
+ 1ca:	80 ea       	ldi	r24, 0xA0	; 160
+ 1cc:	0e 94 1e 01 	call	0x23c	; 0x23c <SPI_Write_Byte>
+    SPI_Write_Block(value,len);   // Write payload
+ 1d0:	ce 01       	movw	r24, r28
+ 1d2:	61 2f       	mov	r22, r17
+ 1d4:	0e 94 11 01 	call	0x222	; 0x222 <SPI_Write_Block>
+    mirf_CSN_hi;                    // Pull up chip select
+ 1d8:	c1 9a       	sbi	0x18, 1	; 24
+    
+    mirf_CE_hi;                     // Start transmission
+ 1da:	c0 9a       	sbi	0x18, 0	; 24
+}
+ 1dc:	df 91       	pop	r29
+ 1de:	cf 91       	pop	r28
+ 1e0:	1f 91       	pop	r17
+ 1e2:	08 95       	ret
+
+000001e4 <main>:
+
+
+#include <avr/io.h>
+
+int main(void)
+{
+ 1e4:	ff cf       	rjmp	.-2      	; 0x1e4 <main>
+
+000001e6 <SPI_Init>:
+	// The DDR operations are pretty fragile and doing this less awkwardly breaks SPI.  I don't care enough
+	// to figure out why right now.  Note that SPI_SS is the actual SPI port's SS pin, which is not necessarily
+	// the SS pin that's used for a given slave.  Anything that uses this driver must handle its own slave selection.
+	// It must set its SS pin direction to output, set the pin low before doing an SPI operation, and set it high
+	// when the SPI operation is complete.
+    SPI_DDR &= ~(_BV(SPI_MOSI)|_BV(SPI_MISO)|_BV(SPI_SS)|_BV(SPI_SCK));
+ 1e6:	87 b3       	in	r24, 0x17	; 23
+ 1e8:	80 7f       	andi	r24, 0xF0	; 240
+ 1ea:	87 bb       	out	0x17, r24	; 23
+    // Define the following pins as output
+    SPI_DDR |= (_BV(SPI_MOSI) | _BV(SPI_SS) | _BV(SPI_SCK));
+ 1ec:	87 b3       	in	r24, 0x17	; 23
+ 1ee:	87 60       	ori	r24, 0x07	; 7
+ 1f0:	87 bb       	out	0x17, r24	; 23
+	 * SPR1 | SPR0 - Determines SCK frequency along with the SPI2X bit in SPSR.  See Table 17-4 in hardware manual [p178].
+	 * bit 0
+	 */
+
+    // Set the AT90's SS pin high during config (this disables the Flash RAM or something)
+    SPI_PORT |= _BV(SPI_SS);
+ 1f2:	c0 9a       	sbi	0x18, 0	; 24
+
+	SPCR = _BV(SPE) | _BV(MSTR);	// enable SPI, set as master, set prescaler to f(osc)/4
+ 1f4:	80 e5       	ldi	r24, 0x50	; 80
+ 1f6:	8d b9       	out	0x0d, r24	; 13
+
+	SPSR = _BV(SPI2X);							// Double SCK to f(osc)/2 (4 MHz)
+ 1f8:	81 e0       	ldi	r24, 0x01	; 1
+ 1fa:	8e b9       	out	0x0e, r24	; 14
+
+	SPI_PORT &= ~_BV(SPI_SS);
+ 1fc:	c0 98       	cbi	0x18, 0	; 24
+}
+ 1fe:	08 95       	ret
+
+00000200 <SPI_ReadWrite_Block>:
+
+void SPI_ReadWrite_Block(uint8_t* data, uint8_t* buffer, uint8_t len)
+{
+    uint8_t i;
+    for (i = 0; i < len; i++) {
+ 200:	44 23       	and	r20, r20
+ 202:	71 f0       	breq	.+28     	; 0x220 <SPI_ReadWrite_Block+0x20>
+ 204:	a8 2f       	mov	r26, r24
+ 206:	b9 2f       	mov	r27, r25
+ 208:	e6 2f       	mov	r30, r22
+ 20a:	f7 2f       	mov	r31, r23
+ 20c:	80 e0       	ldi	r24, 0x00	; 0
+          SPDR = data[i];
+ 20e:	9d 91       	ld	r25, X+
+ 210:	9f b9       	out	0x0f, r25	; 15
+          SPI_WAIT();
+ 212:	77 9b       	sbis	0x0e, 7	; 14
+ 214:	fe cf       	rjmp	.-4      	; 0x212 <SPI_ReadWrite_Block+0x12>
+          buffer[i] = SPDR;
+ 216:	9f b1       	in	r25, 0x0f	; 15
+ 218:	91 93       	st	Z+, r25
+}
+
+void SPI_ReadWrite_Block(uint8_t* data, uint8_t* buffer, uint8_t len)
+{
+    uint8_t i;
+    for (i = 0; i < len; i++) {
+ 21a:	8f 5f       	subi	r24, 0xFF	; 255
+ 21c:	84 17       	cp	r24, r20
+ 21e:	b8 f3       	brcs	.-18     	; 0x20e <SPI_ReadWrite_Block+0xe>
+ 220:	08 95       	ret
+
+00000222 <SPI_Write_Block>:
+}
+
+void SPI_Write_Block(uint8_t* data, uint8_t len)
+{
+    uint8_t i;
+    for (i = 0; i < len; i++) {
+ 222:	66 23       	and	r22, r22
+ 224:	51 f0       	breq	.+20     	; 0x23a <SPI_Write_Block+0x18>
+ 226:	e8 2f       	mov	r30, r24
+ 228:	f9 2f       	mov	r31, r25
+ 22a:	80 e0       	ldi	r24, 0x00	; 0
+          SPDR = data[i];
+ 22c:	91 91       	ld	r25, Z+
+ 22e:	9f b9       	out	0x0f, r25	; 15
+          SPI_WAIT();
+ 230:	77 9b       	sbis	0x0e, 7	; 14
+ 232:	fe cf       	rjmp	.-4      	; 0x230 <SPI_Write_Block+0xe>
+}
+
+void SPI_Write_Block(uint8_t* data, uint8_t len)
+{
+    uint8_t i;
+    for (i = 0; i < len; i++) {
+ 234:	8f 5f       	subi	r24, 0xFF	; 255
+ 236:	86 17       	cp	r24, r22
+ 238:	c8 f3       	brcs	.-14     	; 0x22c <SPI_Write_Block+0xa>
+ 23a:	08 95       	ret
+
+0000023c <SPI_Write_Byte>:
+    }
+}
+
+uint8_t SPI_Write_Byte(uint8_t byte)
+{
+    SPDR = byte;
+ 23c:	8f b9       	out	0x0f, r24	; 15
+    SPI_WAIT();
+ 23e:	77 9b       	sbis	0x0e, 7	; 14
+ 240:	fe cf       	rjmp	.-4      	; 0x23e <SPI_Write_Byte+0x2>
+    return SPDR;
+ 242:	8f b1       	in	r24, 0x0f	; 15
+}
+ 244:	08 95       	ret
+
+00000246 <_exit>:
+ 246:	f8 94       	cli
+
+00000248 <__stop_program>:
+ 248:	ff cf       	rjmp	.-2      	; 0x248 <__stop_program>

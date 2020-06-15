@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "433Mhz_Rx_Car", "433Mhz_Rx_Car\433Mhz_Rx_Car.cproj", "{E398F13A-499F-4906-9C65-183FC6385FF5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E398F13A-499F-4906-9C65-183FC6385FF5}.Debug|AVR.ActiveCfg = Debug|AVR
+		{E398F13A-499F-4906-9C65-183FC6385FF5}.Debug|AVR.Build.0 = Debug|AVR
+		{E398F13A-499F-4906-9C65-183FC6385FF5}.Release|AVR.ActiveCfg = Release|AVR
+		{E398F13A-499F-4906-9C65-183FC6385FF5}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

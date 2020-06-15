@@ -1,0 +1,885 @@
+
+DotMatrix_Chamran.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000004ce  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000002  00800060  000004ce  00000562  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000008  00800062  00800062  00000564  2**0
+                  ALLOC
+  3 .stab         000006cc  00000000  00000000  00000564  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  4 .stabstr      00000097  00000000  00000000  00000c30  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_aranges 00000020  00000000  00000000  00000cc7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_pubnames 000000af  00000000  00000000  00000ce7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_info   00000522  00000000  00000000  00000d96  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_abbrev 000001fa  00000000  00000000  000012b8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_line   000005ad  00000000  00000000  000014b2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_frame  000000a0  00000000  00000000  00001a60  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_str    0000017d  00000000  00000000  00001b00  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_loc    000002da  00000000  00000000  00001c7d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 13 .debug_pubtypes 00000038  00000000  00000000  00001f57  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 14 .debug_ranges 00000030  00000000  00000000  00001f8f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  2c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  34:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	ee ec       	ldi	r30, 0xCE	; 206
+  68:	f4 e0       	ldi	r31, 0x04	; 4
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+  70:	a2 36       	cpi	r26, 0x62	; 98
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
+
+00000076 <__do_clear_bss>:
+  76:	10 e0       	ldi	r17, 0x00	; 0
+  78:	a2 e6       	ldi	r26, 0x62	; 98
+  7a:	b0 e0       	ldi	r27, 0x00	; 0
+  7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+
+0000007e <.do_clear_bss_loop>:
+  7e:	1d 92       	st	X+, r1
+
+00000080 <.do_clear_bss_start>:
+  80:	aa 36       	cpi	r26, 0x6A	; 106
+  82:	b1 07       	cpc	r27, r17
+  84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
+  86:	0e 94 9a 01 	call	0x334	; 0x334 <main>
+  8a:	0c 94 65 02 	jmp	0x4ca	; 0x4ca <_exit>
+
+0000008e <__bad_interrupt>:
+  8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000092 <putPixel>:
+	offPixel(5,6);
+}
+
+void putPixel(int x,int y)
+{
+	PORTB &= ~(1 << x);
+  92:	48 b3       	in	r20, 0x18	; 24
+  94:	21 e0       	ldi	r18, 0x01	; 1
+  96:	30 e0       	ldi	r19, 0x00	; 0
+  98:	f9 01       	movw	r30, r18
+  9a:	02 c0       	rjmp	.+4      	; 0xa0 <putPixel+0xe>
+  9c:	ee 0f       	add	r30, r30
+  9e:	ff 1f       	adc	r31, r31
+  a0:	8a 95       	dec	r24
+  a2:	e2 f7       	brpl	.-8      	; 0x9c <putPixel+0xa>
+  a4:	cf 01       	movw	r24, r30
+  a6:	80 95       	com	r24
+  a8:	48 23       	and	r20, r24
+  aa:	48 bb       	out	0x18, r20	; 24
+	PORTC |= 1 << y;
+  ac:	85 b3       	in	r24, 0x15	; 21
+  ae:	02 c0       	rjmp	.+4      	; 0xb4 <putPixel+0x22>
+  b0:	22 0f       	add	r18, r18
+  b2:	33 1f       	adc	r19, r19
+  b4:	6a 95       	dec	r22
+  b6:	e2 f7       	brpl	.-8      	; 0xb0 <putPixel+0x1e>
+  b8:	28 2b       	or	r18, r24
+  ba:	25 bb       	out	0x15, r18	; 21
+}
+  bc:	08 95       	ret
+
+000000be <offPixel>:
+
+void offPixel(int x,int y)
+{
+	PORTB |= (1 << x);
+  be:	48 b3       	in	r20, 0x18	; 24
+  c0:	21 e0       	ldi	r18, 0x01	; 1
+  c2:	30 e0       	ldi	r19, 0x00	; 0
+  c4:	f9 01       	movw	r30, r18
+  c6:	02 c0       	rjmp	.+4      	; 0xcc <offPixel+0xe>
+  c8:	ee 0f       	add	r30, r30
+  ca:	ff 1f       	adc	r31, r31
+  cc:	8a 95       	dec	r24
+  ce:	e2 f7       	brpl	.-8      	; 0xc8 <offPixel+0xa>
+  d0:	cf 01       	movw	r24, r30
+  d2:	84 2b       	or	r24, r20
+  d4:	88 bb       	out	0x18, r24	; 24
+	PORTC &= ~(1 << y);
+  d6:	85 b3       	in	r24, 0x15	; 21
+  d8:	02 c0       	rjmp	.+4      	; 0xde <offPixel+0x20>
+  da:	22 0f       	add	r18, r18
+  dc:	33 1f       	adc	r19, r19
+  de:	6a 95       	dec	r22
+  e0:	e2 f7       	brpl	.-8      	; 0xda <offPixel+0x1c>
+  e2:	20 95       	com	r18
+  e4:	28 23       	and	r18, r24
+  e6:	25 bb       	out	0x15, r18	; 21
+}
+  e8:	08 95       	ret
+
+000000ea <adc_init>:
+
+// initialize adc
+void adc_init()
+{
+    // AREF = AVcc
+    ADMUX = (1<<REFS0);
+  ea:	80 e4       	ldi	r24, 0x40	; 64
+  ec:	87 b9       	out	0x07, r24	; 7
+ 
+    // ADC Enable and prescaler of 128
+    // 16000000/128 = 125000
+    ADCSRA = (1<<ADEN)|(1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0);
+  ee:	87 e8       	ldi	r24, 0x87	; 135
+  f0:	86 b9       	out	0x06, r24	; 6
+}
+  f2:	08 95       	ret
+
+000000f4 <adc_read>:
+    // select the corresponding channel 0~7
+    // ANDing with '7' will always keep the value
+    // of 'ch' between 0 and 7
+	
+    ch &= 0b00000111;  // AND operation with 7
+    ADMUX = (ADMUX & 0xF8)|ch;     // clears the bottom 3 bits before ORing
+  f4:	97 b1       	in	r25, 0x07	; 7
+{
+    // select the corresponding channel 0~7
+    // ANDing with '7' will always keep the value
+    // of 'ch' between 0 and 7
+	
+    ch &= 0b00000111;  // AND operation with 7
+  f6:	87 70       	andi	r24, 0x07	; 7
+    ADMUX = (ADMUX & 0xF8)|ch;     // clears the bottom 3 bits before ORing
+  f8:	98 7f       	andi	r25, 0xF8	; 248
+  fa:	98 2b       	or	r25, r24
+  fc:	97 b9       	out	0x07, r25	; 7
+ 
+    // start single conversion
+    // write '1' to ADSC
+    ADCSRA |= (1<<ADSC);
+  fe:	36 9a       	sbi	0x06, 6	; 6
+ 
+    // wait for conversion to complete
+    // ADSC becomes '0' again
+    // till then, run loop continuously
+    while(ADCSRA & (1<<ADSC));
+ 100:	36 99       	sbic	0x06, 6	; 6
+ 102:	fe cf       	rjmp	.-4      	; 0x100 <adc_read+0xc>
+ 
+    return (ADC);
+ 104:	24 b1       	in	r18, 0x04	; 4
+ 106:	35 b1       	in	r19, 0x05	; 5
+}
+ 108:	82 2f       	mov	r24, r18
+ 10a:	93 2f       	mov	r25, r19
+ 10c:	08 95       	ret
+
+0000010e <init>:
+
+void init()
+{
+	DDRB |= 1 << PINB0;
+ 10e:	b8 9a       	sbi	0x17, 0	; 23
+	DDRB |= 1 << PINB1;
+ 110:	b9 9a       	sbi	0x17, 1	; 23
+	DDRB |= 1 << PINB2;
+ 112:	ba 9a       	sbi	0x17, 2	; 23
+	DDRB |= 1 << PINB3;
+ 114:	bb 9a       	sbi	0x17, 3	; 23
+	DDRB |= 1 << PINB4;
+ 116:	bc 9a       	sbi	0x17, 4	; 23
+	DDRB |= 1 << PINB5;
+ 118:	bd 9a       	sbi	0x17, 5	; 23
+	DDRB |= 1 << PINB6;
+ 11a:	be 9a       	sbi	0x17, 6	; 23
+	DDRB |= 1 << PINB7;
+ 11c:	bf 9a       	sbi	0x17, 7	; 23
+	
+	DDRC |= 1 << PINC0;
+ 11e:	a0 9a       	sbi	0x14, 0	; 20
+	DDRC |= 1 << PINC1;
+ 120:	a1 9a       	sbi	0x14, 1	; 20
+	DDRC |= 1 << PINC2;
+ 122:	a2 9a       	sbi	0x14, 2	; 20
+	DDRC |= 1 << PINC3;
+ 124:	a3 9a       	sbi	0x14, 3	; 20
+	DDRC |= 1 << PINC4;
+ 126:	a4 9a       	sbi	0x14, 4	; 20
+	DDRC |= 1 << PINC5;
+ 128:	a5 9a       	sbi	0x14, 5	; 20
+	DDRC |= 1 << PINC6;
+ 12a:	a6 9a       	sbi	0x14, 6	; 20
+	DDRC |= 1 << PINC7;
+ 12c:	a7 9a       	sbi	0x14, 7	; 20
+	
+	PORTB |= 1 << 0;
+ 12e:	c0 9a       	sbi	0x18, 0	; 24
+	PORTB |= 1 << 1;
+ 130:	c1 9a       	sbi	0x18, 1	; 24
+	PORTB |= 1 << 2;
+ 132:	c2 9a       	sbi	0x18, 2	; 24
+	PORTB |= 1 << 3;
+ 134:	c3 9a       	sbi	0x18, 3	; 24
+	PORTB |= 1 << 4;
+ 136:	c4 9a       	sbi	0x18, 4	; 24
+	PORTB |= 1 << 5;
+ 138:	c5 9a       	sbi	0x18, 5	; 24
+	PORTB |= 1 << 6;
+ 13a:	c6 9a       	sbi	0x18, 6	; 24
+	PORTB |= 1 << 7;
+ 13c:	c7 9a       	sbi	0x18, 7	; 24
+}
+ 13e:	08 95       	ret
+
+00000140 <firstGame>:
+
+//PORTB Columns
+//PORTC Rows
+
+void firstGame()
+{
+ 140:	cf 93       	push	r28
+ 142:	df 93       	push	r29
+	for(int i=0;i<size;i++)
+ 144:	80 91 60 00 	lds	r24, 0x0060
+ 148:	90 91 61 00 	lds	r25, 0x0061
+ 14c:	18 16       	cp	r1, r24
+ 14e:	19 06       	cpc	r1, r25
+ 150:	0c f0       	brlt	.+2      	; 0x154 <firstGame+0x14>
+ 152:	4a c0       	rjmp	.+148    	; 0x1e8 <firstGame+0xa8>
+ 154:	60 e0       	ldi	r22, 0x00	; 0
+ 156:	70 e0       	ldi	r23, 0x00	; 0
+	{
+		PORTC |= 1 << i;
+ 158:	41 e0       	ldi	r20, 0x01	; 1
+ 15a:	50 e0       	ldi	r21, 0x00	; 0
+		for(int j=0;j<size;j++)
+ 15c:	e0 e0       	ldi	r30, 0x00	; 0
+ 15e:	f0 e0       	ldi	r31, 0x00	; 0
+
+void firstGame()
+{
+	for(int i=0;i<size;i++)
+	{
+		PORTC |= 1 << i;
+ 160:	25 b3       	in	r18, 0x15	; 21
+ 162:	ca 01       	movw	r24, r20
+ 164:	06 2e       	mov	r0, r22
+ 166:	02 c0       	rjmp	.+4      	; 0x16c <firstGame+0x2c>
+ 168:	88 0f       	add	r24, r24
+ 16a:	99 1f       	adc	r25, r25
+ 16c:	0a 94       	dec	r0
+ 16e:	e2 f7       	brpl	.-8      	; 0x168 <firstGame+0x28>
+ 170:	b8 2f       	mov	r27, r24
+ 172:	82 2b       	or	r24, r18
+ 174:	85 bb       	out	0x15, r24	; 21
+		for(int j=0;j<size;j++)
+ 176:	80 91 60 00 	lds	r24, 0x0060
+ 17a:	90 91 61 00 	lds	r25, 0x0061
+ 17e:	18 16       	cp	r1, r24
+ 180:	19 06       	cpc	r1, r25
+ 182:	f4 f4       	brge	.+60     	; 0x1c0 <firstGame+0x80>
+ 184:	cf 01       	movw	r24, r30
+		{
+				
+			PORTB &= ~(1 << j);
+ 186:	a8 b3       	in	r26, 0x18	; 24
+ 188:	9a 01       	movw	r18, r20
+ 18a:	08 2e       	mov	r0, r24
+ 18c:	02 c0       	rjmp	.+4      	; 0x192 <firstGame+0x52>
+ 18e:	22 0f       	add	r18, r18
+ 190:	33 1f       	adc	r19, r19
+ 192:	0a 94       	dec	r0
+ 194:	e2 f7       	brpl	.-8      	; 0x18e <firstGame+0x4e>
+ 196:	32 2f       	mov	r19, r18
+ 198:	30 95       	com	r19
+ 19a:	3a 23       	and	r19, r26
+ 19c:	38 bb       	out	0x18, r19	; 24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 19e:	c7 ea       	ldi	r28, 0xA7	; 167
+ 1a0:	d1 e6       	ldi	r29, 0x61	; 97
+ 1a2:	21 97       	sbiw	r28, 0x01	; 1
+ 1a4:	f1 f7       	brne	.-4      	; 0x1a2 <firstGame+0x62>
+ 1a6:	00 c0       	rjmp	.+0      	; 0x1a8 <firstGame+0x68>
+ 1a8:	00 00       	nop
+			_delay_ms(100);
+			PORTB |= (1 << j);
+ 1aa:	38 b3       	in	r19, 0x18	; 24
+ 1ac:	23 2b       	or	r18, r19
+ 1ae:	28 bb       	out	0x18, r18	; 24
+void firstGame()
+{
+	for(int i=0;i<size;i++)
+	{
+		PORTC |= 1 << i;
+		for(int j=0;j<size;j++)
+ 1b0:	01 96       	adiw	r24, 0x01	; 1
+ 1b2:	20 91 60 00 	lds	r18, 0x0060
+ 1b6:	30 91 61 00 	lds	r19, 0x0061
+ 1ba:	82 17       	cp	r24, r18
+ 1bc:	93 07       	cpc	r25, r19
+ 1be:	1c f3       	brlt	.-58     	; 0x186 <firstGame+0x46>
+				
+			PORTB &= ~(1 << j);
+			_delay_ms(100);
+			PORTB |= (1 << j);
+		}
+		PORTC &= ~(1 << i);
+ 1c0:	95 b3       	in	r25, 0x15	; 21
+ 1c2:	b0 95       	com	r27
+ 1c4:	b9 23       	and	r27, r25
+ 1c6:	b5 bb       	out	0x15, r27	; 21
+ 1c8:	87 ea       	ldi	r24, 0xA7	; 167
+ 1ca:	91 e6       	ldi	r25, 0x61	; 97
+ 1cc:	01 97       	sbiw	r24, 0x01	; 1
+ 1ce:	f1 f7       	brne	.-4      	; 0x1cc <firstGame+0x8c>
+ 1d0:	00 c0       	rjmp	.+0      	; 0x1d2 <firstGame+0x92>
+ 1d2:	00 00       	nop
+//PORTB Columns
+//PORTC Rows
+
+void firstGame()
+{
+	for(int i=0;i<size;i++)
+ 1d4:	6f 5f       	subi	r22, 0xFF	; 255
+ 1d6:	7f 4f       	sbci	r23, 0xFF	; 255
+ 1d8:	80 91 60 00 	lds	r24, 0x0060
+ 1dc:	90 91 61 00 	lds	r25, 0x0061
+ 1e0:	68 17       	cp	r22, r24
+ 1e2:	79 07       	cpc	r23, r25
+ 1e4:	0c f4       	brge	.+2      	; 0x1e8 <firstGame+0xa8>
+ 1e6:	bc cf       	rjmp	.-136    	; 0x160 <firstGame+0x20>
+			PORTB |= (1 << j);
+		}
+		PORTC &= ~(1 << i);
+		_delay_ms(100);
+	}
+}
+ 1e8:	df 91       	pop	r29
+ 1ea:	cf 91       	pop	r28
+ 1ec:	08 95       	ret
+
+000001ee <secondGame>:
+
+void secondGame()
+{
+ 1ee:	cf 93       	push	r28
+ 1f0:	df 93       	push	r29
+	for(int i=0;i<size;i++)
+ 1f2:	80 91 60 00 	lds	r24, 0x0060
+ 1f6:	90 91 61 00 	lds	r25, 0x0061
+ 1fa:	18 16       	cp	r1, r24
+ 1fc:	19 06       	cpc	r1, r25
+ 1fe:	0c f0       	brlt	.+2      	; 0x202 <secondGame+0x14>
+ 200:	4a c0       	rjmp	.+148    	; 0x296 <secondGame+0xa8>
+ 202:	60 e0       	ldi	r22, 0x00	; 0
+ 204:	70 e0       	ldi	r23, 0x00	; 0
+	{
+		
+		PORTB &= ~(1 << i);
+ 206:	41 e0       	ldi	r20, 0x01	; 1
+ 208:	50 e0       	ldi	r21, 0x00	; 0
+		for(int j=0;j<size;j++)
+ 20a:	e0 e0       	ldi	r30, 0x00	; 0
+ 20c:	f0 e0       	ldi	r31, 0x00	; 0
+void secondGame()
+{
+	for(int i=0;i<size;i++)
+	{
+		
+		PORTB &= ~(1 << i);
+ 20e:	28 b3       	in	r18, 0x18	; 24
+ 210:	ca 01       	movw	r24, r20
+ 212:	06 2e       	mov	r0, r22
+ 214:	02 c0       	rjmp	.+4      	; 0x21a <secondGame+0x2c>
+ 216:	88 0f       	add	r24, r24
+ 218:	99 1f       	adc	r25, r25
+ 21a:	0a 94       	dec	r0
+ 21c:	e2 f7       	brpl	.-8      	; 0x216 <secondGame+0x28>
+ 21e:	b8 2f       	mov	r27, r24
+ 220:	80 95       	com	r24
+ 222:	82 23       	and	r24, r18
+ 224:	88 bb       	out	0x18, r24	; 24
+		for(int j=0;j<size;j++)
+ 226:	80 91 60 00 	lds	r24, 0x0060
+ 22a:	90 91 61 00 	lds	r25, 0x0061
+ 22e:	18 16       	cp	r1, r24
+ 230:	19 06       	cpc	r1, r25
+ 232:	f4 f4       	brge	.+60     	; 0x270 <secondGame+0x82>
+ 234:	cf 01       	movw	r24, r30
+		{
+			PORTC |= 1 << j;
+ 236:	a5 b3       	in	r26, 0x15	; 21
+ 238:	9a 01       	movw	r18, r20
+ 23a:	08 2e       	mov	r0, r24
+ 23c:	02 c0       	rjmp	.+4      	; 0x242 <secondGame+0x54>
+ 23e:	22 0f       	add	r18, r18
+ 240:	33 1f       	adc	r19, r19
+ 242:	0a 94       	dec	r0
+ 244:	e2 f7       	brpl	.-8      	; 0x23e <secondGame+0x50>
+ 246:	32 2f       	mov	r19, r18
+ 248:	3a 2b       	or	r19, r26
+ 24a:	35 bb       	out	0x15, r19	; 21
+ 24c:	c7 ea       	ldi	r28, 0xA7	; 167
+ 24e:	d1 e6       	ldi	r29, 0x61	; 97
+ 250:	21 97       	sbiw	r28, 0x01	; 1
+ 252:	f1 f7       	brne	.-4      	; 0x250 <secondGame+0x62>
+ 254:	00 c0       	rjmp	.+0      	; 0x256 <secondGame+0x68>
+ 256:	00 00       	nop
+			_delay_ms(100);
+			PORTC &= ~(1 << j);
+ 258:	35 b3       	in	r19, 0x15	; 21
+ 25a:	20 95       	com	r18
+ 25c:	23 23       	and	r18, r19
+ 25e:	25 bb       	out	0x15, r18	; 21
+{
+	for(int i=0;i<size;i++)
+	{
+		
+		PORTB &= ~(1 << i);
+		for(int j=0;j<size;j++)
+ 260:	01 96       	adiw	r24, 0x01	; 1
+ 262:	20 91 60 00 	lds	r18, 0x0060
+ 266:	30 91 61 00 	lds	r19, 0x0061
+ 26a:	82 17       	cp	r24, r18
+ 26c:	93 07       	cpc	r25, r19
+ 26e:	1c f3       	brlt	.-58     	; 0x236 <secondGame+0x48>
+			PORTC |= 1 << j;
+			_delay_ms(100);
+			PORTC &= ~(1 << j);
+		}
+		
+		PORTB |= (1 << i);
+ 270:	88 b3       	in	r24, 0x18	; 24
+ 272:	b8 2b       	or	r27, r24
+ 274:	b8 bb       	out	0x18, r27	; 24
+ 276:	87 ea       	ldi	r24, 0xA7	; 167
+ 278:	91 e6       	ldi	r25, 0x61	; 97
+ 27a:	01 97       	sbiw	r24, 0x01	; 1
+ 27c:	f1 f7       	brne	.-4      	; 0x27a <secondGame+0x8c>
+ 27e:	00 c0       	rjmp	.+0      	; 0x280 <secondGame+0x92>
+ 280:	00 00       	nop
+	}
+}
+
+void secondGame()
+{
+	for(int i=0;i<size;i++)
+ 282:	6f 5f       	subi	r22, 0xFF	; 255
+ 284:	7f 4f       	sbci	r23, 0xFF	; 255
+ 286:	80 91 60 00 	lds	r24, 0x0060
+ 28a:	90 91 61 00 	lds	r25, 0x0061
+ 28e:	68 17       	cp	r22, r24
+ 290:	79 07       	cpc	r23, r25
+ 292:	0c f4       	brge	.+2      	; 0x296 <secondGame+0xa8>
+ 294:	bc cf       	rjmp	.-136    	; 0x20e <secondGame+0x20>
+		}
+		
+		PORTB |= (1 << i);
+		_delay_ms(100);
+	}
+}
+ 296:	df 91       	pop	r29
+ 298:	cf 91       	pop	r28
+ 29a:	08 95       	ret
+
+0000029c <thirdGame>:
+
+void thirdGame()
+{
+ 29c:	0f 93       	push	r16
+ 29e:	1f 93       	push	r17
+ 2a0:	cf 93       	push	r28
+ 2a2:	df 93       	push	r29
+	putPixel(1,2);
+ 2a4:	09 e4       	ldi	r16, 0x49	; 73
+ 2a6:	10 e0       	ldi	r17, 0x00	; 0
+ 2a8:	81 e0       	ldi	r24, 0x01	; 1
+ 2aa:	90 e0       	ldi	r25, 0x00	; 0
+ 2ac:	62 e0       	ldi	r22, 0x02	; 2
+ 2ae:	70 e0       	ldi	r23, 0x00	; 0
+ 2b0:	f8 01       	movw	r30, r16
+ 2b2:	09 95       	icall
+ 2b4:	8f e3       	ldi	r24, 0x3F	; 63
+ 2b6:	9d e0       	ldi	r25, 0x0D	; 13
+ 2b8:	a3 e0       	ldi	r26, 0x03	; 3
+ 2ba:	81 50       	subi	r24, 0x01	; 1
+ 2bc:	90 40       	sbci	r25, 0x00	; 0
+ 2be:	a0 40       	sbci	r26, 0x00	; 0
+ 2c0:	e1 f7       	brne	.-8      	; 0x2ba <thirdGame+0x1e>
+ 2c2:	00 c0       	rjmp	.+0      	; 0x2c4 <thirdGame+0x28>
+ 2c4:	00 00       	nop
+	_delay_ms(1000);
+	offPixel(1,2);
+ 2c6:	cf e5       	ldi	r28, 0x5F	; 95
+ 2c8:	d0 e0       	ldi	r29, 0x00	; 0
+ 2ca:	81 e0       	ldi	r24, 0x01	; 1
+ 2cc:	90 e0       	ldi	r25, 0x00	; 0
+ 2ce:	62 e0       	ldi	r22, 0x02	; 2
+ 2d0:	70 e0       	ldi	r23, 0x00	; 0
+ 2d2:	fe 01       	movw	r30, r28
+ 2d4:	09 95       	icall
+		
+		
+	putPixel(3,4);
+ 2d6:	83 e0       	ldi	r24, 0x03	; 3
+ 2d8:	90 e0       	ldi	r25, 0x00	; 0
+ 2da:	64 e0       	ldi	r22, 0x04	; 4
+ 2dc:	70 e0       	ldi	r23, 0x00	; 0
+ 2de:	f8 01       	movw	r30, r16
+ 2e0:	09 95       	icall
+ 2e2:	8f e3       	ldi	r24, 0x3F	; 63
+ 2e4:	9d e0       	ldi	r25, 0x0D	; 13
+ 2e6:	a3 e0       	ldi	r26, 0x03	; 3
+ 2e8:	81 50       	subi	r24, 0x01	; 1
+ 2ea:	90 40       	sbci	r25, 0x00	; 0
+ 2ec:	a0 40       	sbci	r26, 0x00	; 0
+ 2ee:	e1 f7       	brne	.-8      	; 0x2e8 <thirdGame+0x4c>
+ 2f0:	00 c0       	rjmp	.+0      	; 0x2f2 <thirdGame+0x56>
+ 2f2:	00 00       	nop
+	_delay_ms(1000);
+	offPixel(3,4);
+ 2f4:	83 e0       	ldi	r24, 0x03	; 3
+ 2f6:	90 e0       	ldi	r25, 0x00	; 0
+ 2f8:	64 e0       	ldi	r22, 0x04	; 4
+ 2fa:	70 e0       	ldi	r23, 0x00	; 0
+ 2fc:	fe 01       	movw	r30, r28
+ 2fe:	09 95       	icall
+		
+	putPixel(5,6);
+ 300:	85 e0       	ldi	r24, 0x05	; 5
+ 302:	90 e0       	ldi	r25, 0x00	; 0
+ 304:	66 e0       	ldi	r22, 0x06	; 6
+ 306:	70 e0       	ldi	r23, 0x00	; 0
+ 308:	f8 01       	movw	r30, r16
+ 30a:	09 95       	icall
+ 30c:	8f e3       	ldi	r24, 0x3F	; 63
+ 30e:	9d e0       	ldi	r25, 0x0D	; 13
+ 310:	a3 e0       	ldi	r26, 0x03	; 3
+ 312:	81 50       	subi	r24, 0x01	; 1
+ 314:	90 40       	sbci	r25, 0x00	; 0
+ 316:	a0 40       	sbci	r26, 0x00	; 0
+ 318:	e1 f7       	brne	.-8      	; 0x312 <thirdGame+0x76>
+ 31a:	00 c0       	rjmp	.+0      	; 0x31c <thirdGame+0x80>
+ 31c:	00 00       	nop
+	_delay_ms(1000);
+	offPixel(5,6);
+ 31e:	85 e0       	ldi	r24, 0x05	; 5
+ 320:	90 e0       	ldi	r25, 0x00	; 0
+ 322:	66 e0       	ldi	r22, 0x06	; 6
+ 324:	70 e0       	ldi	r23, 0x00	; 0
+ 326:	fe 01       	movw	r30, r28
+ 328:	09 95       	icall
+}
+ 32a:	df 91       	pop	r29
+ 32c:	cf 91       	pop	r28
+ 32e:	1f 91       	pop	r17
+ 330:	0f 91       	pop	r16
+ 332:	08 95       	ret
+
+00000334 <main>:
+int down = 0;
+int left = 0;
+int right = 0;
+
+int main(void)
+{
+ 334:	6f 92       	push	r6
+ 336:	7f 92       	push	r7
+ 338:	8f 92       	push	r8
+ 33a:	9f 92       	push	r9
+ 33c:	af 92       	push	r10
+ 33e:	bf 92       	push	r11
+ 340:	cf 92       	push	r12
+ 342:	df 92       	push	r13
+ 344:	ef 92       	push	r14
+ 346:	ff 92       	push	r15
+ 348:	0f 93       	push	r16
+ 34a:	1f 93       	push	r17
+ 34c:	cf 93       	push	r28
+ 34e:	df 93       	push	r29
+	//disable JTAG
+	MCUCSR = (1 << JTD);
+ 350:	80 e8       	ldi	r24, 0x80	; 128
+ 352:	84 bf       	out	0x34, r24	; 52
+	MCUCSR = (1 << JTD);
+ 354:	84 bf       	out	0x34, r24	; 52
+	
+	init();
+ 356:	0e 94 87 00 	call	0x10e	; 0x10e <init>
+	adc_init();
+ 35a:	0e 94 75 00 	call	0xea	; 0xea <adc_init>
+	//PORTB &= ~(1 << PINB0);
+	
+	uint16_t adc_result0, adc_result1;
+	
+	uint16_t i = 4;
+	uint16_t j = 4;
+ 35e:	04 e0       	ldi	r16, 0x04	; 4
+ 360:	10 e0       	ldi	r17, 0x00	; 0
+	//PORTC |= 1 << PINC7;
+	//PORTB &= ~(1 << PINB0);
+	
+	uint16_t adc_result0, adc_result1;
+	
+	uint16_t i = 4;
+ 362:	c4 e0       	ldi	r28, 0x04	; 4
+ 364:	d0 e0       	ldi	r29, 0x00	; 0
+	
+    while(1)
+    {
+		
+        //TODO:: Please write your application code 
+		adc_result0 = adc_read(0);
+ 366:	80 e0       	ldi	r24, 0x00	; 0
+ 368:	0e 94 7a 00 	call	0xf4	; 0xf4 <adc_read>
+ 36c:	7c 01       	movw	r14, r24
+        adc_result1 = adc_read(1);
+ 36e:	81 e0       	ldi	r24, 0x01	; 1
+ 370:	0e 94 7a 00 	call	0xf4	; 0xf4 <adc_read>
+ 374:	6c 01       	movw	r12, r24
+		
+		
+		putPixel(i,j);
+ 376:	3e 01       	movw	r6, r28
+ 378:	9c 2e       	mov	r9, r28
+ 37a:	87 2c       	mov	r8, r7
+ 37c:	b0 2e       	mov	r11, r16
+ 37e:	a1 2e       	mov	r10, r17
+ 380:	8c 2f       	mov	r24, r28
+ 382:	97 2d       	mov	r25, r7
+ 384:	60 2f       	mov	r22, r16
+ 386:	71 2f       	mov	r23, r17
+ 388:	0e 94 49 00 	call	0x92	; 0x92 <putPixel>
+		
+		if(adc_result0 > 800)
+ 38c:	21 e2       	ldi	r18, 0x21	; 33
+ 38e:	e2 16       	cp	r14, r18
+ 390:	23 e0       	ldi	r18, 0x03	; 3
+ 392:	f2 06       	cpc	r15, r18
+ 394:	50 f0       	brcs	.+20     	; 0x3aa <main+0x76>
+		{
+			down++;
+ 396:	80 91 64 00 	lds	r24, 0x0064
+ 39a:	90 91 65 00 	lds	r25, 0x0065
+ 39e:	01 96       	adiw	r24, 0x01	; 1
+ 3a0:	90 93 65 00 	sts	0x0065, r25
+ 3a4:	80 93 64 00 	sts	0x0064, r24
+ 3a8:	17 c0       	rjmp	.+46     	; 0x3d8 <main+0xa4>
+		}
+		else if(adc_result0 < 200)
+ 3aa:	38 ec       	ldi	r19, 0xC8	; 200
+ 3ac:	e3 16       	cp	r14, r19
+ 3ae:	f1 04       	cpc	r15, r1
+ 3b0:	50 f4       	brcc	.+20     	; 0x3c6 <main+0x92>
+		{
+			up++;
+ 3b2:	80 91 62 00 	lds	r24, 0x0062
+ 3b6:	90 91 63 00 	lds	r25, 0x0063
+ 3ba:	01 96       	adiw	r24, 0x01	; 1
+ 3bc:	90 93 63 00 	sts	0x0063, r25
+ 3c0:	80 93 62 00 	sts	0x0062, r24
+ 3c4:	09 c0       	rjmp	.+18     	; 0x3d8 <main+0xa4>
+		}
+		else
+		{
+			up = down = 0;
+ 3c6:	10 92 65 00 	sts	0x0065, r1
+ 3ca:	10 92 64 00 	sts	0x0064, r1
+ 3ce:	10 92 63 00 	sts	0x0063, r1
+ 3d2:	10 92 62 00 	sts	0x0062, r1
+ 3d6:	15 c0       	rjmp	.+42     	; 0x402 <main+0xce>
+		}
+		
+		if(up > checkingPoint)
+ 3d8:	80 91 62 00 	lds	r24, 0x0062
+ 3dc:	90 91 63 00 	lds	r25, 0x0063
+ 3e0:	8b 30       	cpi	r24, 0x0B	; 11
+ 3e2:	91 05       	cpc	r25, r1
+ 3e4:	74 f0       	brlt	.+28     	; 0x402 <main+0xce>
+		{
+			offPixel(i,j);
+ 3e6:	89 2d       	mov	r24, r9
+ 3e8:	98 2d       	mov	r25, r8
+ 3ea:	6b 2d       	mov	r22, r11
+ 3ec:	7a 2d       	mov	r23, r10
+ 3ee:	0e 94 5f 00 	call	0xbe	; 0xbe <offPixel>
+			if( i < 7 )
+ 3f2:	c7 30       	cpi	r28, 0x07	; 7
+ 3f4:	d1 05       	cpc	r29, r1
+ 3f6:	08 f4       	brcc	.+2      	; 0x3fa <main+0xc6>
+				i++;
+ 3f8:	21 96       	adiw	r28, 0x01	; 1
+				
+			up = 0;
+ 3fa:	10 92 63 00 	sts	0x0063, r1
+ 3fe:	10 92 62 00 	sts	0x0062, r1
+		}
+		
+		if(down > checkingPoint)
+ 402:	80 91 64 00 	lds	r24, 0x0064
+ 406:	90 91 65 00 	lds	r25, 0x0065
+ 40a:	8b 30       	cpi	r24, 0x0B	; 11
+ 40c:	91 05       	cpc	r25, r1
+ 40e:	64 f0       	brlt	.+24     	; 0x428 <main+0xf4>
+		{
+			offPixel(i,j);
+ 410:	ce 01       	movw	r24, r28
+ 412:	6b 2d       	mov	r22, r11
+ 414:	7a 2d       	mov	r23, r10
+ 416:	0e 94 5f 00 	call	0xbe	; 0xbe <offPixel>
+			if( i > 0 )
+ 41a:	20 97       	sbiw	r28, 0x00	; 0
+ 41c:	09 f0       	breq	.+2      	; 0x420 <main+0xec>
+				i--;
+ 41e:	21 97       	sbiw	r28, 0x01	; 1
+			
+			down = 0;
+ 420:	10 92 65 00 	sts	0x0065, r1
+ 424:	10 92 64 00 	sts	0x0064, r1
+		}
+		
+		if(adc_result1 > 800)
+ 428:	81 e2       	ldi	r24, 0x21	; 33
+ 42a:	c8 16       	cp	r12, r24
+ 42c:	83 e0       	ldi	r24, 0x03	; 3
+ 42e:	d8 06       	cpc	r13, r24
+ 430:	50 f0       	brcs	.+20     	; 0x446 <main+0x112>
+		{
+			right++;
+ 432:	80 91 68 00 	lds	r24, 0x0068
+ 436:	90 91 69 00 	lds	r25, 0x0069
+ 43a:	01 96       	adiw	r24, 0x01	; 1
+ 43c:	90 93 69 00 	sts	0x0069, r25
+ 440:	80 93 68 00 	sts	0x0068, r24
+ 444:	17 c0       	rjmp	.+46     	; 0x474 <__stack+0x15>
+		}
+		else if(adc_result1 < 200)
+ 446:	98 ec       	ldi	r25, 0xC8	; 200
+ 448:	c9 16       	cp	r12, r25
+ 44a:	d1 04       	cpc	r13, r1
+ 44c:	50 f4       	brcc	.+20     	; 0x462 <__stack+0x3>
+		{
+			left++;
+ 44e:	80 91 66 00 	lds	r24, 0x0066
+ 452:	90 91 67 00 	lds	r25, 0x0067
+ 456:	01 96       	adiw	r24, 0x01	; 1
+ 458:	90 93 67 00 	sts	0x0067, r25
+ 45c:	80 93 66 00 	sts	0x0066, r24
+ 460:	09 c0       	rjmp	.+18     	; 0x474 <__stack+0x15>
+		}
+		else
+		{
+			right = left = 0;
+ 462:	10 92 67 00 	sts	0x0067, r1
+ 466:	10 92 66 00 	sts	0x0066, r1
+ 46a:	10 92 69 00 	sts	0x0069, r1
+ 46e:	10 92 68 00 	sts	0x0068, r1
+ 472:	15 c0       	rjmp	.+42     	; 0x49e <__stack+0x3f>
+		}
+		
+		if(right > checkingPoint)
+ 474:	80 91 68 00 	lds	r24, 0x0068
+ 478:	90 91 69 00 	lds	r25, 0x0069
+ 47c:	8b 30       	cpi	r24, 0x0B	; 11
+ 47e:	91 05       	cpc	r25, r1
+ 480:	74 f0       	brlt	.+28     	; 0x49e <__stack+0x3f>
+		{
+			offPixel(i,j);
+ 482:	ce 01       	movw	r24, r28
+ 484:	6b 2d       	mov	r22, r11
+ 486:	7a 2d       	mov	r23, r10
+ 488:	0e 94 5f 00 	call	0xbe	; 0xbe <offPixel>
+			if( j < 7 )
+ 48c:	07 30       	cpi	r16, 0x07	; 7
+ 48e:	11 05       	cpc	r17, r1
+ 490:	10 f4       	brcc	.+4      	; 0x496 <__stack+0x37>
+				j++;
+ 492:	0f 5f       	subi	r16, 0xFF	; 255
+ 494:	1f 4f       	sbci	r17, 0xFF	; 255
+			
+			right = 0;
+ 496:	10 92 69 00 	sts	0x0069, r1
+ 49a:	10 92 68 00 	sts	0x0068, r1
+		}
+		
+		if(left > checkingPoint)
+ 49e:	80 91 66 00 	lds	r24, 0x0066
+ 4a2:	90 91 67 00 	lds	r25, 0x0067
+ 4a6:	8b 30       	cpi	r24, 0x0B	; 11
+ 4a8:	91 05       	cpc	r25, r1
+ 4aa:	0c f4       	brge	.+2      	; 0x4ae <__stack+0x4f>
+ 4ac:	5c cf       	rjmp	.-328    	; 0x366 <main+0x32>
+		{
+			offPixel(i,j);
+ 4ae:	ce 01       	movw	r24, r28
+ 4b0:	b8 01       	movw	r22, r16
+ 4b2:	0e 94 5f 00 	call	0xbe	; 0xbe <offPixel>
+			if( j > 0 )
+ 4b6:	01 15       	cp	r16, r1
+ 4b8:	11 05       	cpc	r17, r1
+ 4ba:	11 f0       	breq	.+4      	; 0x4c0 <__stack+0x61>
+				j--;
+ 4bc:	01 50       	subi	r16, 0x01	; 1
+ 4be:	10 40       	sbci	r17, 0x00	; 0
+			
+			left = 0;
+ 4c0:	10 92 67 00 	sts	0x0067, r1
+ 4c4:	10 92 66 00 	sts	0x0066, r1
+ 4c8:	4e cf       	rjmp	.-356    	; 0x366 <main+0x32>
+
+000004ca <_exit>:
+ 4ca:	f8 94       	cli
+
+000004cc <__stop_program>:
+ 4cc:	ff cf       	rjmp	.-2      	; 0x4cc <__stop_program>

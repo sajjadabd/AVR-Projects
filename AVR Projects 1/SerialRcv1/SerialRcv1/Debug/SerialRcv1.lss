@@ -1,0 +1,275 @@
+
+SerialRcv1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000013a  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .bss          00000082  00800060  00800060  000001ae  2**0
+                  ALLOC
+  2 .stab         000006cc  00000000  00000000  000001b0  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  3 .stabstr      00000097  00000000  00000000  0000087c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_aranges 00000020  00000000  00000000  00000913  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_pubnames 00000070  00000000  00000000  00000933  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000181  00000000  00000000  000009a3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000000b1  00000000  00000000  00000b24  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000001ee  00000000  00000000  00000bd5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000050  00000000  00000000  00000dc4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000000d9  00000000  00000000  00000e14  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    0000008c  00000000  00000000  00000eed  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_pubtypes 0000001e  00000000  00000000  00000f79  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   8:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  10:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  14:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  18:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  1c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  20:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  24:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  28:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  2c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  30:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  34:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  38:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  3c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  40:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  44:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  48:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  4c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  50:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_clear_bss>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	01 c0       	rjmp	.+2      	; 0x6a <.do_clear_bss_start>
+
+00000068 <.do_clear_bss_loop>:
+  68:	1d 92       	st	X+, r1
+
+0000006a <.do_clear_bss_start>:
+  6a:	a2 3e       	cpi	r26, 0xE2	; 226
+  6c:	b1 07       	cpc	r27, r17
+  6e:	e1 f7       	brne	.-8      	; 0x68 <.do_clear_bss_loop>
+  70:	0e 94 61 00 	call	0xc2	; 0xc2 <main>
+  74:	0c 94 9b 00 	jmp	0x136	; 0x136 <_exit>
+
+00000078 <__bad_interrupt>:
+  78:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000007c <peekChar>:
+
+char peekChar()
+{
+	char ret = '\0';
+	
+	if(rxReadPos != rxWritePos)
+  7c:	80 91 60 00 	lds	r24, 0x0060
+  80:	90 91 61 00 	lds	r25, 0x0061
+  84:	89 17       	cp	r24, r25
+  86:	31 f0       	breq	.+12     	; 0x94 <peekChar+0x18>
+	{
+		ret = rxBuffer[rxReadPos];
+  88:	e2 e6       	ldi	r30, 0x62	; 98
+  8a:	f0 e0       	ldi	r31, 0x00	; 0
+  8c:	e8 0f       	add	r30, r24
+  8e:	f1 1d       	adc	r31, r1
+  90:	80 81       	ld	r24, Z
+  92:	08 95       	ret
+	}
+}
+
+char peekChar()
+{
+	char ret = '\0';
+  94:	80 e0       	ldi	r24, 0x00	; 0
+		
+		
+	}
+	
+	return ret;
+}
+  96:	08 95       	ret
+
+00000098 <getChar>:
+
+char getChar()
+{
+	char ret = '\0';
+	if(rxReadPos != rxWritePos )
+  98:	90 91 60 00 	lds	r25, 0x0060
+  9c:	80 91 61 00 	lds	r24, 0x0061
+  a0:	98 17       	cp	r25, r24
+  a2:	69 f0       	breq	.+26     	; 0xbe <getChar+0x26>
+	{
+		ret = rxBuffer[rxReadPos];
+  a4:	e2 e6       	ldi	r30, 0x62	; 98
+  a6:	f0 e0       	ldi	r31, 0x00	; 0
+  a8:	e9 0f       	add	r30, r25
+  aa:	f1 1d       	adc	r31, r1
+  ac:	80 81       	ld	r24, Z
+		rxReadPos++;
+  ae:	9f 5f       	subi	r25, 0xFF	; 255
+  b0:	90 93 60 00 	sts	0x0060, r25
+		if(rxReadPos >= RX_BUFFER_SIZE)
+  b4:	99 23       	and	r25, r25
+  b6:	24 f4       	brge	.+8      	; 0xc0 <getChar+0x28>
+		{
+			rxReadPos = 0;
+  b8:	10 92 60 00 	sts	0x0060, r1
+  bc:	08 95       	ret
+	return ret;
+}
+
+char getChar()
+{
+	char ret = '\0';
+  be:	80 e0       	ldi	r24, 0x00	; 0
+			rxReadPos = 0;
+		}
+	} 
+	
+	return ret;
+}
+  c0:	08 95       	ret
+
+000000c2 <main>:
+char peekChar(void);
+
+
+
+int main(void)
+{
+  c2:	1f 93       	push	r17
+	
+	UBRRH = BRC >> 8;
+  c4:	10 bc       	out	0x20, r1	; 32
+	UBRRL = BRC ;
+  c6:	85 e0       	ldi	r24, 0x05	; 5
+  c8:	89 b9       	out	0x09, r24	; 9
+	
+	UCSRB = 1 << RXEN | 1 << RXCIE;
+  ca:	80 e9       	ldi	r24, 0x90	; 144
+  cc:	8a b9       	out	0x0a, r24	; 10
+	UCSRC = 1 << UCSZ1 | 1 << UCSZ0;
+  ce:	86 e0       	ldi	r24, 0x06	; 6
+  d0:	80 bd       	out	0x20, r24	; 32
+	
+	DDRB |= 1 << PINB0;
+  d2:	b8 9a       	sbi	0x17, 0	; 23
+	
+	sei();
+  d4:	78 94       	sei
+		char c = getChar();
+		
+		if( c == '1' )
+		{
+			//sbi(PORTB , PORTB0);
+			PORTB ^= 1 << PINB0;
+  d6:	11 e0       	ldi	r17, 0x01	; 1
+	
+	sei();
+	
+	while(1)
+	{
+		char c = getChar();
+  d8:	0e 94 4c 00 	call	0x98	; 0x98 <getChar>
+		
+		if( c == '1' )
+  dc:	81 33       	cpi	r24, 0x31	; 49
+  de:	21 f4       	brne	.+8      	; 0xe8 <main+0x26>
+		{
+			//sbi(PORTB , PORTB0);
+			PORTB ^= 1 << PINB0;
+  e0:	88 b3       	in	r24, 0x18	; 24
+  e2:	81 27       	eor	r24, r17
+  e4:	88 bb       	out	0x18, r24	; 24
+  e6:	f8 cf       	rjmp	.-16     	; 0xd8 <main+0x16>
+		}
+		else if( c == '0' )
+  e8:	80 33       	cpi	r24, 0x30	; 48
+  ea:	b1 f7       	brne	.-20     	; 0xd8 <main+0x16>
+		{
+			//cbi(PORTB, PORTB0);
+			PORTB ^= 1 << PINB0;
+  ec:	88 b3       	in	r24, 0x18	; 24
+  ee:	81 27       	eor	r24, r17
+  f0:	88 bb       	out	0x18, r24	; 24
+  f2:	f2 cf       	rjmp	.-28     	; 0xd8 <main+0x16>
+
+000000f4 <USART_RX_vect>:
+	
+	return ret;
+}
+
+ISR(USART_RX_vect)
+{
+  f4:	1f 92       	push	r1
+  f6:	0f 92       	push	r0
+  f8:	0f b6       	in	r0, 0x3f	; 63
+  fa:	0f 92       	push	r0
+  fc:	11 24       	eor	r1, r1
+  fe:	8f 93       	push	r24
+ 100:	9f 93       	push	r25
+ 102:	ef 93       	push	r30
+ 104:	ff 93       	push	r31
+	rxBuffer[rxWritePos] = UDR;
+ 106:	80 91 61 00 	lds	r24, 0x0061
+ 10a:	9c b1       	in	r25, 0x0c	; 12
+ 10c:	e2 e6       	ldi	r30, 0x62	; 98
+ 10e:	f0 e0       	ldi	r31, 0x00	; 0
+ 110:	e8 0f       	add	r30, r24
+ 112:	f1 1d       	adc	r31, r1
+ 114:	90 83       	st	Z, r25
+	rxWritePos++;
+ 116:	8f 5f       	subi	r24, 0xFF	; 255
+ 118:	80 93 61 00 	sts	0x0061, r24
+	
+	if(rxWritePos >= RX_BUFFER_SIZE )
+ 11c:	88 23       	and	r24, r24
+ 11e:	14 f4       	brge	.+4      	; 0x124 <USART_RX_vect+0x30>
+	{
+		rxWritePos = 0;
+ 120:	10 92 61 00 	sts	0x0061, r1
+	}
+}
+ 124:	ff 91       	pop	r31
+ 126:	ef 91       	pop	r30
+ 128:	9f 91       	pop	r25
+ 12a:	8f 91       	pop	r24
+ 12c:	0f 90       	pop	r0
+ 12e:	0f be       	out	0x3f, r0	; 63
+ 130:	0f 90       	pop	r0
+ 132:	1f 90       	pop	r1
+ 134:	18 95       	reti
+
+00000136 <_exit>:
+ 136:	f8 94       	cli
+
+00000138 <__stop_program>:
+ 138:	ff cf       	rjmp	.-2      	; 0x138 <__stop_program>

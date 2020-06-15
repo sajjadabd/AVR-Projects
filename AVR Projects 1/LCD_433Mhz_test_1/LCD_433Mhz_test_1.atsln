@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "LCD_433Mhz_test_1", "LCD_433Mhz_test_1\LCD_433Mhz_test_1.cproj", "{A74ED54B-9A02-4710-9C3B-87EFB6F00EBB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A74ED54B-9A02-4710-9C3B-87EFB6F00EBB}.Debug|AVR.ActiveCfg = Debug|AVR
+		{A74ED54B-9A02-4710-9C3B-87EFB6F00EBB}.Debug|AVR.Build.0 = Debug|AVR
+		{A74ED54B-9A02-4710-9C3B-87EFB6F00EBB}.Release|AVR.ActiveCfg = Release|AVR
+		{A74ED54B-9A02-4710-9C3B-87EFB6F00EBB}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

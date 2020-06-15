@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "OptacoplerTestWithAtmega8", "OptacoplerTestWithAtmega8\OptacoplerTestWithAtmega8.cproj", "{FDC73167-BE2E-4BE0-8CD5-33374D81C5BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FDC73167-BE2E-4BE0-8CD5-33374D81C5BB}.Debug|AVR.ActiveCfg = Debug|AVR
+		{FDC73167-BE2E-4BE0-8CD5-33374D81C5BB}.Debug|AVR.Build.0 = Debug|AVR
+		{FDC73167-BE2E-4BE0-8CD5-33374D81C5BB}.Release|AVR.ActiveCfg = Release|AVR
+		{FDC73167-BE2E-4BE0-8CD5-33374D81C5BB}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

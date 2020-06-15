@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "433Mhz_Tx_2", "433Mhz_Tx_2\433Mhz_Tx_2.cproj", "{02474EDD-CC3E-428B-BE68-CB59DA41BA46}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{02474EDD-CC3E-428B-BE68-CB59DA41BA46}.Debug|AVR.ActiveCfg = Debug|AVR
+		{02474EDD-CC3E-428B-BE68-CB59DA41BA46}.Debug|AVR.Build.0 = Debug|AVR
+		{02474EDD-CC3E-428B-BE68-CB59DA41BA46}.Release|AVR.ActiveCfg = Release|AVR
+		{02474EDD-CC3E-428B-BE68-CB59DA41BA46}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

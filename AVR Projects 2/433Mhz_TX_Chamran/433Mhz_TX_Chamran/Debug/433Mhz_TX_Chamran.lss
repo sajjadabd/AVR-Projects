@@ -1,0 +1,653 @@
+
+433Mhz_TX_Chamran.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000002ea  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .bss          00000018  00800060  00800060  0000035e  2**0
+                  ALLOC
+  2 .stab         000006cc  00000000  00000000  00000360  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  3 .stabstr      00000097  00000000  00000000  00000a2c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_aranges 00000020  00000000  00000000  00000ac3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_pubnames 00000132  00000000  00000000  00000ae3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000465  00000000  00000000  00000c15  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000001b6  00000000  00000000  0000107a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000004ae  00000000  00000000  00001230  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  000000a0  00000000  00000000  000016e0  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000001d0  00000000  00000000  00001780  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000181  00000000  00000000  00001950  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_pubtypes 00000038  00000000  00000000  00001ad1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	21 c0       	rjmp	.+66     	; 0x46 <__bad_interrupt>
+   4:	20 c0       	rjmp	.+64     	; 0x46 <__bad_interrupt>
+   6:	1f c0       	rjmp	.+62     	; 0x46 <__bad_interrupt>
+   8:	1e c0       	rjmp	.+60     	; 0x46 <__bad_interrupt>
+   a:	1d c0       	rjmp	.+58     	; 0x46 <__bad_interrupt>
+   c:	1c c0       	rjmp	.+56     	; 0x46 <__bad_interrupt>
+   e:	1b c0       	rjmp	.+54     	; 0x46 <__bad_interrupt>
+  10:	1a c0       	rjmp	.+52     	; 0x46 <__bad_interrupt>
+  12:	19 c0       	rjmp	.+50     	; 0x46 <__bad_interrupt>
+  14:	18 c0       	rjmp	.+48     	; 0x46 <__bad_interrupt>
+  16:	17 c0       	rjmp	.+46     	; 0x46 <__bad_interrupt>
+  18:	16 c0       	rjmp	.+44     	; 0x46 <__bad_interrupt>
+  1a:	15 c0       	rjmp	.+42     	; 0x46 <__bad_interrupt>
+  1c:	14 c0       	rjmp	.+40     	; 0x46 <__bad_interrupt>
+  1e:	13 c0       	rjmp	.+38     	; 0x46 <__bad_interrupt>
+  20:	12 c0       	rjmp	.+36     	; 0x46 <__bad_interrupt>
+  22:	11 c0       	rjmp	.+34     	; 0x46 <__bad_interrupt>
+  24:	10 c0       	rjmp	.+32     	; 0x46 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_clear_bss>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	01 c0       	rjmp	.+2      	; 0x3c <.do_clear_bss_start>
+
+0000003a <.do_clear_bss_loop>:
+  3a:	1d 92       	st	X+, r1
+
+0000003c <.do_clear_bss_start>:
+  3c:	a8 37       	cpi	r26, 0x78	; 120
+  3e:	b1 07       	cpc	r27, r17
+  40:	e1 f7       	brne	.-8      	; 0x3a <.do_clear_bss_loop>
+  42:	43 d1       	rcall	.+646    	; 0x2ca <main>
+  44:	50 c1       	rjmp	.+672    	; 0x2e6 <_exit>
+
+00000046 <__bad_interrupt>:
+  46:	dc cf       	rjmp	.-72     	; 0x0 <__vectors>
+
+00000048 <USART_Init>:
+
+
+void USART_Init(void)
+{
+	//Set baud rate
+	UBRRL=(uint8_t)UBRRVAL;		//low byte
+  48:	85 e0       	ldi	r24, 0x05	; 5
+  4a:	89 b9       	out	0x09, r24	; 9
+	UBRRH=(UBRRVAL>>8);	//high byte
+  4c:	10 bc       	out	0x20, r1	; 32
+	//Set data frame format: asynchronous mode,no parity, 1 stop bit, 8 bit size
+	UCSRC=(1<<URSEL)|(0<<UMSEL)|(0<<UPM1)|(0<<UPM0)|
+  4e:	86 e8       	ldi	r24, 0x86	; 134
+  50:	80 bd       	out	0x20, r24	; 32
+		(0<<USBS)|(0<<UCSZ2)|(1<<UCSZ1)|(1<<UCSZ0);	
+	//Enable Transmitter and Receiver and Interrupt on receive complete
+	UCSRB=(1<<TXEN);
+  52:	88 e0       	ldi	r24, 0x08	; 8
+  54:	8a b9       	out	0x0a, r24	; 10
+}
+  56:	08 95       	ret
+
+00000058 <USART_vSendByte>:
+void USART_vSendByte(uint8_t u8Data)
+{
+    // Wait if a byte is being transmitted
+    while((UCSRA&(1<<UDRE)) == 0);
+  58:	5d 9b       	sbis	0x0b, 5	; 11
+  5a:	fe cf       	rjmp	.-4      	; 0x58 <USART_vSendByte>
+    // Transmit data
+    UDR = u8Data; 
+  5c:	8c b9       	out	0x0c, r24	; 12
+}
+  5e:	08 95       	ret
+
+00000060 <Send_Packet>:
+void Send_Packet(uint8_t addr, uint8_t cmd)
+{
+  60:	0f 93       	push	r16
+  62:	1f 93       	push	r17
+  64:	18 2f       	mov	r17, r24
+  66:	06 2f       	mov	r16, r22
+	USART_vSendByte(SYNC);//send synchro byte	
+  68:	8a ea       	ldi	r24, 0xAA	; 170
+  6a:	f6 df       	rcall	.-20     	; 0x58 <USART_vSendByte>
+	USART_vSendByte(addr);//send receiver address
+  6c:	81 2f       	mov	r24, r17
+  6e:	f4 df       	rcall	.-24     	; 0x58 <USART_vSendByte>
+	USART_vSendByte(cmd);//send increment command
+  70:	80 2f       	mov	r24, r16
+  72:	f2 df       	rcall	.-28     	; 0x58 <USART_vSendByte>
+	USART_vSendByte((addr+cmd));//send checksum
+  74:	80 2f       	mov	r24, r16
+  76:	81 0f       	add	r24, r17
+  78:	ef df       	rcall	.-34     	; 0x58 <USART_vSendByte>
+}
+  7a:	1f 91       	pop	r17
+  7c:	0f 91       	pop	r16
+  7e:	08 95       	ret
+
+00000080 <delayms>:
+void delayms(uint8_t t)//delay in ms
+{
+	uint8_t i;
+	for(i=0;i<t;i++)
+  80:	88 23       	and	r24, r24
+  82:	51 f0       	breq	.+20     	; 0x98 <delayms+0x18>
+  84:	90 e0       	ldi	r25, 0x00	; 0
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  86:	e9 ef       	ldi	r30, 0xF9	; 249
+  88:	f0 e0       	ldi	r31, 0x00	; 0
+  8a:	31 97       	sbiw	r30, 0x01	; 1
+  8c:	f1 f7       	brne	.-4      	; 0x8a <delayms+0xa>
+  8e:	00 c0       	rjmp	.+0      	; 0x90 <delayms+0x10>
+  90:	00 00       	nop
+  92:	9f 5f       	subi	r25, 0xFF	; 255
+  94:	98 17       	cp	r25, r24
+  96:	b8 f3       	brcs	.-18     	; 0x86 <delayms+0x6>
+  98:	08 95       	ret
+
+0000009a <ScanButton4>:
+		_delay_ms(1);
+}
+
+
+void ScanButton4()
+{
+  9a:	cf 93       	push	r28
+  9c:	df 93       	push	r29
+	if(bit_is_clear(PINB, 4))
+  9e:	b4 99       	sbic	0x16, 4	; 22
+  a0:	21 c0       	rjmp	.+66     	; 0xe4 <ScanButton4+0x4a>
+	{
+		if(pressed4 >= checkingPoint)
+  a2:	80 91 66 00 	lds	r24, 0x0066
+  a6:	90 91 67 00 	lds	r25, 0x0067
+  aa:	8a 30       	cpi	r24, 0x0A	; 10
+  ac:	91 05       	cpc	r25, r1
+  ae:	a4 f0       	brlt	.+40     	; 0xd8 <ScanButton4+0x3e>
+		{
+			pressed4 = checkingPoint;
+  b0:	8a e0       	ldi	r24, 0x0A	; 10
+  b2:	90 e0       	ldi	r25, 0x00	; 0
+  b4:	90 93 67 00 	sts	0x0067, r25
+  b8:	80 93 66 00 	sts	0x0066, r24
+			
+			for(int k=0;k<10;k++)
+  bc:	c0 e0       	ldi	r28, 0x00	; 0
+  be:	d0 e0       	ldi	r29, 0x00	; 0
+				Send_Packet(RADDR, LEDON4);
+  c0:	84 e4       	ldi	r24, 0x44	; 68
+  c2:	67 e0       	ldi	r22, 0x07	; 7
+  c4:	cd df       	rcall	.-102    	; 0x60 <Send_Packet>
+	{
+		if(pressed4 >= checkingPoint)
+		{
+			pressed4 = checkingPoint;
+			
+			for(int k=0;k<10;k++)
+  c6:	21 96       	adiw	r28, 0x01	; 1
+  c8:	ca 30       	cpi	r28, 0x0A	; 10
+  ca:	d1 05       	cpc	r29, r1
+  cc:	c9 f7       	brne	.-14     	; 0xc0 <ScanButton4+0x26>
+				Send_Packet(RADDR, LEDON4);
+				
+			pressed4 = 0;
+  ce:	10 92 67 00 	sts	0x0067, r1
+  d2:	10 92 66 00 	sts	0x0066, r1
+  d6:	24 c0       	rjmp	.+72     	; 0x120 <ScanButton4+0x86>
+		}
+		else
+		{
+			pressed4++;
+  d8:	01 96       	adiw	r24, 0x01	; 1
+  da:	90 93 67 00 	sts	0x0067, r25
+  de:	80 93 66 00 	sts	0x0066, r24
+  e2:	1e c0       	rjmp	.+60     	; 0x120 <ScanButton4+0x86>
+		}							
+	}
+	else
+	{
+		if(pressed4_off >= checkingPoint)
+  e4:	80 91 6e 00 	lds	r24, 0x006E
+  e8:	90 91 6f 00 	lds	r25, 0x006F
+  ec:	8a 30       	cpi	r24, 0x0A	; 10
+  ee:	91 05       	cpc	r25, r1
+  f0:	94 f0       	brlt	.+36     	; 0x116 <ScanButton4+0x7c>
+		{
+			pressed4_off = checkingPoint;
+  f2:	8a e0       	ldi	r24, 0x0A	; 10
+  f4:	90 e0       	ldi	r25, 0x00	; 0
+  f6:	90 93 6f 00 	sts	0x006F, r25
+  fa:	80 93 6e 00 	sts	0x006E, r24
+  fe:	ca e0       	ldi	r28, 0x0A	; 10
+ 100:	d0 e0       	ldi	r29, 0x00	; 0
+			
+			for(int k=0;k<10;k++)
+				Send_Packet(RADDR, LEDOFF4);
+ 102:	84 e4       	ldi	r24, 0x44	; 68
+ 104:	69 e0       	ldi	r22, 0x09	; 9
+ 106:	ac df       	rcall	.-168    	; 0x60 <Send_Packet>
+ 108:	21 97       	sbiw	r28, 0x01	; 1
+	{
+		if(pressed4_off >= checkingPoint)
+		{
+			pressed4_off = checkingPoint;
+			
+			for(int k=0;k<10;k++)
+ 10a:	d9 f7       	brne	.-10     	; 0x102 <ScanButton4+0x68>
+				Send_Packet(RADDR, LEDOFF4);
+				
+			pressed4_off = 0;
+ 10c:	10 92 6f 00 	sts	0x006F, r1
+ 110:	10 92 6e 00 	sts	0x006E, r1
+ 114:	05 c0       	rjmp	.+10     	; 0x120 <ScanButton4+0x86>
+		}
+		else
+		{
+			pressed4_off++;
+ 116:	01 96       	adiw	r24, 0x01	; 1
+ 118:	90 93 6f 00 	sts	0x006F, r25
+ 11c:	80 93 6e 00 	sts	0x006E, r24
+		}
+		
+	}			
+}
+ 120:	df 91       	pop	r29
+ 122:	cf 91       	pop	r28
+ 124:	08 95       	ret
+
+00000126 <ScanButton3>:
+
+
+void ScanButton3()
+{
+ 126:	cf 93       	push	r28
+ 128:	df 93       	push	r29
+	if(bit_is_clear(PINB, 3))
+ 12a:	b3 99       	sbic	0x16, 3	; 22
+ 12c:	21 c0       	rjmp	.+66     	; 0x170 <ScanButton3+0x4a>
+	{
+		if(pressed3 >= checkingPoint)
+ 12e:	80 91 64 00 	lds	r24, 0x0064
+ 132:	90 91 65 00 	lds	r25, 0x0065
+ 136:	8a 30       	cpi	r24, 0x0A	; 10
+ 138:	91 05       	cpc	r25, r1
+ 13a:	a4 f0       	brlt	.+40     	; 0x164 <ScanButton3+0x3e>
+		{
+			pressed3 = checkingPoint;
+ 13c:	8a e0       	ldi	r24, 0x0A	; 10
+ 13e:	90 e0       	ldi	r25, 0x00	; 0
+ 140:	90 93 65 00 	sts	0x0065, r25
+ 144:	80 93 64 00 	sts	0x0064, r24
+			
+			for(int k=0;k<10;k++)
+ 148:	c0 e0       	ldi	r28, 0x00	; 0
+ 14a:	d0 e0       	ldi	r29, 0x00	; 0
+				Send_Packet(RADDR, LEDON3);
+ 14c:	84 e4       	ldi	r24, 0x44	; 68
+ 14e:	66 e0       	ldi	r22, 0x06	; 6
+ 150:	87 df       	rcall	.-242    	; 0x60 <Send_Packet>
+	{
+		if(pressed3 >= checkingPoint)
+		{
+			pressed3 = checkingPoint;
+			
+			for(int k=0;k<10;k++)
+ 152:	21 96       	adiw	r28, 0x01	; 1
+ 154:	ca 30       	cpi	r28, 0x0A	; 10
+ 156:	d1 05       	cpc	r29, r1
+ 158:	c9 f7       	brne	.-14     	; 0x14c <ScanButton3+0x26>
+				Send_Packet(RADDR, LEDON3);
+				
+			pressed3 = 0;	
+ 15a:	10 92 65 00 	sts	0x0065, r1
+ 15e:	10 92 64 00 	sts	0x0064, r1
+ 162:	24 c0       	rjmp	.+72     	; 0x1ac <ScanButton3+0x86>
+		}
+		else
+		{
+			pressed3++;
+ 164:	01 96       	adiw	r24, 0x01	; 1
+ 166:	90 93 65 00 	sts	0x0065, r25
+ 16a:	80 93 64 00 	sts	0x0064, r24
+ 16e:	1e c0       	rjmp	.+60     	; 0x1ac <ScanButton3+0x86>
+		}							
+	}	
+	else
+	{
+		if(pressed3_off >= checkingPoint)
+ 170:	80 91 6c 00 	lds	r24, 0x006C
+ 174:	90 91 6d 00 	lds	r25, 0x006D
+ 178:	8a 30       	cpi	r24, 0x0A	; 10
+ 17a:	91 05       	cpc	r25, r1
+ 17c:	94 f0       	brlt	.+36     	; 0x1a2 <ScanButton3+0x7c>
+		{
+			pressed3_off = checkingPoint;
+ 17e:	8a e0       	ldi	r24, 0x0A	; 10
+ 180:	90 e0       	ldi	r25, 0x00	; 0
+ 182:	90 93 6d 00 	sts	0x006D, r25
+ 186:	80 93 6c 00 	sts	0x006C, r24
+ 18a:	ca e0       	ldi	r28, 0x0A	; 10
+ 18c:	d0 e0       	ldi	r29, 0x00	; 0
+			
+			for(int k=0;k<10;k++)
+				Send_Packet(RADDR, LEDOFF3);
+ 18e:	84 e4       	ldi	r24, 0x44	; 68
+ 190:	68 e0       	ldi	r22, 0x08	; 8
+ 192:	66 df       	rcall	.-308    	; 0x60 <Send_Packet>
+ 194:	21 97       	sbiw	r28, 0x01	; 1
+	{
+		if(pressed3_off >= checkingPoint)
+		{
+			pressed3_off = checkingPoint;
+			
+			for(int k=0;k<10;k++)
+ 196:	d9 f7       	brne	.-10     	; 0x18e <ScanButton3+0x68>
+				Send_Packet(RADDR, LEDOFF3);
+				
+			pressed3_off = 0;
+ 198:	10 92 6d 00 	sts	0x006D, r1
+ 19c:	10 92 6c 00 	sts	0x006C, r1
+ 1a0:	05 c0       	rjmp	.+10     	; 0x1ac <ScanButton3+0x86>
+		}
+		else
+		{
+			pressed3_off++;
+ 1a2:	01 96       	adiw	r24, 0x01	; 1
+ 1a4:	90 93 6d 00 	sts	0x006D, r25
+ 1a8:	80 93 6c 00 	sts	0x006C, r24
+		}
+		
+	}		
+}
+ 1ac:	df 91       	pop	r29
+ 1ae:	cf 91       	pop	r28
+ 1b0:	08 95       	ret
+
+000001b2 <ScanButton2>:
+
+
+
+void ScanButton2()
+{
+ 1b2:	cf 93       	push	r28
+ 1b4:	df 93       	push	r29
+	if(bit_is_clear(PINB, 2))
+ 1b6:	b2 99       	sbic	0x16, 2	; 22
+ 1b8:	21 c0       	rjmp	.+66     	; 0x1fc <ScanButton2+0x4a>
+	{
+		if(pressed2 >= checkingPoint)
+ 1ba:	80 91 62 00 	lds	r24, 0x0062
+ 1be:	90 91 63 00 	lds	r25, 0x0063
+ 1c2:	8a 30       	cpi	r24, 0x0A	; 10
+ 1c4:	91 05       	cpc	r25, r1
+ 1c6:	a4 f0       	brlt	.+40     	; 0x1f0 <ScanButton2+0x3e>
+		{
+			pressed2 = checkingPoint;
+ 1c8:	8a e0       	ldi	r24, 0x0A	; 10
+ 1ca:	90 e0       	ldi	r25, 0x00	; 0
+ 1cc:	90 93 63 00 	sts	0x0063, r25
+ 1d0:	80 93 62 00 	sts	0x0062, r24
+			
+			for(int k=0;k<10;k++)
+ 1d4:	c0 e0       	ldi	r28, 0x00	; 0
+ 1d6:	d0 e0       	ldi	r29, 0x00	; 0
+				Send_Packet(RADDR, LEDON2);
+ 1d8:	84 e4       	ldi	r24, 0x44	; 68
+ 1da:	62 e0       	ldi	r22, 0x02	; 2
+ 1dc:	41 df       	rcall	.-382    	; 0x60 <Send_Packet>
+	{
+		if(pressed2 >= checkingPoint)
+		{
+			pressed2 = checkingPoint;
+			
+			for(int k=0;k<10;k++)
+ 1de:	21 96       	adiw	r28, 0x01	; 1
+ 1e0:	ca 30       	cpi	r28, 0x0A	; 10
+ 1e2:	d1 05       	cpc	r29, r1
+ 1e4:	c9 f7       	brne	.-14     	; 0x1d8 <ScanButton2+0x26>
+				Send_Packet(RADDR, LEDON2);
+				
+			pressed2 = 0;	
+ 1e6:	10 92 63 00 	sts	0x0063, r1
+ 1ea:	10 92 62 00 	sts	0x0062, r1
+ 1ee:	24 c0       	rjmp	.+72     	; 0x238 <ScanButton2+0x86>
+			
+		}
+		else
+		{
+			pressed2++;
+ 1f0:	01 96       	adiw	r24, 0x01	; 1
+ 1f2:	90 93 63 00 	sts	0x0063, r25
+ 1f6:	80 93 62 00 	sts	0x0062, r24
+ 1fa:	1e c0       	rjmp	.+60     	; 0x238 <ScanButton2+0x86>
+		}							
+	}	
+	else
+	{
+		if(pressed2_off >= checkingPoint)
+ 1fc:	80 91 6a 00 	lds	r24, 0x006A
+ 200:	90 91 6b 00 	lds	r25, 0x006B
+ 204:	8a 30       	cpi	r24, 0x0A	; 10
+ 206:	91 05       	cpc	r25, r1
+ 208:	94 f0       	brlt	.+36     	; 0x22e <ScanButton2+0x7c>
+		{
+			pressed2_off = checkingPoint;
+ 20a:	8a e0       	ldi	r24, 0x0A	; 10
+ 20c:	90 e0       	ldi	r25, 0x00	; 0
+ 20e:	90 93 6b 00 	sts	0x006B, r25
+ 212:	80 93 6a 00 	sts	0x006A, r24
+ 216:	ca e0       	ldi	r28, 0x0A	; 10
+ 218:	d0 e0       	ldi	r29, 0x00	; 0
+			
+			for(int k=0;k<10;k++)
+				Send_Packet(RADDR, LEDOFF2);
+ 21a:	84 e4       	ldi	r24, 0x44	; 68
+ 21c:	65 e0       	ldi	r22, 0x05	; 5
+ 21e:	20 df       	rcall	.-448    	; 0x60 <Send_Packet>
+ 220:	21 97       	sbiw	r28, 0x01	; 1
+	{
+		if(pressed2_off >= checkingPoint)
+		{
+			pressed2_off = checkingPoint;
+			
+			for(int k=0;k<10;k++)
+ 222:	d9 f7       	brne	.-10     	; 0x21a <ScanButton2+0x68>
+				Send_Packet(RADDR, LEDOFF2);
+				
+			pressed2_off = 0;
+ 224:	10 92 6b 00 	sts	0x006B, r1
+ 228:	10 92 6a 00 	sts	0x006A, r1
+ 22c:	05 c0       	rjmp	.+10     	; 0x238 <ScanButton2+0x86>
+		}
+		else
+		{
+			pressed2_off++;
+ 22e:	01 96       	adiw	r24, 0x01	; 1
+ 230:	90 93 6b 00 	sts	0x006B, r25
+ 234:	80 93 6a 00 	sts	0x006A, r24
+		}
+		
+	}		
+}
+ 238:	df 91       	pop	r29
+ 23a:	cf 91       	pop	r28
+ 23c:	08 95       	ret
+
+0000023e <ScanButton1>:
+
+void ScanButton1()
+{
+ 23e:	cf 93       	push	r28
+ 240:	df 93       	push	r29
+	
+	if(bit_is_clear(PINB, 1))
+ 242:	b1 99       	sbic	0x16, 1	; 22
+ 244:	21 c0       	rjmp	.+66     	; 0x288 <ScanButton1+0x4a>
+	{
+		if(pressed1 >= checkingPoint)
+ 246:	80 91 60 00 	lds	r24, 0x0060
+ 24a:	90 91 61 00 	lds	r25, 0x0061
+ 24e:	8a 30       	cpi	r24, 0x0A	; 10
+ 250:	91 05       	cpc	r25, r1
+ 252:	a4 f0       	brlt	.+40     	; 0x27c <ScanButton1+0x3e>
+		{
+			pressed1 = checkingPoint;
+ 254:	8a e0       	ldi	r24, 0x0A	; 10
+ 256:	90 e0       	ldi	r25, 0x00	; 0
+ 258:	90 93 61 00 	sts	0x0061, r25
+ 25c:	80 93 60 00 	sts	0x0060, r24
+			
+			for(int k=0;k<10;k++)
+ 260:	c0 e0       	ldi	r28, 0x00	; 0
+ 262:	d0 e0       	ldi	r29, 0x00	; 0
+				Send_Packet(RADDR, LEDON1);
+ 264:	84 e4       	ldi	r24, 0x44	; 68
+ 266:	61 e0       	ldi	r22, 0x01	; 1
+ 268:	fb de       	rcall	.-522    	; 0x60 <Send_Packet>
+	{
+		if(pressed1 >= checkingPoint)
+		{
+			pressed1 = checkingPoint;
+			
+			for(int k=0;k<10;k++)
+ 26a:	21 96       	adiw	r28, 0x01	; 1
+ 26c:	ca 30       	cpi	r28, 0x0A	; 10
+ 26e:	d1 05       	cpc	r29, r1
+ 270:	c9 f7       	brne	.-14     	; 0x264 <ScanButton1+0x26>
+				Send_Packet(RADDR, LEDON1);
+				
+			pressed1 = 0;	
+ 272:	10 92 61 00 	sts	0x0061, r1
+ 276:	10 92 60 00 	sts	0x0060, r1
+ 27a:	24 c0       	rjmp	.+72     	; 0x2c4 <ScanButton1+0x86>
+			
+		}
+		else
+		{
+			pressed1++;
+ 27c:	01 96       	adiw	r24, 0x01	; 1
+ 27e:	90 93 61 00 	sts	0x0061, r25
+ 282:	80 93 60 00 	sts	0x0060, r24
+ 286:	1e c0       	rjmp	.+60     	; 0x2c4 <ScanButton1+0x86>
+		}							
+	}	
+	else
+	{
+		if(pressed1_off >= checkingPoint)
+ 288:	80 91 68 00 	lds	r24, 0x0068
+ 28c:	90 91 69 00 	lds	r25, 0x0069
+ 290:	8a 30       	cpi	r24, 0x0A	; 10
+ 292:	91 05       	cpc	r25, r1
+ 294:	94 f0       	brlt	.+36     	; 0x2ba <ScanButton1+0x7c>
+		{
+			pressed1_off = checkingPoint;
+ 296:	8a e0       	ldi	r24, 0x0A	; 10
+ 298:	90 e0       	ldi	r25, 0x00	; 0
+ 29a:	90 93 69 00 	sts	0x0069, r25
+ 29e:	80 93 68 00 	sts	0x0068, r24
+ 2a2:	ca e0       	ldi	r28, 0x0A	; 10
+ 2a4:	d0 e0       	ldi	r29, 0x00	; 0
+			
+			for(int k=0;k<10;k++)
+				Send_Packet(RADDR, LEDOFF1);
+ 2a6:	84 e4       	ldi	r24, 0x44	; 68
+ 2a8:	63 e0       	ldi	r22, 0x03	; 3
+ 2aa:	da de       	rcall	.-588    	; 0x60 <Send_Packet>
+ 2ac:	21 97       	sbiw	r28, 0x01	; 1
+	{
+		if(pressed1_off >= checkingPoint)
+		{
+			pressed1_off = checkingPoint;
+			
+			for(int k=0;k<10;k++)
+ 2ae:	d9 f7       	brne	.-10     	; 0x2a6 <ScanButton1+0x68>
+				Send_Packet(RADDR, LEDOFF1);
+				
+			pressed1_off = 0;
+ 2b0:	10 92 69 00 	sts	0x0069, r1
+ 2b4:	10 92 68 00 	sts	0x0068, r1
+ 2b8:	05 c0       	rjmp	.+10     	; 0x2c4 <ScanButton1+0x86>
+		}
+		else
+		{
+			pressed1_off++;
+ 2ba:	01 96       	adiw	r24, 0x01	; 1
+ 2bc:	90 93 69 00 	sts	0x0069, r25
+ 2c0:	80 93 68 00 	sts	0x0068, r24
+		}
+		
+	}		
+}
+ 2c4:	df 91       	pop	r29
+ 2c6:	cf 91       	pop	r28
+ 2c8:	08 95       	ret
+
+000002ca <main>:
+
+
+int main(void)
+{
+	
+	USART_Init();
+ 2ca:	be de       	rcall	.-644    	; 0x48 <USART_Init>
+	
+	//DDRB |= 1 << PINB0;
+	DDRB &= ~(1 << PINB1);
+ 2cc:	b9 98       	cbi	0x17, 1	; 23
+	DDRB &= ~(1 << PINB2);
+ 2ce:	ba 98       	cbi	0x17, 2	; 23
+	
+	DDRB &= ~(1 << PINB3);
+ 2d0:	bb 98       	cbi	0x17, 3	; 23
+	DDRB &= ~(1 << PINB4);
+ 2d2:	bc 98       	cbi	0x17, 4	; 23
+	
+	PORTB |= 1 << PINB1;
+ 2d4:	c1 9a       	sbi	0x18, 1	; 24
+	PORTB |= 1 << PINB2;
+ 2d6:	c2 9a       	sbi	0x18, 2	; 24
+	
+	PORTB |= 1 << PINB3;
+ 2d8:	c3 9a       	sbi	0x18, 3	; 24
+	PORTB |= 1 << PINB4;
+ 2da:	c4 9a       	sbi	0x18, 4	; 24
+	
+	while(1)
+	{
+		ScanButton1();
+ 2dc:	b0 df       	rcall	.-160    	; 0x23e <ScanButton1>
+		ScanButton2();
+ 2de:	69 df       	rcall	.-302    	; 0x1b2 <ScanButton2>
+		
+		ScanButton3();
+ 2e0:	22 df       	rcall	.-444    	; 0x126 <ScanButton3>
+		ScanButton4();
+ 2e2:	db de       	rcall	.-586    	; 0x9a <ScanButton4>
+ 2e4:	fb cf       	rjmp	.-10     	; 0x2dc <main+0x12>
+
+000002e6 <_exit>:
+ 2e6:	f8 94       	cli
+
+000002e8 <__stop_program>:
+ 2e8:	ff cf       	rjmp	.-2      	; 0x2e8 <__stop_program>

@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "SevenSegmentPlusTimer_1", "SevenSegmentPlusTimer_1\SevenSegmentPlusTimer_1.cproj", "{15733FD7-A957-477F-9B86-C45411C7A977}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15733FD7-A957-477F-9B86-C45411C7A977}.Debug|AVR.ActiveCfg = Debug|AVR
+		{15733FD7-A957-477F-9B86-C45411C7A977}.Debug|AVR.Build.0 = Debug|AVR
+		{15733FD7-A957-477F-9B86-C45411C7A977}.Release|AVR.ActiveCfg = Release|AVR
+		{15733FD7-A957-477F-9B86-C45411C7A977}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

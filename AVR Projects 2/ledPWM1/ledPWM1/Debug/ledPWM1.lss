@@ -1,0 +1,258 @@
+
+ledPWM1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000116  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .stab         000006cc  00000000  00000000  0000016c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  2 .stabstr      00000097  00000000  00000000  00000838  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_aranges 00000020  00000000  00000000  000008cf  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_pubnames 00000058  00000000  00000000  000008ef  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000238  00000000  00000000  00000947  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000015f  00000000  00000000  00000b7f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000002ab  00000000  00000000  00000cde  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000060  00000000  00000000  00000f8c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000121  00000000  00000000  00000fec  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000086  00000000  00000000  0000110d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_pubtypes 00000038  00000000  00000000  00001193  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000030  00000000  00000000  000011cb  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 5f 00 	call	0xbe	; 0xbe <main>
+  64:	0c 94 89 00 	jmp	0x112	; 0x112 <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <initPWM2>:
+//OCR2  = 100;
+
+void initPWM2(){
+    //TIMER0 (8 bit timer)
+    //set pins 5D(OC0B) and 6D(OC0A) as output
+    DDRD |= 1<<DDD5 | 1<<DDD6 | 1 << DDD5;
+  6c:	81 b3       	in	r24, 0x11	; 17
+  6e:	80 66       	ori	r24, 0x60	; 96
+  70:	81 bb       	out	0x11, r24	; 17
+    //set fast-pwm mode
+    TCCR0 |= 1<<WGM00;
+  72:	83 b7       	in	r24, 0x33	; 51
+  74:	80 64       	ori	r24, 0x40	; 64
+  76:	83 bf       	out	0x33, r24	; 51
+    //set non-inverting mode for both pins
+    TCCR0 |= 1<<COM01 | 1<<COM01;
+  78:	83 b7       	in	r24, 0x33	; 51
+  7a:	80 62       	ori	r24, 0x20	; 32
+  7c:	83 bf       	out	0x33, r24	; 51
+    //set prescaler to 256
+    TCCR0 |= 1<<CS02;
+  7e:	83 b7       	in	r24, 0x33	; 51
+  80:	84 60       	ori	r24, 0x04	; 4
+  82:	83 bf       	out	0x33, r24	; 51
+
+    //TIMER2 (8 bit timer)
+    //set pins 3D(OC2B) as output
+    DDRD |= 1<<DDD3;
+  84:	8b 9a       	sbi	0x11, 3	; 17
+    //set fast-pwm mode
+    TCCR2 |= 1<<WGM20;
+  86:	85 b5       	in	r24, 0x25	; 37
+  88:	80 64       	ori	r24, 0x40	; 64
+  8a:	85 bd       	out	0x25, r24	; 37
+    //set non-inverting mode for both pins
+    TCCR2 |= 1<<COM21;
+  8c:	85 b5       	in	r24, 0x25	; 37
+  8e:	80 62       	ori	r24, 0x20	; 32
+  90:	85 bd       	out	0x25, r24	; 37
+    //set prescaler to 256
+    TCCR2 |= 1<<CS22 | 1<<CS21;
+  92:	85 b5       	in	r24, 0x25	; 37
+  94:	86 60       	ori	r24, 0x06	; 6
+  96:	85 bd       	out	0x25, r24	; 37
+}
+  98:	08 95       	ret
+
+0000009a <initPWM>:
+
+void initPWM()
+{
+	TCCR0 |= 1 << WGM00 | 1 << WGM01 | 1 << CS00 | 1 << COM01;
+  9a:	83 b7       	in	r24, 0x33	; 51
+  9c:	89 66       	ori	r24, 0x69	; 105
+  9e:	83 bf       	out	0x33, r24	; 51
+	
+	DDRB |= 1 << PINB3;
+  a0:	bb 9a       	sbi	0x17, 3	; 23
+	//DDRC |= (1 << PC5) | (1 << PC4);
+	
+	//DDRD |= 1 << PIND4;
+	
+	//DDRD |= 1 << PINB3;
+}
+  a2:	08 95       	ret
+
+000000a4 <setPWMOutput>:
+
+void setPWMOutput(int duty)
+{
+	// D3   D5    D6   B3
+	OCR0 = duty;
+  a4:	8c bf       	out	0x3c, r24	; 60
+	//INT1 = duty;
+	//D3
+	OCR1B = duty;
+  a6:	28 2f       	mov	r18, r24
+  a8:	39 2f       	mov	r19, r25
+  aa:	39 bd       	out	0x29, r19	; 41
+  ac:	28 bd       	out	0x28, r18	; 40
+	OCR1A = duty;
+  ae:	3b bd       	out	0x2b, r19	; 43
+  b0:	2a bd       	out	0x2a, r18	; 42
+	//ICP1 = duty;
+}
+  b2:	08 95       	ret
+
+000000b4 <setPWMOutputD4>:
+
+void setPWMOutputD4(int duty)
+{
+	OCR1B = duty;
+  b4:	28 2f       	mov	r18, r24
+  b6:	39 2f       	mov	r19, r25
+  b8:	39 bd       	out	0x29, r19	; 41
+  ba:	28 bd       	out	0x28, r18	; 40
+}
+  bc:	08 95       	ret
+
+000000be <main>:
+
+int main(void)
+{
+  be:	ef 92       	push	r14
+  c0:	ff 92       	push	r15
+  c2:	0f 93       	push	r16
+  c4:	1f 93       	push	r17
+  c6:	cf 93       	push	r28
+  c8:	df 93       	push	r29
+	initPWM();
+  ca:	0e 94 4d 00 	call	0x9a	; 0x9a <initPWM>
+	// D3   D5    D6   B3
+    while(1)
+    {
+        //TODO:: Please write your application code
+		
+		for(int i=0;i<255;i++)
+  ce:	c0 e0       	ldi	r28, 0x00	; 0
+  d0:	d0 e0       	ldi	r29, 0x00	; 0
+  d2:	0f ef       	ldi	r16, 0xFF	; 255
+  d4:	10 e0       	ldi	r17, 0x00	; 0
+  d6:	ee 24       	eor	r14, r14
+  d8:	ff 24       	eor	r15, r15
+  da:	0a c0       	rjmp	.+20     	; 0xf0 <main+0x32>
+		{
+			setPWMOutput(i);
+  dc:	ce 01       	movw	r24, r28
+  de:	0e 94 52 00 	call	0xa4	; 0xa4 <setPWMOutput>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  e2:	81 ee       	ldi	r24, 0xE1	; 225
+  e4:	94 e0       	ldi	r25, 0x04	; 4
+  e6:	01 97       	sbiw	r24, 0x01	; 1
+  e8:	f1 f7       	brne	.-4      	; 0xe6 <main+0x28>
+  ea:	00 c0       	rjmp	.+0      	; 0xec <main+0x2e>
+  ec:	00 00       	nop
+	// D3   D5    D6   B3
+    while(1)
+    {
+        //TODO:: Please write your application code
+		
+		for(int i=0;i<255;i++)
+  ee:	21 96       	adiw	r28, 0x01	; 1
+  f0:	cf 3f       	cpi	r28, 0xFF	; 255
+  f2:	d1 05       	cpc	r29, r1
+  f4:	9c f3       	brlt	.-26     	; 0xdc <main+0x1e>
+  f6:	e8 01       	movw	r28, r16
+			_delay_ms(5);
+		}			 
+		
+		for(int i=255;i>0;i--)
+		{
+			setPWMOutput(i);
+  f8:	ce 01       	movw	r24, r28
+  fa:	0e 94 52 00 	call	0xa4	; 0xa4 <setPWMOutput>
+  fe:	81 ee       	ldi	r24, 0xE1	; 225
+ 100:	94 e0       	ldi	r25, 0x04	; 4
+ 102:	01 97       	sbiw	r24, 0x01	; 1
+ 104:	f1 f7       	brne	.-4      	; 0x102 <main+0x44>
+ 106:	00 c0       	rjmp	.+0      	; 0x108 <main+0x4a>
+ 108:	00 00       	nop
+		{
+			setPWMOutput(i);
+			_delay_ms(5);
+		}			 
+		
+		for(int i=255;i>0;i--)
+ 10a:	21 97       	sbiw	r28, 0x01	; 1
+ 10c:	a9 f7       	brne	.-22     	; 0xf8 <main+0x3a>
+	// D3   D5    D6   B3
+    while(1)
+    {
+        //TODO:: Please write your application code
+		
+		for(int i=0;i<255;i++)
+ 10e:	e7 01       	movw	r28, r14
+ 110:	ef cf       	rjmp	.-34     	; 0xf0 <main+0x32>
+
+00000112 <_exit>:
+ 112:	f8 94       	cli
+
+00000114 <__stop_program>:
+ 114:	ff cf       	rjmp	.-2      	; 0x114 <__stop_program>

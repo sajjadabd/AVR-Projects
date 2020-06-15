@@ -1,0 +1,349 @@
+
+433Mhz_RX_Chamran_Atmega_8A.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000108  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .stab         000006cc  00000000  00000000  0000015c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  2 .stabstr      00000097  00000000  00000000  00000828  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_aranges 00000020  00000000  00000000  000008bf  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_pubnames 0000006a  00000000  00000000  000008df  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   0000011f  00000000  00000000  00000949  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000000a9  00000000  00000000  00000a68  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000347  00000000  00000000  00000b11  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000070  00000000  00000000  00000e58  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000010e  00000000  00000000  00000ec8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000070  00000000  00000000  00000fd6  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_pubtypes 0000001e  00000000  00000000  00001046  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	19 c0       	rjmp	.+50     	; 0x36 <__bad_interrupt>
+   4:	18 c0       	rjmp	.+48     	; 0x36 <__bad_interrupt>
+   6:	17 c0       	rjmp	.+46     	; 0x36 <__bad_interrupt>
+   8:	16 c0       	rjmp	.+44     	; 0x36 <__bad_interrupt>
+   a:	15 c0       	rjmp	.+42     	; 0x36 <__bad_interrupt>
+   c:	14 c0       	rjmp	.+40     	; 0x36 <__bad_interrupt>
+   e:	13 c0       	rjmp	.+38     	; 0x36 <__bad_interrupt>
+  10:	12 c0       	rjmp	.+36     	; 0x36 <__bad_interrupt>
+  12:	11 c0       	rjmp	.+34     	; 0x36 <__bad_interrupt>
+  14:	10 c0       	rjmp	.+32     	; 0x36 <__bad_interrupt>
+  16:	0f c0       	rjmp	.+30     	; 0x36 <__bad_interrupt>
+  18:	0e c0       	rjmp	.+28     	; 0x36 <__bad_interrupt>
+  1a:	0d c0       	rjmp	.+26     	; 0x36 <__bad_interrupt>
+  1c:	0c c0       	rjmp	.+24     	; 0x36 <__bad_interrupt>
+  1e:	0b c0       	rjmp	.+22     	; 0x36 <__bad_interrupt>
+  20:	0a c0       	rjmp	.+20     	; 0x36 <__bad_interrupt>
+  22:	09 c0       	rjmp	.+18     	; 0x36 <__bad_interrupt>
+  24:	08 c0       	rjmp	.+16     	; 0x36 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+  32:	64 d0       	rcall	.+200    	; 0xfc <main>
+  34:	67 c0       	rjmp	.+206    	; 0x104 <_exit>
+
+00000036 <__bad_interrupt>:
+  36:	e4 cf       	rjmp	.-56     	; 0x0 <__vectors>
+
+00000038 <USART_Init>:
+
+
+void USART_Init(void)
+{
+	//Set baud rate
+	UBRRL=(uint8_t)UBRRVAL;		//low byte
+  38:	85 e0       	ldi	r24, 0x05	; 5
+  3a:	89 b9       	out	0x09, r24	; 9
+	UBRRH=(UBRRVAL>>8);	//high byte
+  3c:	10 bc       	out	0x20, r1	; 32
+	//Set data frame format: asynchronous mode,no parity, 1 stop bit, 8 bit size
+	UCSRC=(1<<URSEL)|(0<<UMSEL)|(0<<UPM1)|(0<<UPM0)|
+  3e:	86 e8       	ldi	r24, 0x86	; 134
+  40:	80 bd       	out	0x20, r24	; 32
+		(0<<USBS)|(0<<UCSZ2)|(1<<UCSZ1)|(1<<UCSZ0);	
+	//Enable Transmitter and Receiver and Interrupt on receive complete
+	UCSRB=(1<<RXEN);//|(1<<RXCIE);//|(1<<TXEN);
+  42:	80 e1       	ldi	r24, 0x10	; 16
+  44:	8a b9       	out	0x0a, r24	; 10
+	//enable global interrupts
+
+}
+  46:	08 95       	ret
+
+00000048 <USART_vReceiveByte>:
+uint8_t USART_vReceiveByte(void)
+{
+    // Wait until a byte has been received
+    while((UCSRA&(1<<RXC)) == 0);
+  48:	5f 9b       	sbis	0x0b, 7	; 11
+  4a:	fe cf       	rjmp	.-4      	; 0x48 <USART_vReceiveByte>
+    // Return received data
+    return UDR;
+  4c:	8c b1       	in	r24, 0x0c	; 12
+}
+  4e:	08 95       	ret
+
+00000050 <makeAllOff>:
+{
+	//PB4 IN4
+	//PB3 IN3
+	//PB2 IN2
+	//PB1 IN1
+	PORTB &= ~(1 << PINB1);
+  50:	c1 98       	cbi	0x18, 1	; 24
+	PORTB &= ~(1 << PINB2);		
+  52:	c2 98       	cbi	0x18, 2	; 24
+	PORTB &= ~(1 << PINB3);
+  54:	c3 98       	cbi	0x18, 3	; 24
+	PORTB &= ~(1 << PINB4);
+  56:	c4 98       	cbi	0x18, 4	; 24
+}
+  58:	08 95       	ret
+
+0000005a <looping>:
+
+void looping()
+{
+  5a:	0f 93       	push	r16
+  5c:	1f 93       	push	r17
+	//define variables
+	uint8_t raddress, data, chk;//transmitter address
+	//receive destination address
+	raddress=USART_vReceiveByte();
+  5e:	f4 df       	rcall	.-24     	; 0x48 <USART_vReceiveByte>
+  60:	08 2f       	mov	r16, r24
+	//receive data
+	data=USART_vReceiveByte();
+  62:	f2 df       	rcall	.-28     	; 0x48 <USART_vReceiveByte>
+  64:	18 2f       	mov	r17, r24
+	//receive checksum
+	chk=USART_vReceiveByte();
+  66:	f0 df       	rcall	.-32     	; 0x48 <USART_vReceiveByte>
+	//compare received checksum with calculated
+	if(chk==(raddress+data))//if match perform operations
+  68:	90 e0       	ldi	r25, 0x00	; 0
+  6a:	20 2f       	mov	r18, r16
+  6c:	30 e0       	ldi	r19, 0x00	; 0
+  6e:	21 0f       	add	r18, r17
+  70:	31 1d       	adc	r19, r1
+  72:	82 17       	cp	r24, r18
+  74:	93 07       	cpc	r25, r19
+  76:	a9 f5       	brne	.+106    	; 0xe2 <looping+0x88>
+	{
+		//if transmitter address match
+		if(raddress==RADDR)
+  78:	04 34       	cpi	r16, 0x44	; 68
+  7a:	99 f5       	brne	.+102    	; 0xe2 <looping+0x88>
+			{
+				if(data==LEDON1) // forward
+  7c:	11 30       	cpi	r17, 0x01	; 1
+  7e:	31 f4       	brne	.+12     	; 0x8c <looping+0x32>
+				{
+					//PORTC&=~(1<<0);//LED ON
+					PORTC |= 1 << PINC5; // forward LED
+  80:	ad 9a       	sbi	0x15, 5	; 21
+					
+					//PB4 IN4
+					//PB3 IN3
+					//PB2 IN2
+					//PB1 IN1
+					PORTB &= ~(1 << PINB4);
+  82:	c4 98       	cbi	0x18, 4	; 24
+					PORTB &= ~(1 << PINB2);
+  84:	c2 98       	cbi	0x18, 2	; 24
+					
+					PORTB |= (1 << PINB1);
+  86:	c1 9a       	sbi	0x18, 1	; 24
+					PORTB |= (1 << PINB3);
+  88:	c3 9a       	sbi	0x18, 3	; 24
+  8a:	2b c0       	rjmp	.+86     	; 0xe2 <looping+0x88>
+				}
+				else if(data==LEDOFF1)
+  8c:	13 30       	cpi	r17, 0x03	; 3
+  8e:	19 f4       	brne	.+6      	; 0x96 <looping+0x3c>
+				{
+					//PORTC|=(1<<0);//LED OFF
+					PORTC &= ~(1 << PINC5);
+  90:	ad 98       	cbi	0x15, 5	; 21
+					makeAllOff();
+  92:	de df       	rcall	.-68     	; 0x50 <makeAllOff>
+  94:	26 c0       	rjmp	.+76     	; 0xe2 <looping+0x88>
+				}
+				else if(data == LEDON2) // backward
+  96:	12 30       	cpi	r17, 0x02	; 2
+  98:	31 f4       	brne	.+12     	; 0xa6 <looping+0x4c>
+				{
+					PORTC |= 1 << PINC4; // backward LED
+  9a:	ac 9a       	sbi	0x15, 4	; 21
+					
+					//PB4 IN4
+					//PB3 IN3
+					//PB2 IN2
+					//PB1 IN1
+					PORTB |= (1 << PINB4);
+  9c:	c4 9a       	sbi	0x18, 4	; 24
+					PORTB |= (1 << PINB2);
+  9e:	c2 9a       	sbi	0x18, 2	; 24
+					
+					PORTB &= ~(1 << PINB3);
+  a0:	c3 98       	cbi	0x18, 3	; 24
+					PORTB &= ~(1 << PINB1);
+  a2:	c1 98       	cbi	0x18, 1	; 24
+  a4:	1e c0       	rjmp	.+60     	; 0xe2 <looping+0x88>
+				}
+				else if(data == LEDOFF2)
+  a6:	15 30       	cpi	r17, 0x05	; 5
+  a8:	19 f4       	brne	.+6      	; 0xb0 <looping+0x56>
+				{
+					PORTC &= ~ (1 << PINC4);
+  aa:	ac 98       	cbi	0x15, 4	; 21
+					makeAllOff();
+  ac:	d1 df       	rcall	.-94     	; 0x50 <makeAllOff>
+  ae:	19 c0       	rjmp	.+50     	; 0xe2 <looping+0x88>
+				}
+				else if(data == LEDON3) // right
+  b0:	16 30       	cpi	r17, 0x06	; 6
+  b2:	31 f4       	brne	.+12     	; 0xc0 <looping+0x66>
+				{
+					PORTC |= 1 << PINC3; // right LED
+  b4:	ab 9a       	sbi	0x15, 3	; 21
+					
+					//PB4 IN4
+					//PB3 IN3
+					//PB2 IN2
+					//PB1 IN1
+					PORTB |= (1 << PINB4);
+  b6:	c4 9a       	sbi	0x18, 4	; 24
+					PORTB &= ~(1 << PINB3);
+  b8:	c3 98       	cbi	0x18, 3	; 24
+					
+					PORTB &= ~(1 << PINB2);
+  ba:	c2 98       	cbi	0x18, 2	; 24
+					PORTB |= (1 << PINB1);
+  bc:	c1 9a       	sbi	0x18, 1	; 24
+  be:	11 c0       	rjmp	.+34     	; 0xe2 <looping+0x88>
+				}
+				else if(data == LEDOFF3)
+  c0:	18 30       	cpi	r17, 0x08	; 8
+  c2:	19 f4       	brne	.+6      	; 0xca <looping+0x70>
+				{
+					PORTC &= ~ (1 << PINC3);
+  c4:	ab 98       	cbi	0x15, 3	; 21
+					makeAllOff();
+  c6:	c4 df       	rcall	.-120    	; 0x50 <makeAllOff>
+  c8:	0c c0       	rjmp	.+24     	; 0xe2 <looping+0x88>
+				}
+				else if(data == LEDON4) // left
+  ca:	17 30       	cpi	r17, 0x07	; 7
+  cc:	31 f4       	brne	.+12     	; 0xda <looping+0x80>
+				{
+					PORTC |= 1 << PINC2; // left LED
+  ce:	aa 9a       	sbi	0x15, 2	; 21
+					
+					//PB4 IN4
+					//PB3 IN3
+					//PB2 IN2
+					//PB1 IN1
+					PORTB &= ~(1 << PINB4);
+  d0:	c4 98       	cbi	0x18, 4	; 24
+					PORTB |= (1 << PINB3);
+  d2:	c3 9a       	sbi	0x18, 3	; 24
+					
+					PORTB |= (1 << PINB2);
+  d4:	c2 9a       	sbi	0x18, 2	; 24
+					PORTB &= ~(1 << PINB1);
+  d6:	c1 98       	cbi	0x18, 1	; 24
+  d8:	04 c0       	rjmp	.+8      	; 0xe2 <looping+0x88>
+				}
+				else if(data == LEDOFF4)
+  da:	19 30       	cpi	r17, 0x09	; 9
+  dc:	11 f4       	brne	.+4      	; 0xe2 <looping+0x88>
+				{
+					PORTC &= ~ (1 << PINC2);
+  de:	aa 98       	cbi	0x15, 2	; 21
+					makeAllOff();
+  e0:	b7 df       	rcall	.-146    	; 0x50 <makeAllOff>
+					//_delay_ms(10);
+					//PORTC&=~(1<<0);//LED ON	
+				}
+			}
+	}
+}
+  e2:	1f 91       	pop	r17
+  e4:	0f 91       	pop	r16
+  e6:	08 95       	ret
+
+000000e8 <Main_Init>:
+void Main_Init(void)
+{
+	DDRC |= 1 << PINC5;//forward  LED
+  e8:	a5 9a       	sbi	0x14, 5	; 20
+	DDRC |= 1 << PINC4;//backward LED
+  ea:	a4 9a       	sbi	0x14, 4	; 20
+	DDRC |= 1 << PINC3;//right    LED 
+  ec:	a3 9a       	sbi	0x14, 3	; 20
+	DDRC |= 1 << PINC2;//left     LED
+  ee:	a2 9a       	sbi	0x14, 2	; 20
+	
+	//PB4 IN4
+	//PB3 IN3
+	//PB2 IN2
+	//PB1 IN1
+	DDRC |= 1 << PINB1;
+  f0:	a1 9a       	sbi	0x14, 1	; 20
+	DDRC |= 1 << PINB2;
+  f2:	a2 9a       	sbi	0x14, 2	; 20
+	DDRC |= 1 << PINB3;
+  f4:	a3 9a       	sbi	0x14, 3	; 20
+	DDRD |= 1 << PINB4;
+  f6:	8c 9a       	sbi	0x11, 4	; 17
+	
+	makeAllOff();
+  f8:	ab df       	rcall	.-170    	; 0x50 <makeAllOff>
+	//PORTC|=(1<<0);//LED OFF
+	//DDRC=0X001;//define port C pin 0 as output;
+	//enable global interrupts
+	//sei();
+}
+  fa:	08 95       	ret
+
+000000fc <main>:
+{
+	//disable JTAG
+	//MCUCSR = (1 << JTD);
+	//MCUCSR = (1 << JTD);
+	
+	Main_Init();
+  fc:	f5 df       	rcall	.-22     	; 0xe8 <Main_Init>
+	USART_Init();
+  fe:	9c df       	rcall	.-200    	; 0x38 <USART_Init>
+	while(1)
+	{
+		looping();
+ 100:	ac df       	rcall	.-168    	; 0x5a <looping>
+ 102:	fe cf       	rjmp	.-4      	; 0x100 <main+0x4>
+
+00000104 <_exit>:
+ 104:	f8 94       	cli
+
+00000106 <__stop_program>:
+ 106:	ff cf       	rjmp	.-2      	; 0x106 <__stop_program>

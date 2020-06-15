@@ -1,0 +1,246 @@
+
+433Mhz_Rx_1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000012c  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .stab         000006cc  00000000  00000000  00000180  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  2 .stabstr      00000097  00000000  00000000  0000084c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_aranges 00000020  00000000  00000000  000008e3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_pubnames 0000005f  00000000  00000000  00000903  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000001dd  00000000  00000000  00000962  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000136  00000000  00000000  00000b3f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000002a4  00000000  00000000  00000c75  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000060  00000000  00000000  00000f1c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000147  00000000  00000000  00000f7c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000095  00000000  00000000  000010c3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_pubtypes 00000038  00000000  00000000  00001158  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 42 00 	jmp	0x84	; 0x84 <__vector_11>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 8f 00 	call	0x11e	; 0x11e <main>
+  64:	0c 94 94 00 	jmp	0x128	; 0x128 <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <USART_Init>:
+#define LEDOFF 0x22//LED off command
+
+void USART_Init(void)
+{
+	//Set baud rate
+	UBRRL=(uint8_t)UBRRVAL;		//low byte
+  6c:	83 e3       	ldi	r24, 0x33	; 51
+  6e:	89 b9       	out	0x09, r24	; 9
+	UBRRH=(UBRRVAL>>8);	//high byte
+  70:	10 bc       	out	0x20, r1	; 32
+	//Set data frame format: asynchronous mode,no parity, 1 stop bit, 8 bit size
+	UCSRC=(1<<URSEL)|(0<<UMSEL)|(0<<UPM1)|(0<<UPM0)|
+  72:	86 e8       	ldi	r24, 0x86	; 134
+  74:	80 bd       	out	0x20, r24	; 32
+		(0<<USBS)|(0<<UCSZ2)|(1<<UCSZ1)|(1<<UCSZ0);	
+	//Enable Transmitter and Receiver and Interrupt on receive complete
+	UCSRB=(1<<RXEN)|(1<<RXCIE);//|(1<<TXEN);
+  76:	80 e9       	ldi	r24, 0x90	; 144
+  78:	8a b9       	out	0x0a, r24	; 10
+	//enable global interrupts
+
+}
+  7a:	08 95       	ret
+
+0000007c <USART_vReceiveByte>:
+uint8_t USART_vReceiveByte(void)
+{
+    // Wait until a byte has been received
+    while((UCSRA&(1<<RXC)) == 0);
+  7c:	5f 9b       	sbis	0x0b, 7	; 11
+  7e:	fe cf       	rjmp	.-4      	; 0x7c <USART_vReceiveByte>
+    // Return received data
+    return UDR;
+  80:	8c b1       	in	r24, 0x0c	; 12
+}
+  82:	08 95       	ret
+
+00000084 <__vector_11>:
+ISR(USART_RXC_vect)
+{
+  84:	1f 92       	push	r1
+  86:	0f 92       	push	r0
+  88:	0f b6       	in	r0, 0x3f	; 63
+  8a:	0f 92       	push	r0
+  8c:	11 24       	eor	r1, r1
+  8e:	0f 93       	push	r16
+  90:	1f 93       	push	r17
+  92:	2f 93       	push	r18
+  94:	3f 93       	push	r19
+  96:	4f 93       	push	r20
+  98:	5f 93       	push	r21
+  9a:	6f 93       	push	r22
+  9c:	7f 93       	push	r23
+  9e:	8f 93       	push	r24
+  a0:	9f 93       	push	r25
+  a2:	af 93       	push	r26
+  a4:	bf 93       	push	r27
+  a6:	ef 93       	push	r30
+  a8:	ff 93       	push	r31
+	//define variables
+	uint8_t raddress, data, chk;//transmitter address
+	//receive destination address
+	raddress=USART_vReceiveByte();
+  aa:	0e 94 3e 00 	call	0x7c	; 0x7c <USART_vReceiveByte>
+  ae:	18 2f       	mov	r17, r24
+	//receive data
+	data=USART_vReceiveByte();
+  b0:	0e 94 3e 00 	call	0x7c	; 0x7c <USART_vReceiveByte>
+  b4:	08 2f       	mov	r16, r24
+	//receive checksum
+	chk=USART_vReceiveByte();
+  b6:	0e 94 3e 00 	call	0x7c	; 0x7c <USART_vReceiveByte>
+	//compare received checksum with calculated
+	if(chk==(raddress+data))//if match perform operations
+  ba:	90 e0       	ldi	r25, 0x00	; 0
+  bc:	21 2f       	mov	r18, r17
+  be:	30 e0       	ldi	r19, 0x00	; 0
+  c0:	20 0f       	add	r18, r16
+  c2:	31 1d       	adc	r19, r1
+  c4:	82 17       	cp	r24, r18
+  c6:	93 07       	cpc	r25, r19
+  c8:	91 f4       	brne	.+36     	; 0xee <__vector_11+0x6a>
+	{
+		//if transmitter address match
+		if(raddress==RADDR)
+  ca:	14 34       	cpi	r17, 0x44	; 68
+  cc:	81 f4       	brne	.+32     	; 0xee <__vector_11+0x6a>
+			{
+				if(data==LEDON)
+  ce:	01 31       	cpi	r16, 0x11	; 17
+  d0:	11 f4       	brne	.+4      	; 0xd6 <__vector_11+0x52>
+					{
+						PORTC&=~(1<<0);//LED ON
+  d2:	a8 98       	cbi	0x15, 0	; 21
+  d4:	0c c0       	rjmp	.+24     	; 0xee <__vector_11+0x6a>
+					}
+				else if(data==LEDOFF)
+  d6:	02 32       	cpi	r16, 0x22	; 34
+  d8:	11 f4       	brne	.+4      	; 0xde <__vector_11+0x5a>
+					{
+						PORTC|=(1<<0);//LED OFF
+  da:	a8 9a       	sbi	0x15, 0	; 21
+  dc:	08 c0       	rjmp	.+16     	; 0xee <__vector_11+0x6a>
+					}
+				else
+				{
+					//blink led as error
+					PORTC|=(1<<0);//LED OFF
+  de:	a8 9a       	sbi	0x15, 0	; 21
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  e0:	83 ec       	ldi	r24, 0xC3	; 195
+  e2:	99 e0       	ldi	r25, 0x09	; 9
+  e4:	01 97       	sbiw	r24, 0x01	; 1
+  e6:	f1 f7       	brne	.-4      	; 0xe4 <__vector_11+0x60>
+  e8:	00 c0       	rjmp	.+0      	; 0xea <__vector_11+0x66>
+  ea:	00 00       	nop
+					_delay_ms(10);
+					PORTC&=~(1<<0);//LED ON	
+  ec:	a8 98       	cbi	0x15, 0	; 21
+				}
+			}
+	}
+}
+  ee:	ff 91       	pop	r31
+  f0:	ef 91       	pop	r30
+  f2:	bf 91       	pop	r27
+  f4:	af 91       	pop	r26
+  f6:	9f 91       	pop	r25
+  f8:	8f 91       	pop	r24
+  fa:	7f 91       	pop	r23
+  fc:	6f 91       	pop	r22
+  fe:	5f 91       	pop	r21
+ 100:	4f 91       	pop	r20
+ 102:	3f 91       	pop	r19
+ 104:	2f 91       	pop	r18
+ 106:	1f 91       	pop	r17
+ 108:	0f 91       	pop	r16
+ 10a:	0f 90       	pop	r0
+ 10c:	0f be       	out	0x3f, r0	; 63
+ 10e:	0f 90       	pop	r0
+ 110:	1f 90       	pop	r1
+ 112:	18 95       	reti
+
+00000114 <Main_Init>:
+void Main_Init(void)
+{
+	PORTC|=(1<<0);//LED OFF
+ 114:	a8 9a       	sbi	0x15, 0	; 21
+	DDRC=0X001;//define port C pin 0 as output;
+ 116:	81 e0       	ldi	r24, 0x01	; 1
+ 118:	84 bb       	out	0x14, r24	; 20
+	//enable global interrupts
+	sei();
+ 11a:	78 94       	sei
+}
+ 11c:	08 95       	ret
+
+0000011e <main>:
+int main(void)
+{
+
+	Main_Init();
+ 11e:	0e 94 8a 00 	call	0x114	; 0x114 <Main_Init>
+	USART_Init();
+ 122:	0e 94 36 00 	call	0x6c	; 0x6c <USART_Init>
+ 126:	ff cf       	rjmp	.-2      	; 0x126 <main+0x8>
+
+00000128 <_exit>:
+ 128:	f8 94       	cli
+
+0000012a <__stop_program>:
+ 12a:	ff cf       	rjmp	.-2      	; 0x12a <__stop_program>

@@ -1,0 +1,477 @@
+
+433Recieve_test_2.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000001b6  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000002  00800060  000001b6  0000024a  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000002  00800062  00800062  0000024c  2**0
+                  ALLOC
+  3 .stab         000006cc  00000000  00000000  0000024c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  4 .stabstr      00000097  00000000  00000000  00000918  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_aranges 00000020  00000000  00000000  000009af  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_pubnames 000000cd  00000000  00000000  000009cf  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_info   00000326  00000000  00000000  00000a9c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_abbrev 000001f8  00000000  00000000  00000dc2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_line   0000042c  00000000  00000000  00000fba  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_frame  000000c0  00000000  00000000  000013e8  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_str    000001c2  00000000  00000000  000014a8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_loc    000000b8  00000000  00000000  0000166a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 13 .debug_pubtypes 00000038  00000000  00000000  00001722  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  2c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  34:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	e6 eb       	ldi	r30, 0xB6	; 182
+  68:	f1 e0       	ldi	r31, 0x01	; 1
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+  70:	a2 36       	cpi	r26, 0x62	; 98
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
+
+00000076 <__do_clear_bss>:
+  76:	10 e0       	ldi	r17, 0x00	; 0
+  78:	a2 e6       	ldi	r26, 0x62	; 98
+  7a:	b0 e0       	ldi	r27, 0x00	; 0
+  7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+
+0000007e <.do_clear_bss_loop>:
+  7e:	1d 92       	st	X+, r1
+
+00000080 <.do_clear_bss_start>:
+  80:	a4 36       	cpi	r26, 0x64	; 100
+  82:	b1 07       	cpc	r27, r17
+  84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
+  86:	0e 94 d2 00 	call	0x1a4	; 0x1a4 <main>
+  8a:	0c 94 d9 00 	jmp	0x1b2	; 0x1b2 <_exit>
+
+0000008e <__bad_interrupt>:
+  8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000092 <setPWMOutput>:
+int PWM_Counter = 255;
+int NoCommand = 0;
+
+void setPWMOutput(int duty)
+{
+	OCR0 = duty;
+  92:	8c bf       	out	0x3c, r24	; 60
+}
+  94:	08 95       	ret
+
+00000096 <wait>:
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+  96:	80 e8       	ldi	r24, 0x80	; 128
+  98:	9c e0       	ldi	r25, 0x0C	; 12
+  9a:	01 97       	sbiw	r24, 0x01	; 1
+  9c:	f1 f7       	brne	.-4      	; 0x9a <wait+0x4>
+
+void wait()
+{
+	_delay_loop_2(3200);
+}
+  9e:	08 95       	ret
+
+000000a0 <USART_Init>:
+
+
+void USART_Init(void)
+{
+	//Set baud rate
+	UBRRL=(uint8_t)UBRRVAL;		//low byte
+  a0:	83 e3       	ldi	r24, 0x33	; 51
+  a2:	89 b9       	out	0x09, r24	; 9
+	UBRRH=(UBRRVAL>>8);	//high byte
+  a4:	10 bc       	out	0x20, r1	; 32
+	//Set data frame format: asynchronous mode,no parity, 1 stop bit, 8 bit size
+	UCSRC=(1<<URSEL)|(0<<UMSEL)|(0<<UPM1)|(0<<UPM0)|
+  a6:	86 e8       	ldi	r24, 0x86	; 134
+  a8:	80 bd       	out	0x20, r24	; 32
+		(0<<USBS)|(0<<UCSZ2)|(1<<UCSZ1)|(1<<UCSZ0);	
+	//Enable Transmitter and Receiver and Interrupt on receive complete
+	UCSRB=(1<<RXEN);//|(1<<RXCIE);//|(1<<TXEN);
+  aa:	80 e1       	ldi	r24, 0x10	; 16
+  ac:	8a b9       	out	0x0a, r24	; 10
+	//enable global interrupts
+
+}
+  ae:	08 95       	ret
+
+000000b0 <USART_vReceiveByte>:
+uint8_t USART_vReceiveByte(void)
+{
+    // Wait until a byte has been received
+    while((UCSRA&(1<<RXC)) == 0);
+  b0:	5f 9b       	sbis	0x0b, 7	; 11
+  b2:	fe cf       	rjmp	.-4      	; 0xb0 <USART_vReceiveByte>
+    // Return received data
+    return UDR;
+  b4:	8c b1       	in	r24, 0x0c	; 12
+}
+  b6:	08 95       	ret
+
+000000b8 <looping>:
+void looping()
+{
+  b8:	0f 93       	push	r16
+  ba:	1f 93       	push	r17
+	//define variables
+	uint8_t raddress, data, chk;//transmitter address
+	//receive destination address
+	raddress=USART_vReceiveByte();
+  bc:	0e 94 58 00 	call	0xb0	; 0xb0 <USART_vReceiveByte>
+  c0:	08 2f       	mov	r16, r24
+	//receive data
+	data=USART_vReceiveByte();
+  c2:	0e 94 58 00 	call	0xb0	; 0xb0 <USART_vReceiveByte>
+  c6:	18 2f       	mov	r17, r24
+	//receive checksum
+	chk=USART_vReceiveByte();
+  c8:	0e 94 58 00 	call	0xb0	; 0xb0 <USART_vReceiveByte>
+	//compare received checksum with calculated
+	if(chk==(raddress+data))//if match perform operations
+  cc:	90 e0       	ldi	r25, 0x00	; 0
+  ce:	20 2f       	mov	r18, r16
+  d0:	30 e0       	ldi	r19, 0x00	; 0
+  d2:	21 0f       	add	r18, r17
+  d4:	31 1d       	adc	r19, r1
+  d6:	82 17       	cp	r24, r18
+  d8:	93 07       	cpc	r25, r19
+  da:	59 f5       	brne	.+86     	; 0x132 <looping+0x7a>
+	{
+		//if transmitter address match
+		if(raddress==RADDR)
+  dc:	04 34       	cpi	r16, 0x44	; 68
+  de:	01 f5       	brne	.+64     	; 0x120 <looping+0x68>
+			{
+				if( data == LEDON1)
+  e0:	11 31       	cpi	r17, 0x11	; 17
+  e2:	11 f4       	brne	.+4      	; 0xe8 <looping+0x30>
+					//#define PIND4 input4
+					
+					
+					//PORTC |= 1 << PINC1;
+					//PORTD |= 1 << PIND2;
+					PORTB |= 1 << PINB0;
+  e4:	c0 9a       	sbi	0x18, 0	; 24
+  e6:	39 c0       	rjmp	.+114    	; 0x15a <looping+0xa2>
+					
+					//justTurnOn();
+
+				}
+				else if(data == LEDOFF1)
+  e8:	13 33       	cpi	r17, 0x33	; 51
+  ea:	11 f4       	brne	.+4      	; 0xf0 <looping+0x38>
+					//PORTC &= ~(1 << PINC0);
+					
+					//PORTC &= ~(1 << PINC1);
+					//PORTD &= ~(1 << PIND2);
+					
+					PORTB &= ~(1 << PINB0);
+  ec:	c0 98       	cbi	0x18, 0	; 24
+  ee:	35 c0       	rjmp	.+106    	; 0x15a <looping+0xa2>
+					
+					//justTurnOff();
+				}
+				else if(data == LEDON2)
+  f0:	12 32       	cpi	r17, 0x22	; 34
+  f2:	11 f4       	brne	.+4      	; 0xf8 <looping+0x40>
+					//#define PIND4 input4
+					
+					//PORTD |= 1 << PIND7;
+					//PORTD |= 1 << PIND4;
+					
+					PORTB |= 1 << PINB1;
+  f4:	c1 9a       	sbi	0x18, 1	; 24
+  f6:	31 c0       	rjmp	.+98     	; 0x15a <looping+0xa2>
+					
+					//justTurnOn();
+				}
+				else if(data == LEDOFF2)
+  f8:	15 35       	cpi	r17, 0x55	; 85
+  fa:	11 f4       	brne	.+4      	; 0x100 <looping+0x48>
+					//PORTC &= ~ (1 << PINC1);
+					
+					//PORTD &= ~(1 << PIND7);
+					//PORTD &= ~(1 << PIND4);
+					
+					PORTB &= ~(1 << PINB1);
+  fc:	c1 98       	cbi	0x18, 1	; 24
+  fe:	2d c0       	rjmp	.+90     	; 0x15a <looping+0xa2>
+					
+					//justTurnOff();
+				}
+				else if(data == LEDON3)
+ 100:	16 36       	cpi	r17, 0x66	; 102
+ 102:	11 f4       	brne	.+4      	; 0x108 <looping+0x50>
+					//PORTA |= 1 << PINA7;
+					
+					//PORTC |= 1 << PINC1;
+					//PORTD |= 1 << PIND4;
+					
+					PORTB |= 1 << PINB2;
+ 104:	c2 9a       	sbi	0x18, 2	; 24
+ 106:	29 c0       	rjmp	.+82     	; 0x15a <looping+0xa2>
+					
+					//justTurnOn();
+				}
+				else if(data == LEDOFF3)
+ 108:	18 38       	cpi	r17, 0x88	; 136
+ 10a:	11 f4       	brne	.+4      	; 0x110 <looping+0x58>
+					//PORTA &= ~ (1 << PINA7);
+					
+					//PORTC &= ~(1 << PINC1);
+					//PORTD &= ~(1 << PIND4);
+					
+					PORTB &= ~(1 << PINB2);
+ 10c:	c2 98       	cbi	0x18, 2	; 24
+ 10e:	25 c0       	rjmp	.+74     	; 0x15a <looping+0xa2>
+					
+					
+					//justTurnOff();
+				}
+				else if(data == LEDON4)
+ 110:	17 37       	cpi	r17, 0x77	; 119
+ 112:	11 f4       	brne	.+4      	; 0x118 <looping+0x60>
+					//PORTC |= 1 << PINC6;
+					
+					//PORTD |= 1 << PIND2;
+					//PORTD |= 1 << PIND7;
+					
+					PORTB |= 1 << PINB3;
+ 114:	c3 9a       	sbi	0x18, 3	; 24
+ 116:	21 c0       	rjmp	.+66     	; 0x15a <looping+0xa2>
+					
+					//justTurnOn();
+				}
+				else if(data == LEDOFF4)
+ 118:	19 39       	cpi	r17, 0x99	; 153
+ 11a:	f9 f4       	brne	.+62     	; 0x15a <looping+0xa2>
+					//PORTC &= ~ (1 << PINC6);
+					
+					//PORTD &= ~(1 << PIND2);
+					//PORTD &= ~(1 << PIND7);
+					
+					PORTB &= ~(1 << PINB3);
+ 11c:	c3 98       	cbi	0x18, 3	; 24
+ 11e:	1d c0       	rjmp	.+58     	; 0x15a <looping+0xa2>
+					//PORTD &= ~(1<< PIND6);//LED ON	
+				} 
+			}
+			else
+			{
+				PORTD |=   1 << PIND6;//LED OFF
+ 120:	96 9a       	sbi	0x12, 6	; 18
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 122:	87 ea       	ldi	r24, 0xA7	; 167
+ 124:	91 e6       	ldi	r25, 0x61	; 97
+ 126:	01 97       	sbiw	r24, 0x01	; 1
+ 128:	f1 f7       	brne	.-4      	; 0x126 <looping+0x6e>
+ 12a:	00 c0       	rjmp	.+0      	; 0x12c <looping+0x74>
+ 12c:	00 00       	nop
+				_delay_ms(100);
+				PORTD &= ~(1<< PIND6);//LED ON	
+ 12e:	96 98       	cbi	0x12, 6	; 18
+ 130:	14 c0       	rjmp	.+40     	; 0x15a <looping+0xa2>
+		//C0
+		//C1
+		//A7
+		//C6
+		
+		NoCommand++;
+ 132:	80 91 62 00 	lds	r24, 0x0062
+ 136:	90 91 63 00 	lds	r25, 0x0063
+ 13a:	01 96       	adiw	r24, 0x01	; 1
+ 13c:	90 93 63 00 	sts	0x0063, r25
+ 140:	80 93 62 00 	sts	0x0062, r24
+		if(NoCommand > 200)
+ 144:	89 3c       	cpi	r24, 0xC9	; 201
+ 146:	91 05       	cpc	r25, r1
+ 148:	44 f0       	brlt	.+16     	; 0x15a <looping+0xa2>
+		{
+			PORTB &= ~(1 << PINB0);
+ 14a:	c0 98       	cbi	0x18, 0	; 24
+			PORTB &= ~(1 << PINB1);
+ 14c:	c1 98       	cbi	0x18, 1	; 24
+			PORTB &= ~(1 << PINB2);
+ 14e:	c2 98       	cbi	0x18, 2	; 24
+			PORTB &= ~(1 << PINB3);
+ 150:	c3 98       	cbi	0x18, 3	; 24
+			NoCommand = 0;
+ 152:	10 92 63 00 	sts	0x0063, r1
+ 156:	10 92 62 00 	sts	0x0062, r1
+		}
+		
+		
+	}
+}
+ 15a:	1f 91       	pop	r17
+ 15c:	0f 91       	pop	r16
+ 15e:	08 95       	ret
+
+00000160 <justTurnOn>:
+
+void justTurnOn()
+{
+	PORTD |= 1 << PIND6;	
+ 160:	96 9a       	sbi	0x12, 6	; 18
+}
+ 162:	08 95       	ret
+
+00000164 <justTurnOff>:
+
+void justTurnOff()
+{
+	PORTD &= ~(1 << PIND6);
+ 164:	96 98       	cbi	0x12, 6	; 18
+}
+ 166:	08 95       	ret
+
+00000168 <turnOnSign>:
+	*/
+	
+	
+	
+	//PIND6
+	PORTD |= 1 << PIND6;
+ 168:	96 9a       	sbi	0x12, 6	; 18
+ 16a:	8f e3       	ldi	r24, 0x3F	; 63
+ 16c:	9d e0       	ldi	r25, 0x0D	; 13
+ 16e:	a3 e0       	ldi	r26, 0x03	; 3
+ 170:	81 50       	subi	r24, 0x01	; 1
+ 172:	90 40       	sbci	r25, 0x00	; 0
+ 174:	a0 40       	sbci	r26, 0x00	; 0
+ 176:	e1 f7       	brne	.-8      	; 0x170 <turnOnSign+0x8>
+ 178:	00 c0       	rjmp	.+0      	; 0x17a <turnOnSign+0x12>
+ 17a:	00 00       	nop
+	_delay_ms(1000);
+	PORTD &= ~(1 << PIND6);
+ 17c:	96 98       	cbi	0x12, 6	; 18
+}
+ 17e:	08 95       	ret
+
+00000180 <Main_Init>:
+	
+	//DDRD |= 1 << PIND6;//Turn On Sign
+	
+	//DDRB |= 1 << PINB3;//PWM OUTPUT for Enable A And Enable B
+	
+	DDRB |= 1 << PINB0;
+ 180:	b8 9a       	sbi	0x17, 0	; 23
+	DDRB |= 1 << PINB1;
+ 182:	b9 9a       	sbi	0x17, 1	; 23
+	DDRB |= 1 << PINB2;
+ 184:	ba 9a       	sbi	0x17, 2	; 23
+	DDRB |= 1 << PINB3;
+ 186:	bb 9a       	sbi	0x17, 3	; 23
+	
+	DDRD |= 1 << PIND6;
+ 188:	8e 9a       	sbi	0x11, 6	; 17
+	
+	turnOnSign();
+ 18a:	0e 94 b4 00 	call	0x168	; 0x168 <turnOnSign>
+	
+	//PORTC|=(1<<0);//LED OFF
+	//DDRC=0X001;//define port C pin 0 as output;
+	//enable global interrupts
+	//sei();
+}
+ 18e:	08 95       	ret
+
+00000190 <initPWM>:
+
+void initPWM()
+{
+	TCCR0 |= 1 << WGM00 | 1 << WGM01 | 1 << CS00 | 1 << COM01;
+ 190:	83 b7       	in	r24, 0x33	; 51
+ 192:	89 66       	ori	r24, 0x69	; 105
+ 194:	83 bf       	out	0x33, r24	; 51
+	
+	setPWMOutput(PWM_Counter);
+ 196:	80 91 60 00 	lds	r24, 0x0060
+ 19a:	90 91 61 00 	lds	r25, 0x0061
+ 19e:	0e 94 49 00 	call	0x92	; 0x92 <setPWMOutput>
+}	
+ 1a2:	08 95       	ret
+
+000001a4 <main>:
+
+int main(void)
+{
+	
+	
+	Main_Init();
+ 1a4:	0e 94 c0 00 	call	0x180	; 0x180 <Main_Init>
+	//initPWM();
+	USART_Init();
+ 1a8:	0e 94 50 00 	call	0xa0	; 0xa0 <USART_Init>
+	while(1)
+	{
+		looping();
+ 1ac:	0e 94 5c 00 	call	0xb8	; 0xb8 <looping>
+ 1b0:	fd cf       	rjmp	.-6      	; 0x1ac <main+0x8>
+
+000001b2 <_exit>:
+ 1b2:	f8 94       	cli
+
+000001b4 <__stop_program>:
+ 1b4:	ff cf       	rjmp	.-2      	; 0x1b4 <__stop_program>

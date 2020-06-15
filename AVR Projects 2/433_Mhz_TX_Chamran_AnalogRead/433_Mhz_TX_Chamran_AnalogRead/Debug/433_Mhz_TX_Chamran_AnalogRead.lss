@@ -1,0 +1,450 @@
+
+433_Mhz_TX_Chamran_AnalogRead.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000016e  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .bss          00000018  00800060  00800060  000001e2  2**0
+                  ALLOC
+  2 .stab         000006cc  00000000  00000000  000001e4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  3 .stabstr      00000097  00000000  00000000  000008b0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_aranges 00000020  00000000  00000000  00000947  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_pubnames 0000010c  00000000  00000000  00000967  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000003f3  00000000  00000000  00000a73  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000001da  00000000  00000000  00000e66  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000399  00000000  00000000  00001040  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000080  00000000  00000000  000013dc  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000001ee  00000000  00000000  0000145c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000133  00000000  00000000  0000164a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_pubtypes 00000038  00000000  00000000  0000177d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	21 c0       	rjmp	.+66     	; 0x46 <__bad_interrupt>
+   4:	20 c0       	rjmp	.+64     	; 0x46 <__bad_interrupt>
+   6:	1f c0       	rjmp	.+62     	; 0x46 <__bad_interrupt>
+   8:	1e c0       	rjmp	.+60     	; 0x46 <__bad_interrupt>
+   a:	1d c0       	rjmp	.+58     	; 0x46 <__bad_interrupt>
+   c:	1c c0       	rjmp	.+56     	; 0x46 <__bad_interrupt>
+   e:	1b c0       	rjmp	.+54     	; 0x46 <__bad_interrupt>
+  10:	1a c0       	rjmp	.+52     	; 0x46 <__bad_interrupt>
+  12:	19 c0       	rjmp	.+50     	; 0x46 <__bad_interrupt>
+  14:	18 c0       	rjmp	.+48     	; 0x46 <__bad_interrupt>
+  16:	17 c0       	rjmp	.+46     	; 0x46 <__bad_interrupt>
+  18:	16 c0       	rjmp	.+44     	; 0x46 <__bad_interrupt>
+  1a:	15 c0       	rjmp	.+42     	; 0x46 <__bad_interrupt>
+  1c:	14 c0       	rjmp	.+40     	; 0x46 <__bad_interrupt>
+  1e:	13 c0       	rjmp	.+38     	; 0x46 <__bad_interrupt>
+  20:	12 c0       	rjmp	.+36     	; 0x46 <__bad_interrupt>
+  22:	11 c0       	rjmp	.+34     	; 0x46 <__bad_interrupt>
+  24:	10 c0       	rjmp	.+32     	; 0x46 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_clear_bss>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	01 c0       	rjmp	.+2      	; 0x3c <.do_clear_bss_start>
+
+0000003a <.do_clear_bss_loop>:
+  3a:	1d 92       	st	X+, r1
+
+0000003c <.do_clear_bss_start>:
+  3c:	a8 37       	cpi	r26, 0x78	; 120
+  3e:	b1 07       	cpc	r27, r17
+  40:	e1 f7       	brne	.-8      	; 0x3a <.do_clear_bss_loop>
+  42:	3d d0       	rcall	.+122    	; 0xbe <main>
+  44:	92 c0       	rjmp	.+292    	; 0x16a <_exit>
+
+00000046 <__bad_interrupt>:
+  46:	dc cf       	rjmp	.-72     	; 0x0 <__vectors>
+
+00000048 <adc_init>:
+
+// initialize adc
+void adc_init()
+{
+    // AREF = AVcc
+    ADMUX = (1<<REFS0);
+  48:	80 e4       	ldi	r24, 0x40	; 64
+  4a:	87 b9       	out	0x07, r24	; 7
+ 
+    // ADC Enable and prescaler of 128
+    // 16000000/128 = 125000
+    ADCSRA = (1<<ADEN)|(1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0);
+  4c:	87 e8       	ldi	r24, 0x87	; 135
+  4e:	86 b9       	out	0x06, r24	; 6
+}
+  50:	08 95       	ret
+
+00000052 <adc_read>:
+    // select the corresponding channel 0~7
+    // ANDing with '7' will always keep the value
+    // of 'ch' between 0 and 7
+	
+    ch &= 0b00000111;  // AND operation with 7
+    ADMUX = (ADMUX & 0xF8)|ch;     // clears the bottom 3 bits before ORing
+  52:	97 b1       	in	r25, 0x07	; 7
+{
+    // select the corresponding channel 0~7
+    // ANDing with '7' will always keep the value
+    // of 'ch' between 0 and 7
+	
+    ch &= 0b00000111;  // AND operation with 7
+  54:	87 70       	andi	r24, 0x07	; 7
+    ADMUX = (ADMUX & 0xF8)|ch;     // clears the bottom 3 bits before ORing
+  56:	98 7f       	andi	r25, 0xF8	; 248
+  58:	98 2b       	or	r25, r24
+  5a:	97 b9       	out	0x07, r25	; 7
+ 
+    // start single conversion
+    // write '1' to ADSC
+    ADCSRA |= (1<<ADSC);
+  5c:	36 9a       	sbi	0x06, 6	; 6
+ 
+    // wait for conversion to complete
+    // ADSC becomes '0' again
+    // till then, run loop continuously
+    while(ADCSRA & (1<<ADSC));
+  5e:	36 99       	sbic	0x06, 6	; 6
+  60:	fe cf       	rjmp	.-4      	; 0x5e <adc_read+0xc>
+ 
+    return (ADC);
+  62:	24 b1       	in	r18, 0x04	; 4
+  64:	35 b1       	in	r19, 0x05	; 5
+}
+  66:	82 2f       	mov	r24, r18
+  68:	93 2f       	mov	r25, r19
+  6a:	08 95       	ret
+
+0000006c <USART_Init>:
+
+
+void USART_Init(void)
+{
+	//Set baud rate
+	UBRRL=(uint8_t)UBRRVAL;		//low byte
+  6c:	85 e0       	ldi	r24, 0x05	; 5
+  6e:	89 b9       	out	0x09, r24	; 9
+	UBRRH=(UBRRVAL>>8);	//high byte
+  70:	10 bc       	out	0x20, r1	; 32
+	//Set data frame format: asynchronous mode,no parity, 1 stop bit, 8 bit size
+	UCSRC=(1<<URSEL)|(0<<UMSEL)|(0<<UPM1)|(0<<UPM0)|
+  72:	86 e8       	ldi	r24, 0x86	; 134
+  74:	80 bd       	out	0x20, r24	; 32
+		(0<<USBS)|(0<<UCSZ2)|(1<<UCSZ1)|(1<<UCSZ0);	
+	//Enable Transmitter and Receiver and Interrupt on receive complete
+	UCSRB=(1<<TXEN);
+  76:	88 e0       	ldi	r24, 0x08	; 8
+  78:	8a b9       	out	0x0a, r24	; 10
+}
+  7a:	08 95       	ret
+
+0000007c <USART_vSendByte>:
+void USART_vSendByte(uint8_t u8Data)
+{
+    // Wait if a byte is being transmitted
+    while((UCSRA&(1<<UDRE)) == 0);
+  7c:	5d 9b       	sbis	0x0b, 5	; 11
+  7e:	fe cf       	rjmp	.-4      	; 0x7c <USART_vSendByte>
+    // Transmit data
+    UDR = u8Data; 
+  80:	8c b9       	out	0x0c, r24	; 12
+}
+  82:	08 95       	ret
+
+00000084 <Send_Packet>:
+void Send_Packet(uint8_t addr, uint8_t cmd)
+{
+  84:	0f 93       	push	r16
+  86:	1f 93       	push	r17
+  88:	18 2f       	mov	r17, r24
+  8a:	06 2f       	mov	r16, r22
+	USART_vSendByte(SYNC);//send synchro byte	
+  8c:	8a ea       	ldi	r24, 0xAA	; 170
+  8e:	f6 df       	rcall	.-20     	; 0x7c <USART_vSendByte>
+	USART_vSendByte(addr);//send receiver address
+  90:	81 2f       	mov	r24, r17
+  92:	f4 df       	rcall	.-24     	; 0x7c <USART_vSendByte>
+	USART_vSendByte(cmd);//send increment command
+  94:	80 2f       	mov	r24, r16
+  96:	f2 df       	rcall	.-28     	; 0x7c <USART_vSendByte>
+	USART_vSendByte((addr+cmd));//send checksum
+  98:	80 2f       	mov	r24, r16
+  9a:	81 0f       	add	r24, r17
+  9c:	ef df       	rcall	.-34     	; 0x7c <USART_vSendByte>
+}
+  9e:	1f 91       	pop	r17
+  a0:	0f 91       	pop	r16
+  a2:	08 95       	ret
+
+000000a4 <delayms>:
+void delayms(uint8_t t)//delay in ms
+{
+	uint8_t i;
+	for(i=0;i<t;i++)
+  a4:	88 23       	and	r24, r24
+  a6:	51 f0       	breq	.+20     	; 0xbc <delayms+0x18>
+  a8:	90 e0       	ldi	r25, 0x00	; 0
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  aa:	e9 ef       	ldi	r30, 0xF9	; 249
+  ac:	f0 e0       	ldi	r31, 0x00	; 0
+  ae:	31 97       	sbiw	r30, 0x01	; 1
+  b0:	f1 f7       	brne	.-4      	; 0xae <delayms+0xa>
+  b2:	00 c0       	rjmp	.+0      	; 0xb4 <delayms+0x10>
+  b4:	00 00       	nop
+  b6:	9f 5f       	subi	r25, 0xFF	; 255
+  b8:	98 17       	cp	r25, r24
+  ba:	b8 f3       	brcs	.-18     	; 0xaa <delayms+0x6>
+  bc:	08 95       	ret
+
+000000be <main>:
+	}		
+}
+*/
+
+int main(void)
+{
+  be:	ef 92       	push	r14
+  c0:	ff 92       	push	r15
+  c2:	0f 93       	push	r16
+  c4:	1f 93       	push	r17
+  c6:	cf 93       	push	r28
+  c8:	df 93       	push	r29
+	
+	USART_Init();
+  ca:	d0 df       	rcall	.-96     	; 0x6c <USART_Init>
+	//PORTB |= 1 << PINB3;
+	//PORTB |= 1 << PINB4;
+	
+	uint16_t adc_result0, adc_result1;
+	
+	adc_init();
+  cc:	bd df       	rcall	.-134    	; 0x48 <adc_init>
+	while(1)
+	{
+		adc_result0 = adc_read(2);      // read adc value at PA0
+        adc_result1 = adc_read(3);      // read adc value at PA1
+		
+		if(adc_result0 > 900)
+  ce:	0f 2e       	mov	r0, r31
+  d0:	fa e0       	ldi	r31, 0x0A	; 10
+  d2:	ef 2e       	mov	r14, r31
+  d4:	ff 24       	eor	r15, r15
+  d6:	f0 2d       	mov	r31, r0
+	
+	adc_init();
+	
+	while(1)
+	{
+		adc_result0 = adc_read(2);      // read adc value at PA0
+  d8:	82 e0       	ldi	r24, 0x02	; 2
+  da:	bb df       	rcall	.-138    	; 0x52 <adc_read>
+  dc:	ec 01       	movw	r28, r24
+        adc_result1 = adc_read(3);      // read adc value at PA1
+  de:	83 e0       	ldi	r24, 0x03	; 3
+  e0:	b8 df       	rcall	.-144    	; 0x52 <adc_read>
+  e2:	8c 01       	movw	r16, r24
+		
+		if(adc_result0 > 900)
+  e4:	83 e0       	ldi	r24, 0x03	; 3
+  e6:	c5 38       	cpi	r28, 0x85	; 133
+  e8:	d8 07       	cpc	r29, r24
+  ea:	38 f0       	brcs	.+14     	; 0xfa <main+0x3c>
+  ec:	e7 01       	movw	r28, r14
+		{
+			for(int k=0;k<10;k++)
+				Send_Packet(RADDR, LEDON1);
+  ee:	84 e4       	ldi	r24, 0x44	; 68
+  f0:	61 e0       	ldi	r22, 0x01	; 1
+  f2:	c8 df       	rcall	.-112    	; 0x84 <Send_Packet>
+  f4:	21 97       	sbiw	r28, 0x01	; 1
+		adc_result0 = adc_read(2);      // read adc value at PA0
+        adc_result1 = adc_read(3);      // read adc value at PA1
+		
+		if(adc_result0 > 900)
+		{
+			for(int k=0;k<10;k++)
+  f6:	d9 f7       	brne	.-10     	; 0xee <main+0x30>
+  f8:	16 c0       	rjmp	.+44     	; 0x126 <main+0x68>
+				Send_Packet(RADDR, LEDON1);
+		}
+		else if(adc_result0 < 200)
+  fa:	c8 3c       	cpi	r28, 0xC8	; 200
+  fc:	d1 05       	cpc	r29, r1
+  fe:	38 f4       	brcc	.+14     	; 0x10e <main+0x50>
+ 100:	e7 01       	movw	r28, r14
+		{
+			for(int k=0;k<10;k++)
+				Send_Packet(RADDR, LEDON2);
+ 102:	84 e4       	ldi	r24, 0x44	; 68
+ 104:	62 e0       	ldi	r22, 0x02	; 2
+ 106:	be df       	rcall	.-132    	; 0x84 <Send_Packet>
+ 108:	21 97       	sbiw	r28, 0x01	; 1
+			for(int k=0;k<10;k++)
+				Send_Packet(RADDR, LEDON1);
+		}
+		else if(adc_result0 < 200)
+		{
+			for(int k=0;k<10;k++)
+ 10a:	d9 f7       	brne	.-10     	; 0x102 <main+0x44>
+ 10c:	0c c0       	rjmp	.+24     	; 0x126 <main+0x68>
+		if(adc_result0 > 900)
+		{
+			for(int k=0;k<10;k++)
+				Send_Packet(RADDR, LEDON1);
+		}
+		else if(adc_result0 < 200)
+ 10e:	e7 01       	movw	r28, r14
+				Send_Packet(RADDR, LEDON2);
+		}
+		else
+		{
+			for(int k=0;k<10;k++)
+				Send_Packet(RADDR, LEDOFF1);
+ 110:	84 e4       	ldi	r24, 0x44	; 68
+ 112:	63 e0       	ldi	r22, 0x03	; 3
+ 114:	b7 df       	rcall	.-146    	; 0x84 <Send_Packet>
+ 116:	21 97       	sbiw	r28, 0x01	; 1
+			for(int k=0;k<10;k++)
+				Send_Packet(RADDR, LEDON2);
+		}
+		else
+		{
+			for(int k=0;k<10;k++)
+ 118:	d9 f7       	brne	.-10     	; 0x110 <main+0x52>
+ 11a:	e7 01       	movw	r28, r14
+				Send_Packet(RADDR, LEDOFF1);
+				
+			for(int k=0;k<10;k++)
+				Send_Packet(RADDR, LEDOFF2);
+ 11c:	84 e4       	ldi	r24, 0x44	; 68
+ 11e:	65 e0       	ldi	r22, 0x05	; 5
+ 120:	b1 df       	rcall	.-158    	; 0x84 <Send_Packet>
+ 122:	21 97       	sbiw	r28, 0x01	; 1
+		else
+		{
+			for(int k=0;k<10;k++)
+				Send_Packet(RADDR, LEDOFF1);
+				
+			for(int k=0;k<10;k++)
+ 124:	d9 f7       	brne	.-10     	; 0x11c <main+0x5e>
+				Send_Packet(RADDR, LEDOFF2);
+		}
+		
+		if(adc_result1 > 900)
+ 126:	83 e0       	ldi	r24, 0x03	; 3
+ 128:	05 38       	cpi	r16, 0x85	; 133
+ 12a:	18 07       	cpc	r17, r24
+ 12c:	38 f0       	brcs	.+14     	; 0x13c <main+0x7e>
+ 12e:	e7 01       	movw	r28, r14
+		{
+			for(int k=0;k<10;k++)
+				Send_Packet(RADDR, LEDON3);
+ 130:	84 e4       	ldi	r24, 0x44	; 68
+ 132:	66 e0       	ldi	r22, 0x06	; 6
+ 134:	a7 df       	rcall	.-178    	; 0x84 <Send_Packet>
+ 136:	21 97       	sbiw	r28, 0x01	; 1
+				Send_Packet(RADDR, LEDOFF2);
+		}
+		
+		if(adc_result1 > 900)
+		{
+			for(int k=0;k<10;k++)
+ 138:	d9 f7       	brne	.-10     	; 0x130 <main+0x72>
+ 13a:	ce cf       	rjmp	.-100    	; 0xd8 <main+0x1a>
+				Send_Packet(RADDR, LEDON3);
+		}
+		else if(adc_result1 < 200)
+ 13c:	08 3c       	cpi	r16, 0xC8	; 200
+ 13e:	11 05       	cpc	r17, r1
+ 140:	38 f4       	brcc	.+14     	; 0x150 <main+0x92>
+ 142:	e7 01       	movw	r28, r14
+		{
+			for(int k=0;k<10;k++)
+				Send_Packet(RADDR, LEDON4);
+ 144:	84 e4       	ldi	r24, 0x44	; 68
+ 146:	67 e0       	ldi	r22, 0x07	; 7
+ 148:	9d df       	rcall	.-198    	; 0x84 <Send_Packet>
+ 14a:	21 97       	sbiw	r28, 0x01	; 1
+			for(int k=0;k<10;k++)
+				Send_Packet(RADDR, LEDON3);
+		}
+		else if(adc_result1 < 200)
+		{
+			for(int k=0;k<10;k++)
+ 14c:	d9 f7       	brne	.-10     	; 0x144 <main+0x86>
+ 14e:	c4 cf       	rjmp	.-120    	; 0xd8 <main+0x1a>
+		if(adc_result1 > 900)
+		{
+			for(int k=0;k<10;k++)
+				Send_Packet(RADDR, LEDON3);
+		}
+		else if(adc_result1 < 200)
+ 150:	e7 01       	movw	r28, r14
+				Send_Packet(RADDR, LEDON4);
+		}
+		else
+		{
+			for(int k=0;k<10;k++)
+				Send_Packet(RADDR, LEDOFF3);
+ 152:	84 e4       	ldi	r24, 0x44	; 68
+ 154:	68 e0       	ldi	r22, 0x08	; 8
+ 156:	96 df       	rcall	.-212    	; 0x84 <Send_Packet>
+ 158:	21 97       	sbiw	r28, 0x01	; 1
+			for(int k=0;k<10;k++)
+				Send_Packet(RADDR, LEDON4);
+		}
+		else
+		{
+			for(int k=0;k<10;k++)
+ 15a:	d9 f7       	brne	.-10     	; 0x152 <main+0x94>
+ 15c:	e7 01       	movw	r28, r14
+				Send_Packet(RADDR, LEDOFF3);
+				
+			for(int k=0;k<10;k++)
+				Send_Packet(RADDR, LEDOFF4);
+ 15e:	84 e4       	ldi	r24, 0x44	; 68
+ 160:	69 e0       	ldi	r22, 0x09	; 9
+ 162:	90 df       	rcall	.-224    	; 0x84 <Send_Packet>
+ 164:	21 97       	sbiw	r28, 0x01	; 1
+		else
+		{
+			for(int k=0;k<10;k++)
+				Send_Packet(RADDR, LEDOFF3);
+				
+			for(int k=0;k<10;k++)
+ 166:	d9 f7       	brne	.-10     	; 0x15e <main+0xa0>
+ 168:	b7 cf       	rjmp	.-146    	; 0xd8 <main+0x1a>
+
+0000016a <_exit>:
+ 16a:	f8 94       	cli
+
+0000016c <__stop_program>:
+ 16c:	ff cf       	rjmp	.-2      	; 0x16c <__stop_program>

@@ -1,0 +1,165 @@
+
+Rele1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000a8  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .bss          00000002  00800060  00800060  0000011c  2**0
+                  ALLOC
+  2 .stab         000006cc  00000000  00000000  0000011c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  3 .stabstr      00000097  00000000  00000000  000007e8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_aranges 00000020  00000000  00000000  0000087f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_pubnames 00000036  00000000  00000000  0000089f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000000c0  00000000  00000000  000008d5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000083  00000000  00000000  00000995  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000157  00000000  00000000  00000a18  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000030  00000000  00000000  00000b70  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000000a9  00000000  00000000  00000ba0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_pubtypes 0000002b  00000000  00000000  00000c49  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	21 c0       	rjmp	.+66     	; 0x46 <__bad_interrupt>
+   4:	20 c0       	rjmp	.+64     	; 0x46 <__bad_interrupt>
+   6:	1f c0       	rjmp	.+62     	; 0x46 <__bad_interrupt>
+   8:	1e c0       	rjmp	.+60     	; 0x46 <__bad_interrupt>
+   a:	1d c0       	rjmp	.+58     	; 0x46 <__bad_interrupt>
+   c:	1c c0       	rjmp	.+56     	; 0x46 <__bad_interrupt>
+   e:	1b c0       	rjmp	.+54     	; 0x46 <__bad_interrupt>
+  10:	1a c0       	rjmp	.+52     	; 0x46 <__bad_interrupt>
+  12:	19 c0       	rjmp	.+50     	; 0x46 <__bad_interrupt>
+  14:	18 c0       	rjmp	.+48     	; 0x46 <__bad_interrupt>
+  16:	17 c0       	rjmp	.+46     	; 0x46 <__bad_interrupt>
+  18:	16 c0       	rjmp	.+44     	; 0x46 <__bad_interrupt>
+  1a:	15 c0       	rjmp	.+42     	; 0x46 <__bad_interrupt>
+  1c:	14 c0       	rjmp	.+40     	; 0x46 <__bad_interrupt>
+  1e:	13 c0       	rjmp	.+38     	; 0x46 <__bad_interrupt>
+  20:	12 c0       	rjmp	.+36     	; 0x46 <__bad_interrupt>
+  22:	11 c0       	rjmp	.+34     	; 0x46 <__bad_interrupt>
+  24:	10 c0       	rjmp	.+32     	; 0x46 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_clear_bss>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	01 c0       	rjmp	.+2      	; 0x3c <.do_clear_bss_start>
+
+0000003a <.do_clear_bss_loop>:
+  3a:	1d 92       	st	X+, r1
+
+0000003c <.do_clear_bss_start>:
+  3c:	a2 36       	cpi	r26, 0x62	; 98
+  3e:	b1 07       	cpc	r27, r17
+  40:	e1 f7       	brne	.-8      	; 0x3a <.do_clear_bss_loop>
+  42:	2b d0       	rcall	.+86     	; 0x9a <main>
+  44:	2f c0       	rjmp	.+94     	; 0xa4 <_exit>
+
+00000046 <__bad_interrupt>:
+  46:	dc cf       	rjmp	.-72     	; 0x0 <__vectors>
+
+00000048 <ScanButton>:
+
+
+void ScanButton()
+{
+	
+	if(bit_is_clear(PINC, 4))
+  48:	9c 99       	sbic	0x13, 4	; 19
+  4a:	14 c0       	rjmp	.+40     	; 0x74 <ScanButton+0x2c>
+	{
+		if(pressed >= 1000)
+  4c:	80 91 60 00 	lds	r24, 0x0060
+  50:	90 91 61 00 	lds	r25, 0x0061
+  54:	23 e0       	ldi	r18, 0x03	; 3
+  56:	88 3e       	cpi	r24, 0xE8	; 232
+  58:	92 07       	cpc	r25, r18
+  5a:	3c f0       	brlt	.+14     	; 0x6a <ScanButton+0x22>
+		{
+			pressed = 500;
+  5c:	84 ef       	ldi	r24, 0xF4	; 244
+  5e:	91 e0       	ldi	r25, 0x01	; 1
+  60:	90 93 61 00 	sts	0x0061, r25
+  64:	80 93 60 00 	sts	0x0060, r24
+  68:	0d c0       	rjmp	.+26     	; 0x84 <ScanButton+0x3c>
+		}
+		else
+		{
+			pressed++;
+  6a:	01 96       	adiw	r24, 0x01	; 1
+  6c:	90 93 61 00 	sts	0x0061, r25
+  70:	80 93 60 00 	sts	0x0060, r24
+		}							
+	}	
+		
+	if(pressed >= 400)
+  74:	80 91 60 00 	lds	r24, 0x0060
+  78:	90 91 61 00 	lds	r25, 0x0061
+  7c:	21 e0       	ldi	r18, 0x01	; 1
+  7e:	80 39       	cpi	r24, 0x90	; 144
+  80:	92 07       	cpc	r25, r18
+  82:	54 f0       	brlt	.+20     	; 0x98 <ScanButton+0x50>
+	{
+		if(bit_is_clear(PINC,4))
+  84:	9c 9b       	sbis	0x13, 4	; 19
+  86:	08 c0       	rjmp	.+16     	; 0x98 <ScanButton+0x50>
+		{
+			//Do Nothing
+		}
+		else
+		{
+			PORTC ^= 1 << PINC5;
+  88:	95 b3       	in	r25, 0x15	; 21
+  8a:	80 e2       	ldi	r24, 0x20	; 32
+  8c:	89 27       	eor	r24, r25
+  8e:	85 bb       	out	0x15, r24	; 21
+			pressed = 0;					
+  90:	10 92 61 00 	sts	0x0061, r1
+  94:	10 92 60 00 	sts	0x0060, r1
+  98:	08 95       	ret
+
+0000009a <main>:
+}
+
+
+int main(void)
+{
+	DDRC |= 1 << PINC5;
+  9a:	a5 9a       	sbi	0x14, 5	; 20
+	DDRC &= ~(1<<PINC4);
+  9c:	a4 98       	cbi	0x14, 4	; 20
+	PORTC |= 1 << PINC4;
+  9e:	ac 9a       	sbi	0x15, 4	; 21
+	
+    while(1)
+    {
+        //TODO:: Please write your application code 
+		ScanButton();
+  a0:	d3 df       	rcall	.-90     	; 0x48 <ScanButton>
+  a2:	fe cf       	rjmp	.-4      	; 0xa0 <main+0x6>
+
+000000a4 <_exit>:
+  a4:	f8 94       	cli
+
+000000a6 <__stop_program>:
+  a6:	ff cf       	rjmp	.-2      	; 0xa6 <__stop_program>

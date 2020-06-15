@@ -1,0 +1,866 @@
+
+LCD_433Mhz_test_1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000402  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         0000002e  00800060  00000402  00000496  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000002  0080008e  0080008e  000004c4  2**0
+                  ALLOC
+  3 .stab         000006cc  00000000  00000000  000004c4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  4 .stabstr      00000097  00000000  00000000  00000b90  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_aranges 00000020  00000000  00000000  00000c27  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_pubnames 0000012b  00000000  00000000  00000c47  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_info   000006e8  00000000  00000000  00000d72  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_abbrev 00000292  00000000  00000000  0000145a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_line   0000070c  00000000  00000000  000016ec  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_frame  00000100  00000000  00000000  00001df8  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_str    00000225  00000000  00000000  00001ef8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_loc    00000192  00000000  00000000  0000211d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 13 .debug_pubtypes 00000038  00000000  00000000  000022af  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  2c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  34:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	e2 e0       	ldi	r30, 0x02	; 2
+  68:	f4 e0       	ldi	r31, 0x04	; 4
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+  70:	ae 38       	cpi	r26, 0x8E	; 142
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
+
+00000076 <__do_clear_bss>:
+  76:	10 e0       	ldi	r17, 0x00	; 0
+  78:	ae e8       	ldi	r26, 0x8E	; 142
+  7a:	b0 e0       	ldi	r27, 0x00	; 0
+  7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+
+0000007e <.do_clear_bss_loop>:
+  7e:	1d 92       	st	X+, r1
+
+00000080 <.do_clear_bss_start>:
+  80:	a0 39       	cpi	r26, 0x90	; 144
+  82:	b1 07       	cpc	r27, r17
+  84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
+  86:	0e 94 d4 01 	call	0x3a8	; 0x3a8 <main>
+  8a:	0c 94 ff 01 	jmp	0x3fe	; 0x3fe <_exit>
+
+0000008e <__bad_interrupt>:
+  8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000092 <USART_Init>:
+
+
+void USART_Init(void)
+{
+	//Set baud rate
+	UBRRL=(uint8_t)UBRRVAL;		//low byte
+  92:	83 e3       	ldi	r24, 0x33	; 51
+  94:	89 b9       	out	0x09, r24	; 9
+	UBRRH=(UBRRVAL>>8);	//high byte
+  96:	10 bc       	out	0x20, r1	; 32
+	//Set data frame format: asynchronous mode,no parity, 1 stop bit, 8 bit size
+	UCSRC=(1<<URSEL)|(0<<UMSEL)|(0<<UPM1)|(0<<UPM0)|
+  98:	86 e8       	ldi	r24, 0x86	; 134
+  9a:	80 bd       	out	0x20, r24	; 32
+		(0<<USBS)|(0<<UCSZ2)|(1<<UCSZ1)|(1<<UCSZ0);	
+	//Enable Transmitter and Receiver and Interrupt on receive complete
+	UCSRB=(1<<RXEN);//|(1<<RXCIE);//|(1<<TXEN);
+  9c:	80 e1       	ldi	r24, 0x10	; 16
+  9e:	8a b9       	out	0x0a, r24	; 10
+	//enable global interrupts
+
+}
+  a0:	08 95       	ret
+
+000000a2 <USART_vReceiveByte>:
+uint8_t USART_vReceiveByte(void)
+{
+    // Wait until a byte has been received
+    while((UCSRA&(1<<RXC)) == 0);
+  a2:	5f 9b       	sbis	0x0b, 7	; 11
+  a4:	fe cf       	rjmp	.-4      	; 0xa2 <USART_vReceiveByte>
+    // Return received data
+    return UDR;
+  a6:	8c b1       	in	r24, 0x0c	; 12
+}
+  a8:	08 95       	ret
+
+000000aa <justTurnOn>:
+	}
+}
+
+void justTurnOn()
+{
+	PORTD |= 1 << PIND6;	
+  aa:	96 9a       	sbi	0x12, 6	; 18
+}
+  ac:	08 95       	ret
+
+000000ae <justTurnOff>:
+
+void justTurnOff()
+{
+	PORTD &= ~(1 << PIND6);
+  ae:	96 98       	cbi	0x12, 6	; 18
+}
+  b0:	08 95       	ret
+
+000000b2 <turnOnSign>:
+	*/
+	
+	
+	
+	//PIND6
+	PORTD |= 1 << PIND6;
+  b2:	96 9a       	sbi	0x12, 6	; 18
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  b4:	8f e3       	ldi	r24, 0x3F	; 63
+  b6:	9d e0       	ldi	r25, 0x0D	; 13
+  b8:	a3 e0       	ldi	r26, 0x03	; 3
+  ba:	81 50       	subi	r24, 0x01	; 1
+  bc:	90 40       	sbci	r25, 0x00	; 0
+  be:	a0 40       	sbci	r26, 0x00	; 0
+  c0:	e1 f7       	brne	.-8      	; 0xba <turnOnSign+0x8>
+  c2:	00 c0       	rjmp	.+0      	; 0xc4 <turnOnSign+0x12>
+  c4:	00 00       	nop
+	_delay_ms(1000);
+	PORTD &= ~(1 << PIND6);
+  c6:	96 98       	cbi	0x12, 6	; 18
+}
+  c8:	08 95       	ret
+
+000000ca <Main_Init>:
+	
+	//DDRD |= 1 << PIND6;//Turn On Sign
+	
+	//DDRB |= 1 << PINB3;//PWM OUTPUT for Enable A And Enable B
+	
+	DDRA |= 1 << PINA0;
+  ca:	d0 9a       	sbi	0x1a, 0	; 26
+	DDRA |= 1 << PINA1;
+  cc:	d1 9a       	sbi	0x1a, 1	; 26
+	DDRA |= 1 << PINA2;
+  ce:	d2 9a       	sbi	0x1a, 2	; 26
+	DDRA |= 1 << PINA3;
+  d0:	d3 9a       	sbi	0x1a, 3	; 26
+	
+	DDRD |= 1 << PIND6;
+  d2:	8e 9a       	sbi	0x11, 6	; 17
+	
+	turnOnSign();
+  d4:	0e 94 59 00 	call	0xb2	; 0xb2 <turnOnSign>
+	
+	//PORTC|=(1<<0);//LED OFF
+	//DDRC=0X001;//define port C pin 0 as output;
+	//enable global interrupts
+	//sei();
+}
+  d8:	08 95       	ret
+
+000000da <Peek_A_Boo>:
+
+	DataDir_MrLCDsCrib = 0xFF; //0xFF means 0b11111111
+}
+void Peek_A_Boo()
+{
+	MrLCDsControl |= 1<<LightSwitch;
+  da:	95 9a       	sbi	0x12, 5	; 18
+	asm volatile ("nop");
+  dc:	00 00       	nop
+	asm volatile ("nop");
+  de:	00 00       	nop
+	MrLCDsControl &= ~1<<LightSwitch;
+  e0:	82 b3       	in	r24, 0x12	; 18
+  e2:	80 7c       	andi	r24, 0xC0	; 192
+  e4:	82 bb       	out	0x12, r24	; 18
+}
+  e6:	08 95       	ret
+
+000000e8 <Check_IF_MrLCD_isBusy>:
+	}
+}
+
+void Check_IF_MrLCD_isBusy()
+{
+	DataDir_MrLCDsCrib = 0;
+  e8:	17 ba       	out	0x17, r1	; 23
+	MrLCDsControl |= 1<<ReadWrite;
+  ea:	97 9a       	sbi	0x12, 7	; 18
+	MrLCDsControl &= ~1<<BiPolarMood;
+  ec:	82 b3       	in	r24, 0x12	; 18
+  ee:	88 7f       	andi	r24, 0xF8	; 248
+  f0:	82 bb       	out	0x12, r24	; 18
+
+	while (MrLCDsCrib >= 0x80)
+  f2:	c7 9b       	sbis	0x18, 7	; 24
+  f4:	04 c0       	rjmp	.+8      	; 0xfe <Check_IF_MrLCD_isBusy+0x16>
+	{
+	Peek_A_Boo();
+  f6:	0e 94 6d 00 	call	0xda	; 0xda <Peek_A_Boo>
+{
+	DataDir_MrLCDsCrib = 0;
+	MrLCDsControl |= 1<<ReadWrite;
+	MrLCDsControl &= ~1<<BiPolarMood;
+
+	while (MrLCDsCrib >= 0x80)
+  fa:	c7 99       	sbic	0x18, 7	; 24
+  fc:	fc cf       	rjmp	.-8      	; 0xf6 <Check_IF_MrLCD_isBusy+0xe>
+	{
+	Peek_A_Boo();
+	}
+
+	DataDir_MrLCDsCrib = 0xFF; //0xFF means 0b11111111
+  fe:	8f ef       	ldi	r24, 0xFF	; 255
+ 100:	87 bb       	out	0x17, r24	; 23
+}
+ 102:	08 95       	ret
+
+00000104 <Send_A_Command>:
+	asm volatile ("nop");
+	MrLCDsControl &= ~1<<LightSwitch;
+}
+
+void Send_A_Command(unsigned char command)
+{
+ 104:	1f 93       	push	r17
+ 106:	18 2f       	mov	r17, r24
+	Check_IF_MrLCD_isBusy();
+ 108:	0e 94 74 00 	call	0xe8	; 0xe8 <Check_IF_MrLCD_isBusy>
+	MrLCDsCrib = command;
+ 10c:	18 bb       	out	0x18, r17	; 24
+	MrLCDsControl &= ~ ((1<<ReadWrite)|(1<<BiPolarMood));
+ 10e:	82 b3       	in	r24, 0x12	; 18
+ 110:	8b 77       	andi	r24, 0x7B	; 123
+ 112:	82 bb       	out	0x12, r24	; 18
+	Peek_A_Boo();
+ 114:	0e 94 6d 00 	call	0xda	; 0xda <Peek_A_Boo>
+	MrLCDsCrib = 0;
+ 118:	18 ba       	out	0x18, r1	; 24
+}
+ 11a:	1f 91       	pop	r17
+ 11c:	08 95       	ret
+
+0000011e <cls>:
+	Send_A_Command(0x80 + firstColumnPosition[y] + x);
+}
+
+void cls()
+{
+	Send_A_Command(0x01); //Clear Screen 0x01 = 00000001
+ 11e:	81 e0       	ldi	r24, 0x01	; 1
+ 120:	0e 94 82 00 	call	0x104	; 0x104 <Send_A_Command>
+ 124:	83 ef       	ldi	r24, 0xF3	; 243
+ 126:	91 e0       	ldi	r25, 0x01	; 1
+ 128:	01 97       	sbiw	r24, 0x01	; 1
+ 12a:	f1 f7       	brne	.-4      	; 0x128 <cls+0xa>
+ 12c:	00 c0       	rjmp	.+0      	; 0x12e <cls+0x10>
+ 12e:	00 00       	nop
+	_delay_ms(2);
+}
+ 130:	08 95       	ret
+
+00000132 <GotoLocation>:
+
+
+	
+void GotoLocation(uint8_t x, uint8_t y)
+{
+	Send_A_Command(0x80 + firstColumnPosition[y] + x);
+ 132:	80 58       	subi	r24, 0x80	; 128
+ 134:	e6 2f       	mov	r30, r22
+ 136:	f0 e0       	ldi	r31, 0x00	; 0
+ 138:	e6 57       	subi	r30, 0x76	; 118
+ 13a:	ff 4f       	sbci	r31, 0xFF	; 255
+ 13c:	90 81       	ld	r25, Z
+ 13e:	89 0f       	add	r24, r25
+ 140:	0e 94 82 00 	call	0x104	; 0x104 <Send_A_Command>
+}
+ 144:	08 95       	ret
+
+00000146 <Send_A_Character>:
+	Peek_A_Boo();
+	MrLCDsCrib = 0;
+}
+
+void Send_A_Character(unsigned char character)
+{
+ 146:	1f 93       	push	r17
+ 148:	18 2f       	mov	r17, r24
+	Check_IF_MrLCD_isBusy();
+ 14a:	0e 94 74 00 	call	0xe8	; 0xe8 <Check_IF_MrLCD_isBusy>
+	MrLCDsCrib = character;
+ 14e:	18 bb       	out	0x18, r17	; 24
+	MrLCDsControl &= ~ (1<<ReadWrite);
+ 150:	97 98       	cbi	0x12, 7	; 18
+	MrLCDsControl |= 1<<BiPolarMood;
+ 152:	92 9a       	sbi	0x12, 2	; 18
+	Peek_A_Boo();
+ 154:	0e 94 6d 00 	call	0xda	; 0xda <Peek_A_Boo>
+	MrLCDsCrib = 0;
+ 158:	18 ba       	out	0x18, r1	; 24
+}
+ 15a:	1f 91       	pop	r17
+ 15c:	08 95       	ret
+
+0000015e <Send_A_String>:
+
+void Send_A_String(char *StringOfCharacters)
+{
+ 15e:	cf 93       	push	r28
+ 160:	df 93       	push	r29
+ 162:	ec 01       	movw	r28, r24
+	while(*StringOfCharacters > 0)
+ 164:	88 81       	ld	r24, Y
+ 166:	88 23       	and	r24, r24
+ 168:	31 f0       	breq	.+12     	; 0x176 <Send_A_String+0x18>
+	MrLCDsControl |= 1<<BiPolarMood;
+	Peek_A_Boo();
+	MrLCDsCrib = 0;
+}
+
+void Send_A_String(char *StringOfCharacters)
+ 16a:	21 96       	adiw	r28, 0x01	; 1
+{
+	while(*StringOfCharacters > 0)
+	{
+		Send_A_Character(*StringOfCharacters++);
+ 16c:	0e 94 a3 00 	call	0x146	; 0x146 <Send_A_Character>
+	MrLCDsCrib = 0;
+}
+
+void Send_A_String(char *StringOfCharacters)
+{
+	while(*StringOfCharacters > 0)
+ 170:	89 91       	ld	r24, Y+
+ 172:	88 23       	and	r24, r24
+ 174:	d9 f7       	brne	.-10     	; 0x16c <Send_A_String+0xe>
+	{
+		Send_A_Character(*StringOfCharacters++);
+	}
+ 176:	df 91       	pop	r29
+ 178:	cf 91       	pop	r28
+ 17a:	08 95       	ret
+
+0000017c <looping>:
+    // Return received data
+    return UDR;
+}
+
+void looping()
+{
+ 17c:	0f 93       	push	r16
+ 17e:	1f 93       	push	r17
+ 180:	cf 93       	push	r28
+ 182:	df 93       	push	r29
+	//define variables
+	uint8_t raddress, data, chk;//transmitter address
+	//receive destination address
+	raddress=USART_vReceiveByte();
+ 184:	0e 94 51 00 	call	0xa2	; 0xa2 <USART_vReceiveByte>
+ 188:	08 2f       	mov	r16, r24
+	//receive data
+	data=USART_vReceiveByte();
+ 18a:	0e 94 51 00 	call	0xa2	; 0xa2 <USART_vReceiveByte>
+ 18e:	18 2f       	mov	r17, r24
+	//receive checksum
+	chk=USART_vReceiveByte();
+ 190:	0e 94 51 00 	call	0xa2	; 0xa2 <USART_vReceiveByte>
+	//compare received checksum with calculated
+	if(chk==(raddress+data))//if match perform operations
+ 194:	c1 2f       	mov	r28, r17
+ 196:	d0 e0       	ldi	r29, 0x00	; 0
+ 198:	90 e0       	ldi	r25, 0x00	; 0
+ 19a:	9e 01       	movw	r18, r28
+ 19c:	20 0f       	add	r18, r16
+ 19e:	31 1d       	adc	r19, r1
+ 1a0:	82 17       	cp	r24, r18
+ 1a2:	93 07       	cpc	r25, r19
+ 1a4:	09 f0       	breq	.+2      	; 0x1a8 <looping+0x2c>
+ 1a6:	e7 c0       	rjmp	.+462    	; 0x376 <looping+0x1fa>
+	{
+		//if transmitter address match
+		if(raddress==RADDR)
+ 1a8:	04 34       	cpi	r16, 0x44	; 68
+ 1aa:	09 f0       	breq	.+2      	; 0x1ae <looping+0x32>
+ 1ac:	f8 c0       	rjmp	.+496    	; 0x39e <looping+0x222>
+			{
+				if( data == LEDON1)
+ 1ae:	11 31       	cpi	r17, 0x11	; 17
+ 1b0:	c9 f4       	brne	.+50     	; 0x1e4 <looping+0x68>
+					//#define PIND4 input4
+					
+					
+					//PORTC |= 1 << PINC1;
+					//PORTD |= 1 << PIND2;
+					PORTA |= 1 << FIRST;
+ 1b2:	d8 9a       	sbi	0x1b, 0	; 27
+					cls(); 
+ 1b4:	0e 94 8f 00 	call	0x11e	; 0x11e <cls>
+					Send_A_String("address : ");
+ 1b8:	80 e6       	ldi	r24, 0x60	; 96
+ 1ba:	90 e0       	ldi	r25, 0x00	; 0
+ 1bc:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					Send_A_String(RADDR);
+ 1c0:	84 e4       	ldi	r24, 0x44	; 68
+ 1c2:	90 e0       	ldi	r25, 0x00	; 0
+ 1c4:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					GotoLocation(-1,1);
+ 1c8:	8f ef       	ldi	r24, 0xFF	; 255
+ 1ca:	9f ef       	ldi	r25, 0xFF	; 255
+ 1cc:	61 e0       	ldi	r22, 0x01	; 1
+ 1ce:	70 e0       	ldi	r23, 0x00	; 0
+ 1d0:	0e 94 99 00 	call	0x132	; 0x132 <GotoLocation>
+					Send_A_String(" data : ");
+ 1d4:	8b e6       	ldi	r24, 0x6B	; 107
+ 1d6:	90 e0       	ldi	r25, 0x00	; 0
+ 1d8:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					Send_A_String(data);
+ 1dc:	ce 01       	movw	r24, r28
+ 1de:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+ 1e2:	dd c0       	rjmp	.+442    	; 0x39e <looping+0x222>
+					//Send_A_String("address : " + RADDR + " -- data : " + data);
+					//justTurnOn();
+
+				}
+				else if(data == LEDOFF1)
+ 1e4:	13 33       	cpi	r17, 0x33	; 51
+ 1e6:	c9 f4       	brne	.+50     	; 0x21a <looping+0x9e>
+					//PORTC &= ~(1 << PINC0);
+					
+					//PORTC &= ~(1 << PINC1);
+					//PORTD &= ~(1 << PIND2);
+					
+					PORTA &= ~(1 << FIRST);
+ 1e8:	d8 98       	cbi	0x1b, 0	; 27
+					cls(); 
+ 1ea:	0e 94 8f 00 	call	0x11e	; 0x11e <cls>
+					Send_A_String("address : ");
+ 1ee:	80 e6       	ldi	r24, 0x60	; 96
+ 1f0:	90 e0       	ldi	r25, 0x00	; 0
+ 1f2:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					Send_A_String(RADDR);
+ 1f6:	84 e4       	ldi	r24, 0x44	; 68
+ 1f8:	90 e0       	ldi	r25, 0x00	; 0
+ 1fa:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					GotoLocation(-1,1);
+ 1fe:	8f ef       	ldi	r24, 0xFF	; 255
+ 200:	9f ef       	ldi	r25, 0xFF	; 255
+ 202:	61 e0       	ldi	r22, 0x01	; 1
+ 204:	70 e0       	ldi	r23, 0x00	; 0
+ 206:	0e 94 99 00 	call	0x132	; 0x132 <GotoLocation>
+					Send_A_String(" data : ");
+ 20a:	8b e6       	ldi	r24, 0x6B	; 107
+ 20c:	90 e0       	ldi	r25, 0x00	; 0
+ 20e:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					Send_A_String(data);
+ 212:	ce 01       	movw	r24, r28
+ 214:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+ 218:	c2 c0       	rjmp	.+388    	; 0x39e <looping+0x222>
+					//justTurnOff();
+				}
+				else if(data == LEDON2)
+ 21a:	12 32       	cpi	r17, 0x22	; 34
+ 21c:	c9 f4       	brne	.+50     	; 0x250 <looping+0xd4>
+					//#define PIND4 input4
+					
+					//PORTD |= 1 << PIND7;
+					//PORTD |= 1 << PIND4;
+					
+					PORTA |= 1 << SECOND;
+ 21e:	d9 9a       	sbi	0x1b, 1	; 27
+					cls(); 
+ 220:	0e 94 8f 00 	call	0x11e	; 0x11e <cls>
+					Send_A_String("address : ");
+ 224:	80 e6       	ldi	r24, 0x60	; 96
+ 226:	90 e0       	ldi	r25, 0x00	; 0
+ 228:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					Send_A_String(RADDR);
+ 22c:	84 e4       	ldi	r24, 0x44	; 68
+ 22e:	90 e0       	ldi	r25, 0x00	; 0
+ 230:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					GotoLocation(-1,1);
+ 234:	8f ef       	ldi	r24, 0xFF	; 255
+ 236:	9f ef       	ldi	r25, 0xFF	; 255
+ 238:	61 e0       	ldi	r22, 0x01	; 1
+ 23a:	70 e0       	ldi	r23, 0x00	; 0
+ 23c:	0e 94 99 00 	call	0x132	; 0x132 <GotoLocation>
+					Send_A_String(" data : ");
+ 240:	8b e6       	ldi	r24, 0x6B	; 107
+ 242:	90 e0       	ldi	r25, 0x00	; 0
+ 244:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					Send_A_String(data);
+ 248:	ce 01       	movw	r24, r28
+ 24a:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+ 24e:	a7 c0       	rjmp	.+334    	; 0x39e <looping+0x222>
+					//justTurnOn();
+				}
+				else if(data == LEDOFF2)
+ 250:	15 35       	cpi	r17, 0x55	; 85
+ 252:	c9 f4       	brne	.+50     	; 0x286 <looping+0x10a>
+					//PORTC &= ~ (1 << PINC1);
+					
+					//PORTD &= ~(1 << PIND7);
+					//PORTD &= ~(1 << PIND4);
+					
+					PORTA &= ~(1 << SECOND);
+ 254:	d9 98       	cbi	0x1b, 1	; 27
+					cls(); 
+ 256:	0e 94 8f 00 	call	0x11e	; 0x11e <cls>
+					Send_A_String("address : ");
+ 25a:	80 e6       	ldi	r24, 0x60	; 96
+ 25c:	90 e0       	ldi	r25, 0x00	; 0
+ 25e:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					Send_A_String(RADDR);
+ 262:	84 e4       	ldi	r24, 0x44	; 68
+ 264:	90 e0       	ldi	r25, 0x00	; 0
+ 266:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					GotoLocation(-1,1);
+ 26a:	8f ef       	ldi	r24, 0xFF	; 255
+ 26c:	9f ef       	ldi	r25, 0xFF	; 255
+ 26e:	61 e0       	ldi	r22, 0x01	; 1
+ 270:	70 e0       	ldi	r23, 0x00	; 0
+ 272:	0e 94 99 00 	call	0x132	; 0x132 <GotoLocation>
+					Send_A_String(" data : ");
+ 276:	8b e6       	ldi	r24, 0x6B	; 107
+ 278:	90 e0       	ldi	r25, 0x00	; 0
+ 27a:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					Send_A_String(data);
+ 27e:	ce 01       	movw	r24, r28
+ 280:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+ 284:	8c c0       	rjmp	.+280    	; 0x39e <looping+0x222>
+					//justTurnOff();
+				}
+				else if(data == LEDON3)
+ 286:	16 36       	cpi	r17, 0x66	; 102
+ 288:	c9 f4       	brne	.+50     	; 0x2bc <looping+0x140>
+					//PORTA |= 1 << PINA7;
+					
+					//PORTC |= 1 << PINC1;
+					//PORTD |= 1 << PIND4;
+					
+					PORTA |= 1 << THIRD;
+ 28a:	da 9a       	sbi	0x1b, 2	; 27
+					cls(); 
+ 28c:	0e 94 8f 00 	call	0x11e	; 0x11e <cls>
+					Send_A_String("address : ");
+ 290:	80 e6       	ldi	r24, 0x60	; 96
+ 292:	90 e0       	ldi	r25, 0x00	; 0
+ 294:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					Send_A_String(RADDR);
+ 298:	84 e4       	ldi	r24, 0x44	; 68
+ 29a:	90 e0       	ldi	r25, 0x00	; 0
+ 29c:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					GotoLocation(-1,1);
+ 2a0:	8f ef       	ldi	r24, 0xFF	; 255
+ 2a2:	9f ef       	ldi	r25, 0xFF	; 255
+ 2a4:	61 e0       	ldi	r22, 0x01	; 1
+ 2a6:	70 e0       	ldi	r23, 0x00	; 0
+ 2a8:	0e 94 99 00 	call	0x132	; 0x132 <GotoLocation>
+					Send_A_String(" data : ");
+ 2ac:	8b e6       	ldi	r24, 0x6B	; 107
+ 2ae:	90 e0       	ldi	r25, 0x00	; 0
+ 2b0:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					Send_A_String(data);
+ 2b4:	ce 01       	movw	r24, r28
+ 2b6:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+ 2ba:	71 c0       	rjmp	.+226    	; 0x39e <looping+0x222>
+					//justTurnOn();
+				}
+				else if(data == LEDOFF3)
+ 2bc:	18 38       	cpi	r17, 0x88	; 136
+ 2be:	c9 f4       	brne	.+50     	; 0x2f2 <looping+0x176>
+					//PORTA &= ~ (1 << PINA7);
+					
+					//PORTC &= ~(1 << PINC1);
+					//PORTD &= ~(1 << PIND4);
+					
+					PORTA &= ~(1 << THIRD);
+ 2c0:	da 98       	cbi	0x1b, 2	; 27
+					cls(); 
+ 2c2:	0e 94 8f 00 	call	0x11e	; 0x11e <cls>
+					Send_A_String("address : ");
+ 2c6:	80 e6       	ldi	r24, 0x60	; 96
+ 2c8:	90 e0       	ldi	r25, 0x00	; 0
+ 2ca:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					Send_A_String(RADDR);
+ 2ce:	84 e4       	ldi	r24, 0x44	; 68
+ 2d0:	90 e0       	ldi	r25, 0x00	; 0
+ 2d2:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					GotoLocation(-1,1);
+ 2d6:	8f ef       	ldi	r24, 0xFF	; 255
+ 2d8:	9f ef       	ldi	r25, 0xFF	; 255
+ 2da:	61 e0       	ldi	r22, 0x01	; 1
+ 2dc:	70 e0       	ldi	r23, 0x00	; 0
+ 2de:	0e 94 99 00 	call	0x132	; 0x132 <GotoLocation>
+					Send_A_String(" data : ");
+ 2e2:	8b e6       	ldi	r24, 0x6B	; 107
+ 2e4:	90 e0       	ldi	r25, 0x00	; 0
+ 2e6:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					Send_A_String(data);
+ 2ea:	ce 01       	movw	r24, r28
+ 2ec:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+ 2f0:	56 c0       	rjmp	.+172    	; 0x39e <looping+0x222>
+					
+					//justTurnOff();
+				}
+				else if(data == LEDON4)
+ 2f2:	17 37       	cpi	r17, 0x77	; 119
+ 2f4:	c9 f4       	brne	.+50     	; 0x328 <looping+0x1ac>
+					//PORTC |= 1 << PINC6;
+					
+					//PORTD |= 1 << PIND2;
+					//PORTD |= 1 << PIND7;
+					
+					PORTA |= 1 << FOURTH;
+ 2f6:	db 9a       	sbi	0x1b, 3	; 27
+					cls(); 
+ 2f8:	0e 94 8f 00 	call	0x11e	; 0x11e <cls>
+					Send_A_String("address : ");
+ 2fc:	80 e6       	ldi	r24, 0x60	; 96
+ 2fe:	90 e0       	ldi	r25, 0x00	; 0
+ 300:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					Send_A_String(RADDR);
+ 304:	84 e4       	ldi	r24, 0x44	; 68
+ 306:	90 e0       	ldi	r25, 0x00	; 0
+ 308:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					GotoLocation(-1,1);
+ 30c:	8f ef       	ldi	r24, 0xFF	; 255
+ 30e:	9f ef       	ldi	r25, 0xFF	; 255
+ 310:	61 e0       	ldi	r22, 0x01	; 1
+ 312:	70 e0       	ldi	r23, 0x00	; 0
+ 314:	0e 94 99 00 	call	0x132	; 0x132 <GotoLocation>
+					Send_A_String(" data : ");
+ 318:	8b e6       	ldi	r24, 0x6B	; 107
+ 31a:	90 e0       	ldi	r25, 0x00	; 0
+ 31c:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					Send_A_String(data);
+ 320:	ce 01       	movw	r24, r28
+ 322:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+ 326:	3b c0       	rjmp	.+118    	; 0x39e <looping+0x222>
+					//justTurnOn();
+				}
+				else if(data == LEDOFF4)
+ 328:	19 39       	cpi	r17, 0x99	; 153
+ 32a:	c9 f4       	brne	.+50     	; 0x35e <looping+0x1e2>
+					//PORTC &= ~ (1 << PINC6);
+					
+					//PORTD &= ~(1 << PIND2);
+					//PORTD &= ~(1 << PIND7);
+					
+					PORTA &= ~(1 << FOURTH);
+ 32c:	db 98       	cbi	0x1b, 3	; 27
+					cls(); 
+ 32e:	0e 94 8f 00 	call	0x11e	; 0x11e <cls>
+					Send_A_String("address : ");
+ 332:	80 e6       	ldi	r24, 0x60	; 96
+ 334:	90 e0       	ldi	r25, 0x00	; 0
+ 336:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					Send_A_String(RADDR);
+ 33a:	84 e4       	ldi	r24, 0x44	; 68
+ 33c:	90 e0       	ldi	r25, 0x00	; 0
+ 33e:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					GotoLocation(-1,1);
+ 342:	8f ef       	ldi	r24, 0xFF	; 255
+ 344:	9f ef       	ldi	r25, 0xFF	; 255
+ 346:	61 e0       	ldi	r22, 0x01	; 1
+ 348:	70 e0       	ldi	r23, 0x00	; 0
+ 34a:	0e 94 99 00 	call	0x132	; 0x132 <GotoLocation>
+					Send_A_String(" data : ");
+ 34e:	8b e6       	ldi	r24, 0x6B	; 107
+ 350:	90 e0       	ldi	r25, 0x00	; 0
+ 352:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+					Send_A_String(data);
+ 356:	ce 01       	movw	r24, r28
+ 358:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+ 35c:	20 c0       	rjmp	.+64     	; 0x39e <looping+0x222>
+					//justTurnOff();
+				}
+				else
+				{
+					//blink led as error
+					PORTD |=   1 << PIND6;//LED OFF
+ 35e:	96 9a       	sbi	0x12, 6	; 18
+ 360:	8f e3       	ldi	r24, 0x3F	; 63
+ 362:	9d e0       	ldi	r25, 0x0D	; 13
+ 364:	a3 e0       	ldi	r26, 0x03	; 3
+ 366:	81 50       	subi	r24, 0x01	; 1
+ 368:	90 40       	sbci	r25, 0x00	; 0
+ 36a:	a0 40       	sbci	r26, 0x00	; 0
+ 36c:	e1 f7       	brne	.-8      	; 0x366 <looping+0x1ea>
+ 36e:	00 c0       	rjmp	.+0      	; 0x370 <looping+0x1f4>
+ 370:	00 00       	nop
+					_delay_ms(1000);
+					PORTD &= ~(1<< PIND6);//LED ON	
+ 372:	96 98       	cbi	0x12, 6	; 18
+ 374:	14 c0       	rjmp	.+40     	; 0x39e <looping+0x222>
+		//C0
+		//C1
+		//A7
+		//C6
+		
+		NoCommand++;
+ 376:	80 91 8e 00 	lds	r24, 0x008E
+ 37a:	90 91 8f 00 	lds	r25, 0x008F
+ 37e:	01 96       	adiw	r24, 0x01	; 1
+ 380:	90 93 8f 00 	sts	0x008F, r25
+ 384:	80 93 8e 00 	sts	0x008E, r24
+		if(NoCommand > 200)
+ 388:	89 3c       	cpi	r24, 0xC9	; 201
+ 38a:	91 05       	cpc	r25, r1
+ 38c:	44 f0       	brlt	.+16     	; 0x39e <looping+0x222>
+		{
+			PORTA &= ~(1 << PINA0);
+ 38e:	d8 98       	cbi	0x1b, 0	; 27
+			PORTA &= ~(1 << PINA1);
+ 390:	d9 98       	cbi	0x1b, 1	; 27
+			PORTA &= ~(1 << PINA2);
+ 392:	da 98       	cbi	0x1b, 2	; 27
+			PORTA &= ~(1 << PINA3);
+ 394:	db 98       	cbi	0x1b, 3	; 27
+			NoCommand = 0;
+ 396:	10 92 8f 00 	sts	0x008F, r1
+ 39a:	10 92 8e 00 	sts	0x008E, r1
+		}
+		
+		
+	}
+}
+ 39e:	df 91       	pop	r29
+ 3a0:	cf 91       	pop	r28
+ 3a2:	1f 91       	pop	r17
+ 3a4:	0f 91       	pop	r16
+ 3a6:	08 95       	ret
+
+000003a8 <main>:
+	_delay_ms(2);
+}
+
+int main(void)
+{
+	DataDir_MrLCDsControl |= 1<<LightSwitch | 1<<ReadWrite | 1<<BiPolarMood;
+ 3a8:	81 b3       	in	r24, 0x11	; 17
+ 3aa:	84 6a       	ori	r24, 0xA4	; 164
+ 3ac:	81 bb       	out	0x11, r24	; 17
+ 3ae:	85 ea       	ldi	r24, 0xA5	; 165
+ 3b0:	9e e0       	ldi	r25, 0x0E	; 14
+ 3b2:	01 97       	sbiw	r24, 0x01	; 1
+ 3b4:	f1 f7       	brne	.-4      	; 0x3b2 <main+0xa>
+ 3b6:	00 c0       	rjmp	.+0      	; 0x3b8 <main+0x10>
+ 3b8:	00 00       	nop
+	_delay_ms(15);
+
+	Send_A_Command(0x01); //Clear Screen 0x01 = 00000001
+ 3ba:	81 e0       	ldi	r24, 0x01	; 1
+ 3bc:	0e 94 82 00 	call	0x104	; 0x104 <Send_A_Command>
+ 3c0:	83 ef       	ldi	r24, 0xF3	; 243
+ 3c2:	91 e0       	ldi	r25, 0x01	; 1
+ 3c4:	01 97       	sbiw	r24, 0x01	; 1
+ 3c6:	f1 f7       	brne	.-4      	; 0x3c4 <main+0x1c>
+ 3c8:	00 c0       	rjmp	.+0      	; 0x3ca <main+0x22>
+ 3ca:	00 00       	nop
+	_delay_ms(2);
+	
+	Send_A_Command(0x38);
+ 3cc:	88 e3       	ldi	r24, 0x38	; 56
+ 3ce:	0e 94 82 00 	call	0x104	; 0x104 <Send_A_Command>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 3d2:	90 e1       	ldi	r25, 0x10	; 16
+ 3d4:	9a 95       	dec	r25
+ 3d6:	f1 f7       	brne	.-4      	; 0x3d4 <main+0x2c>
+ 3d8:	00 c0       	rjmp	.+0      	; 0x3da <main+0x32>
+	_delay_us(50);
+	
+	Send_A_Command(0b00001110);//fixed cursor
+ 3da:	8e e0       	ldi	r24, 0x0E	; 14
+ 3dc:	0e 94 82 00 	call	0x104	; 0x104 <Send_A_Command>
+ 3e0:	80 e1       	ldi	r24, 0x10	; 16
+ 3e2:	8a 95       	dec	r24
+ 3e4:	f1 f7       	brne	.-4      	; 0x3e2 <main+0x3a>
+ 3e6:	00 c0       	rjmp	.+0      	; 0x3e8 <main+0x40>
+	
+	
+	//Send_A_Command(0b00000000);
+	//_delay_us(50);
+	
+	Main_Init();
+ 3e8:	0e 94 65 00 	call	0xca	; 0xca <Main_Init>
+	//initPWM();
+	USART_Init();
+ 3ec:	0e 94 49 00 	call	0x92	; 0x92 <USART_Init>
+
+	Send_A_String("Welcome to Hack_World");
+ 3f0:	84 e7       	ldi	r24, 0x74	; 116
+ 3f2:	90 e0       	ldi	r25, 0x00	; 0
+ 3f4:	0e 94 af 00 	call	0x15e	; 0x15e <Send_A_String>
+
+	while(1)
+	{
+		looping();
+ 3f8:	0e 94 be 00 	call	0x17c	; 0x17c <looping>
+ 3fc:	fd cf       	rjmp	.-6      	; 0x3f8 <main+0x50>
+
+000003fe <_exit>:
+ 3fe:	f8 94       	cli
+
+00000400 <__stop_program>:
+ 400:	ff cf       	rjmp	.-2      	; 0x400 <__stop_program>

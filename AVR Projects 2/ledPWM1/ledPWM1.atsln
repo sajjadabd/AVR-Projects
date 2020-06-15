@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "ledPWM1", "ledPWM1\ledPWM1.cproj", "{DD75C88D-91AA-48EA-8EAB-822FDE04FCD6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DD75C88D-91AA-48EA-8EAB-822FDE04FCD6}.Debug|AVR.ActiveCfg = Debug|AVR
+		{DD75C88D-91AA-48EA-8EAB-822FDE04FCD6}.Debug|AVR.Build.0 = Debug|AVR
+		{DD75C88D-91AA-48EA-8EAB-822FDE04FCD6}.Release|AVR.ActiveCfg = Release|AVR
+		{DD75C88D-91AA-48EA-8EAB-822FDE04FCD6}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
